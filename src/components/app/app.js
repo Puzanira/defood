@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { RouterStore } from '../../store/routes';
 
-import IndexLayout from "../layouts/index-layout/index-layout";
+import ListLayout from "../client/layouts/list-layout/list-layout";
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
     const route = (path, layout, exact = true) => ({path, layout, exact});
 
     this.routes = [
-        route(RouterStore.website.index, <IndexLayout />),
+        route(RouterStore.website.index, <ListLayout/>),
     ];
 
   }
