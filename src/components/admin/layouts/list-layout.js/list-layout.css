@@ -1,0 +1,21 @@
+.list-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-layout_margin {
+    margin: 30px 125px;
+}
+
+.list-layout-content {
+    /* min-width: 1200px; */
+}
+
+.list-layout-content_margin-bottom {
+    margin-bottom: 40px;
+}
+
+.list-layout-content__title {
+    font-weight: bold;
+    font-size: 28px;;
+}

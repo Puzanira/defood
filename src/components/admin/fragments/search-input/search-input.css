@@ -1,0 +1,28 @@
+.search-bar {
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    font-size: 18px;
+    width: 450px;
+}
+
+.search-input__line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-input__filters-btn {
+    border: none !important;
+    margin-left: 24px !important;
+    font-size: 18px !important;
+    text-transform: none !important;
+    color: #000000 !important;
+    cursor: pointer;
+}
+
+.search-input {
+    border-bottom: 1px solid #CDCDCD;
+    margin-bottom: 40px;
+    width: 100%;
+}

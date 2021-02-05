@@ -1,27 +1,51 @@
-import React, { Component } from 'react';
+import React, { useReducer } from 'react';
 
-import './index-layout.css';
-import logo from '../../../assets/pics/logo.svg';
+import ListPartFragment from '../../fragments/list-part/list-part';
+import HeaderFragment from '../../fragments/header/header';
 
-class ListLayout extends Component {
-    render() {
-        return(
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
+import './list-layout.css';
+import SearchInputFragment from '../../fragments/search-input/search-input';
+
+/**
+ * List layout
+ */
+function ListLayout() {
+    const initialState = {
+        dataComp: {},
+    };
+
+    const changeField = (field, value) => {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    };
+
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
+
+    const {
+        dataComp,
+    } = state;
+
+    return (
+        <div className="list-layout">
+            <HeaderFragment />
+            <div className="list-layout-content list-layout_margin">
+                <div className="list-layout-content__title list-layout-content_margin-bottom">
+                    Реестр заказов
+                </div>
+                <SearchInputFragment />
+                <ListPartFragment />
             </div>
-        );
-    }
-} export default ListLayout;
+        </div>
+    );
+}
+
+export default ListLayout;
