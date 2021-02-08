@@ -3,13 +3,17 @@
     align-self: center;
     justify-content: space-between;
 
-    height: 200px;
-    width: 500px;
+    height: 225px;
+    width: 525px;
 
     margin: 10px 0;
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+}
+
+.item:hover .item__img {
+    transform: scale(1.1);
 }
 
 .item:nth-child(odd) {
@@ -23,13 +27,18 @@
     padding: 15px;
 }
 
-.item__img {
-    height: 100%;
-    width: 230px;
+.item__img-wrap {
+    min-width: 230px;
+    overflow: hidden;
 
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+}
+.item__img {
+    height: 100%;
+    width: 100%;
 
+    transition: ease-in-out all 0.3s;
     object-fit: cover;
 }
 

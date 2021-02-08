@@ -12,8 +12,9 @@ import './header.css';
 
 class Header extends Component {
     render() {
+        const headerClass = this.props.size ? 'page-header page-header_small' : 'page-header';
         return(
-            <div className={'page-header'}>
+            <div className={headerClass}>
                 <AppBar className={'page-header__wrap'} position={'absolute'} color={'inherit'}>
                     <Toolbar className={'page-header__wrap'}>
                         <div className={'page-header__search'}>

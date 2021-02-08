@@ -19,7 +19,9 @@ class Item extends Component {
                         <div className={'item__price'}>1000 ₽</div>
                     </div>
                 </div>
-                <img className={'item__img'} src={pizza}/>
+                <div className={'item__img-wrap'}>
+                    <img className={'item__img'} src={pizza}/>
+                </div>
             </div>
         );
     }
