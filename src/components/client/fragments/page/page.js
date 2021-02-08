@@ -9,7 +9,7 @@ class Page extends Component {
     render() {
         return(
             <div className={'page'}>
-                <Header />
+                <Header size={this.props.header}/>
                 <div className={'page__content'}>
                     { this.props.children }
                 </div>

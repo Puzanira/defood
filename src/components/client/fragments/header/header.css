@@ -10,6 +10,16 @@
     background-size: cover;
 }
 
+.page-header_small .page-header__placeholder {
+    height: 150px;
+
+    padding-bottom: 25px;
+}
+
+.page-header_small  .page-sub-header {
+    display: none;
+}
+
 .page-header__wrap {
     padding: 0 125px;
 
