@@ -1,0 +1,73 @@
+.page-header__placeholder {
+    display: flex;
+    align-items: flex-end;
+
+    height: 230px;
+
+    padding: 0 150px 50px;
+
+    background: linear-gradient(0deg, #000000 0%, rgba(128, 128, 128, 0) 100%), url('../../../../assets/pics/background_header.jpeg') no-repeat;
+    background-size: cover;
+}
+
+.page-header_small .page-header__placeholder {
+    height: 150px;
+
+    padding-bottom: 25px;
+}
+
+.page-header_small  .page-sub-header {
+    display: none;
+}
+
+.page-header__wrap {
+    padding: 0 125px;
+
+    color: white;
+
+    background-color: initial !important;
+    box-shadow: initial !important;
+}
+
+.page-header__title {
+    color: var(--color-white);
+
+    font-size: 44px;
+    font-family: "Arial Black";
+}
+
+.page-header__wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.page-header__search {
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    transition: ease-in-out all 0.3s;
+
+    border-radius: 5px;
+    background-color: var(--color-black);
+}
+
+.page-header__search:hover {
+    background-color: var(--color-black-light);
+}
+
+.page-header__search-icon {
+    width: fit-content;
+
+    margin-right: 10px;
+}
+.page-header__search-input {
+    color: white !important;
+}
+
+.page-sub-header {
+    height: 50px;
+    background-color: var(--color-gray-1);
+}

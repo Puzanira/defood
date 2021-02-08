@@ -1,0 +1,18 @@
+.order {
+    width: 100%;
+}
+
+.order__content {
+    min-height: 210px;
+}
+
+.order__sum {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    background-color: var(--color-gray-1);
+}
