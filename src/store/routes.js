@@ -3,4 +3,7 @@ export const RouterStore =  {
         index: '/',
         check: '/check/',
     },
+    admin: {
+        index: '/admin/index',
+    },
 };

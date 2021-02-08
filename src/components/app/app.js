@@ -5,6 +5,8 @@ import { RouterStore } from '../../store/routes';
 import ListLayout from "../client/layouts/list-layout/list-layout";
 import CheckLayout from "../client/layouts/check-layout/check-layout";
 
+import AdminListLayout from '../admin/layouts/list-layout.js/list-layout';
+
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class App extends Component {
     this.routes = [
         route(RouterStore.website.index, <ListLayout/>),
         route(RouterStore.website.check, <CheckLayout/>),
+        route(RouterStore.admin.index, <AdminListLayout />)
     ];
 
   }
