@@ -1,9 +1,10 @@
 .search-bar {
     height: 40px !important;
     border-radius: 10px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-black);
     font-size: 18px;
     width: 450px;
+    box-shadow: none !important;
 }
 
 .search-input__line {
@@ -26,4 +27,12 @@
     border-bottom: 1px solid #CDCDCD;
     margin-bottom: 40px;
     width: 100%;
+}
+
+.search-input__filters {
+    display: flex;
+}
+
+.search-input__filters .search-filter-select:not(:first-child) {
+    margin-left: 20px;
 }

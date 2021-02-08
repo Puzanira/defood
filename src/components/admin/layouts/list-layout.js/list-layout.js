@@ -11,8 +11,32 @@ import AdminPageFragment from '../../fragments/admin-page/admin-page';
  * List layout
  */
 function AdminListLayout() {
+    const data =  [
+        {
+            title: 'Заказ №1212121',
+            lable: 'Принят',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '950 ₽'
+        },
+        {
+            title: 'Заказ №1212134',
+            lable: 'В пути',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+        {
+            title: 'Заказ №1212140',
+            lable: 'Завершен',
+            content: 'Пицца “Бавария” 25 см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '450 ₽'
+        },
+    ];
+    
     const initialState = {
-        dataComp: {},
+        dataComp: data,
     };
 
     const changeField = (field, value) => {
@@ -41,7 +65,9 @@ function AdminListLayout() {
                 Реестр заказов
             </div>
             <SearchInputFragment />
-            <ListPartFragment />
+            {dataComp.map(item => (
+                <ListPartFragment data={item}/>
+            ))}
         </AdminPageFragment>
     );
 }

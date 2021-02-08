@@ -21,7 +21,7 @@
 
 .list-part-right {
     width: 15%;
-    font-weight: bold;
+    font-family: 'Montserrat medium';
     font-size: 24px;
     display: flex;
     align-items: center;
@@ -29,13 +29,13 @@
 }
 
 .list-part-left__title {
-    font-weight: bold;
+    font-family: 'Montserrat medium';
     font-size: 24px;
     margin-bottom: 5px;
 }
 
 .list-part-left__lable {
-    font-size: 16px;
+    font-size: 15px;
     color: #FFFFFF;
     border-radius: 10px;
     padding: 4px 15px;
@@ -48,6 +48,10 @@
 
 .list-part-left__lable_blue {
     background-color: #2A96B8;
+}
+
+.list-part-left__lable_gray {
+    background-color: var(--color-gray-3);
 }
 
 .list-part-middle__text {

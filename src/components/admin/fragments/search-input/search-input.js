@@ -3,7 +3,6 @@ import React, {useReducer} from 'react';
 import './search-input.css';
 
 import SearchBar from 'material-ui-search-bar';
-import Button from '@material-ui/core/Button';
 import SearchFilterListFragment from '../../fragments/search-filter-list/search-filter-list';
 
 /**
@@ -11,8 +10,15 @@ import SearchFilterListFragment from '../../fragments/search-filter-list/search-
  * @return {jsx}
  */
 function SearchInputFragment({data}) {
+    const searchFilters = [
+        [{value: '0', text: 'Статус'}, {value: '1', text: 'Принят'}, {value: '2', text: 'Готов'}, {value: '3', text: 'В пути'}, {value: '4', text: 'Завершен'}],
+        [{value: '0', text: 'Стоимость'}, {value: '1', text: 'По возрастанию'}, {value: '2', text: 'По убыванию'}],
+        [{value: '0', text: 'Время'}, {value: '1', text: 'Ближайшие'}, {value: '2', text: 'Давнейшие'}],
+    ];
+
     const initialState = {
         dataComp: data,
+        searchFiltersTexts: searchFilters,
     };
 
     const changeField = (field, value) => {
@@ -33,6 +39,7 @@ function SearchInputFragment({data}) {
 
     const {
         dataComp,
+        searchFiltersTexts,
     } = state;
 
     return (
@@ -42,10 +49,11 @@ function SearchInputFragment({data}) {
                 <div className="search-input__filters-btn">
                     Фильтры
                 </div>
-                {/* <Button variant="outlined" className="search-input__filters-btn">Default</Button> */}
             </div>
             <div className="search-input__filters">
-                <SearchFilterListFragment />
+                {searchFiltersTexts.map(item => (
+                    <SearchFilterListFragment data={item}/>
+                ))}
             </div>
         </div>
     );

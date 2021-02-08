@@ -6,9 +6,7 @@ import './search-filter-list.css';
  * Search-input fragment
  * @return {jsx}
  */
-function SearchFilterListFragment({}) {
-    const data = [{value: '10', text: 'ddd'}, {value: '20', text: 'bbfbfbf'}, {value: '30', text: 'dddddd'}];
-
+function SearchFilterListFragment({data}) {
     const initialState = {
         selectData: data,
         value: data[0].value,
@@ -36,15 +34,13 @@ function SearchFilterListFragment({}) {
     } = state;
 
     return (
-        <div>
-            <select className="search-filter-select"
-                onChange={(e) => changeField('value', e.target.value)}
-                value={value}>
-                {selectData.map(item => (
-                    <option className="search-filter-select__item" value={item.value}>{item.text}</option>
-                ))}
-            </select>
-        </div>
+        <select className="search-filter-select"
+            onChange={(e) => changeField('value', e.target.value)}
+            value={value}>
+            {selectData.map(item => (
+                <option className="search-filter-select__item" value={item.value}>{item.text}</option>
+            ))}
+        </select>
     );
 }
 

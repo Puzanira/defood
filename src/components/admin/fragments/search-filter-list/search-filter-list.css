@@ -1,12 +1,14 @@
 .search-filter-select {
+    font-family: 'Montserrat regular';
     height: 40px;
     border-radius: 10px;
     background: #ffffff;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-black-light);
     cursor: pointer;
     font-size: 18px;
     margin-bottom: 40px;
     padding: 0 10px;
+    color: var(--color-black);
 }
 
 .search-filter-select:focus {

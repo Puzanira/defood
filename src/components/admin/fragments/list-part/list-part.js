@@ -6,18 +6,11 @@ import './list-part.css';
  * List-part fragment
  * @return {jsx}
  */
-function ListPartFragment({}) {
-    const data =  {
-        title: 'Заказ №1212121',
-        lable: 'Принят',
-        content: 'Пицца “Бавария” 25 см, пицца “Карбонара 30см',
-        home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        cost: '950 ₽'
-    };
-
+function ListPartFragment({data}) {
     const lable = {
         'Принят': 'list-part-left__lable_green',
         'В пути': 'list-part-left__lable_blue',
+        'Завершен': 'list-part-left__lable_gray',
     };
 
     const initialState = {
