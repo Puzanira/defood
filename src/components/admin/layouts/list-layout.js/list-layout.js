@@ -10,7 +10,7 @@ import AdminPageFragment from '../../fragments/admin-page/admin-page';
 /**
  * List layout
  */
-function ListLayout() {
+function AdminListLayout() {
     const initialState = {
         dataComp: {},
     };
@@ -46,4 +46,4 @@ function ListLayout() {
     );
 }
 
-export default ListLayout;
+export default AdminListLayout;

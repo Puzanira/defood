@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { RouterStore } from '../../store/routes';
 
 import IndexLayout from "../layouts/index-layout/index-layout";
-import ListLayout from '../admin/layouts/list-layout.js/list-layout';
+import AdminListLayout from '../admin/layouts/list-layout.js/list-layout';
 
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
 
     this.routes = [
         route(RouterStore.website.index, <IndexLayout />),
-        route(RouterStore.admin.index, <ListLayout />)
+        route(RouterStore.admin.index, <AdminListLayout />)
     ];
 
   }
