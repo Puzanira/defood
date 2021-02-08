@@ -5,6 +5,7 @@ import HeaderFragment from '../../fragments/header/header';
 
 import './list-layout.css';
 import SearchInputFragment from '../../fragments/search-input/search-input';
+import AdminPageFragment from '../../fragments/admin-page/admin-page';
 
 /**
  * List layout
@@ -35,16 +36,13 @@ function ListLayout() {
     } = state;
 
     return (
-        <div className="list-layout">
-            <HeaderFragment />
-            <div className="list-layout-content list-layout_margin">
-                <div className="list-layout-content__title list-layout-content_margin-bottom">
-                    Реестр заказов
-                </div>
-                <SearchInputFragment />
-                <ListPartFragment />
+        <AdminPageFragment>
+            <div className="list-layout-content__title list-layout-content_margin-bottom">
+                Реестр заказов
             </div>
-        </div>
+            <SearchInputFragment />
+            <ListPartFragment />
+        </AdminPageFragment>
     );
 }
 

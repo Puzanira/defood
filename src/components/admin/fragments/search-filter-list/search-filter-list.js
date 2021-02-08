@@ -1,18 +1,17 @@
 import React, {useReducer} from 'react';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import './search-filter-list.css';
 
 /**
  * Search-input fragment
  * @return {jsx}
  */
-function SearchFilterListFragment({data}) {
+function SearchFilterListFragment({}) {
+    const data = [{value: '10', text: 'ddd'}, {value: '20', text: 'bbfbfbf'}, {value: '30', text: 'dddddd'}];
+
     const initialState = {
-        dataComp: data,
+        selectData: data,
+        value: data[0].value,
     };
 
     const changeField = (field, value) => {
@@ -32,36 +31,20 @@ function SearchFilterListFragment({data}) {
     );
 
     const {
-        dataComp,
+        selectData,
+        value,
     } = state;
 
-    const useStyles = makeStyles((theme) => ({
-        formControl: {
-          margin: theme.spacing(1),
-          minWidth: 120,
-        },
-        selectEmpty: {
-          marginTop: theme.spacing(2),
-        },
-    }));
-
-    const classes = useStyles();
-
     return (
-        <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-filled-label">Статус</InputLabel>
-            <Select
-            labelId="demo-simple-select-filled-label"
-            id="demo-simple-select-filled"
-            >
-            <MenuItem value="">
-                <em>Нет</em>
-            </MenuItem>
-            <MenuItem value={10}>Готов</MenuItem>
-            <MenuItem value={20}>В пути</MenuItem>
-            <MenuItem value={30}>Доставлен</MenuItem>
-            </Select>
-        </FormControl>
+        <div>
+            <select className="search-filter-select"
+                onChange={(e) => changeField('value', e.target.value)}
+                value={value}>
+                {selectData.map(item => (
+                    <option className="search-filter-select__item" value={item.value}>{item.text}</option>
+                ))}
+            </select>
+        </div>
     );
 }
 
