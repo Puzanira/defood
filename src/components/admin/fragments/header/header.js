@@ -1,6 +1,7 @@
 import React, {useReducer} from 'react';
 
 import './header.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Heare fragment
@@ -32,7 +33,14 @@ function HeaderFragment({data}) {
     } = state;
 
     return (
-        <div className="header">
+        <div className="header-admin-container">
+            <div className="header-admin">
+                <Link to={'/admin/index'} className="header-admin__logo">DePi Admin</Link>
+                <div className="header-admin__links">
+                    <Link to={'/admin/check/2'} className="header-admin__link">Заказы</Link>
+                    <div className="header-admin__link">Профиль</div>
+                </div>
+            </div>
         </div>
     );
 }
