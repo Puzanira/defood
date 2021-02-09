@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 
 import ListPartFragment from '../../fragments/list-part/list-part';
-import HeaderFragment from '../../fragments/header/header';
 
 import './list-layout.css';
 import SearchInputFragment from '../../fragments/search-input/search-input';
@@ -10,7 +9,7 @@ import AdminPageFragment from '../../fragments/admin-page/admin-page';
 /**
  * List layout
  */
-function AdminListLayout() {
+function ListAdminLayout() {
     const data =  [
         {
             title: 'Заказ №1212121',
@@ -72,4 +71,4 @@ function AdminListLayout() {
     );
 }
 
-export default AdminListLayout;
+export default ListAdminLayout;

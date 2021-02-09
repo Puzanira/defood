@@ -1,0 +1,48 @@
+.check-right-side-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.check-right-side-item__left-part {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-size: cover;
+}
+
+.check-right-side-item__right-part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    margin-left: 25px;
+}
+
+.check-right-side-item__title {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.check-right-side-item__title-text {
+    font-size: 18px;
+    font-family: 'Montserrat medium';
+    margin-bottom: 5px;
+}
+
+.check-right-side-item__weight {
+    font-size: 15px;
+    color: var(--color-black);
+}
+
+.check-right-side-item__count {
+    font-size: 15px;
+    margin: 0 25px;
+
+}
+
+.check-right-side-item__price {
+    font-size: 18px;
+    font-family: 'Montserrat medium';
+}

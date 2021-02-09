@@ -5,5 +5,6 @@ export const RouterStore =  {
     },
     admin: {
         index: '/admin/index',
+        check: '/admin/check/:id',
     },
 };
