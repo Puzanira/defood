@@ -1,0 +1,29 @@
+.header-admin-container {
+    padding: 15px 150px;
+    background-color: #D3D3D3;
+    font-size: 18px;
+}
+
+.header-admin {
+    display: flex;
+}
+
+.header-admin__logo {
+    font-family: 'Montserrat Black';
+    text-decoration: none;
+    color: var(--color-black);
+}
+
+.header-admin__links {
+    margin-left: auto;
+    display: flex;
+}
+
+.header-admin__links .header-admin__link {
+    margin-left: 10px;
+}
+
+.header-admin__link {
+    text-decoration: none;
+    color: var(--color-black);
+}

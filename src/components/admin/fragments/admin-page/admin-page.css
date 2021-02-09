@@ -1,0 +1,8 @@
+.admin-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-page__content {
+    margin: 40px 150px;
+}
