@@ -37,7 +37,7 @@ function HeaderFragment({data}) {
             <div className="header-admin">
                 <Link to={'/admin/index'} className="header-admin__logo">DePi Admin</Link>
                 <div className="header-admin__links">
-                    <Link to={'/admin/check/2'} className="header-admin__link">Заказы</Link>
+                    <Link to={'/admin/index'} className="header-admin__link">Заказы</Link>
                     <div className="header-admin__link">Профиль</div>
                 </div>
             </div>
