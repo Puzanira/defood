@@ -1,10 +1,10 @@
 import React, {useReducer} from 'react';
 
 import './header.css';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 /**
- * Heare fragment
+ * Header fragment
  * @return {jsx}
  */
 function HeaderFragment({data}) {

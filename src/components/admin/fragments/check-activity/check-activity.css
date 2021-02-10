@@ -13,6 +13,7 @@
 
 .check-activity-admin-items__item {
     display: flex;
+    cursor: pointer;
 }
 
 .check-activity-admin-items__point {
@@ -52,6 +53,7 @@
 .check-activity-admin-times__time {
     font-size: 18px;
     font-family: 'Montserrat medium';
+    min-width: 75px;
 }
 
 .check-activity-admin-items__text {
