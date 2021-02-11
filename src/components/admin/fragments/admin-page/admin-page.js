@@ -4,11 +4,12 @@ import './admin-page.css';
 import HeaderFragment from '../header/header';
 
 /**
- * Heare fragment
+ * Admin page fragment
  * @return {jsx}
  */
 function AdminPageFragment(props) {
     const data = [];
+
     const initialState = {
         dataComp: data,
     };
