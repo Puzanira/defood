@@ -10,6 +10,14 @@
     padding: 20px;
 }
 
+.list-part_purple {
+    background-color: rgba(100, 135, 216, 0.3);
+}
+
+.list-part_dark-purple {
+    background-color: rgba(83, 60, 112, 0.2);
+}
+
 .list-part-left {
     display: flex;
     flex-direction: column;
@@ -46,8 +54,32 @@
     background-color: #76B82A;
 }
 
+.list-part-left__lable_dark-green {
+    background-color: #008000;
+}
+
 .list-part-left__lable_blue {
     background-color: #2A96B8;
+}
+
+.list-part-left__lable_dark-blue {
+    background-color: #20639B;
+}
+
+.list-part-left__lable_purple {
+    background-color: #6386D8;
+}
+
+.list-part-left__lable_dark-purple {
+    background-color: #533C70;
+}
+
+.list-part-left__lable_orange {
+    background-color: #FFC12C;
+}
+
+.list-part-left__lable_dark-orange {
+    background-color: #FFA617;
 }
 
 .list-part-left__lable_gray {

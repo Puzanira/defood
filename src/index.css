@@ -27,6 +27,11 @@ code {
     monospace;
 }
 
+.disabled-elem {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 :root {
   --color-gray: #cdcdcd;
   --color-gray-1: #f3f3f3;

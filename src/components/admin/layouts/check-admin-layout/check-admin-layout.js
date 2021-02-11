@@ -1,12 +1,14 @@
 import React, { useReducer } from 'react';
 
 import './check-admin-layout.css';
+
 import AdminPageFragment from '../../fragments/admin-page/admin-page';
 import CheckRightSideItemFragment from '../../fragments/check-right-side-item/check-right-side-item';
 import CheckActivityFragment from '../../fragments/check-activity/check-activity';
+import TransferSelectFragment from '../../fragments/transfer-select/transfer-select';
 
 /**
- * List layout
+ * Check admin layout
  */
 function CheckAdminLayout() {
     const data =  {
@@ -32,6 +34,8 @@ function CheckAdminLayout() {
     
     const initialState = {
         dataComp: data,
+        isTransferred: false,
+        isTransferAgreement: true,
     };
 
     const changeField = (field, value) => {
@@ -52,10 +56,16 @@ function CheckAdminLayout() {
 
     const {
         dataComp,
+        isTransferred,
+        isTransferAgreement,
     } = state;
 
-    const classs = {
-        background: 'black',
+    const transferHandler = () => {
+        changeField('isTransferred', !isTransferred);
+    }
+
+    const agreementHandler = () => {
+        changeField('isTransferAgreement', false);
     }
 
     return (
@@ -93,13 +103,29 @@ function CheckAdminLayout() {
                     </div>
                 </div>
             </div>
-            <div className="admin-check-layout-modern-title admin-check-layout-title_margin-top">
-                <div className="admin-check-layout-title">
-                    Модерирование заказа
+            {isTransferAgreement && (
+                <div className="check-agreement">
+                    <div className="check-agreement__title">Заказ передан от компании №2</div>
+                    <div className="check-agreement__buttons">
+                        <div
+                            className="check-agreement__button check-agreement__button_agree"
+                            onClick={() => agreementHandler()}>
+                                Принять
+                        </div>
+                        <div className="check-agreement__button check-agreement__button_disagree">Отклонить</div>
+                    </div>
                 </div>
+            )}
+            <div className={(isTransferAgreement) ? 'disabled-elem' : ''}>
+                <div className="admin-check-layout-modern-title admin-check-layout-title_margin-top">
+                    <div className="admin-check-layout-title">
+                        Модерирование заказа
+                    </div>
+                    <TransferSelectFragment data={{value: 'Ресторан №2'}} transferHandler={transferHandler}/>
+                </div>
+                <CheckActivityFragment isTransferred={isTransferred}/>
+                <div className="admin-check-layout-button">Завершить работу с заказом</div>
             </div>
-            <CheckActivityFragment/>
-            <div className="admin-check-layout-button">Завершить работу с заказом</div>
         </AdminPageFragment>
     );
 }

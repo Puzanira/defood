@@ -3,10 +3,10 @@ import React, {useReducer} from 'react';
 import './search-filter-list.css';
 
 /**
- * Search-input fragment
+ * Search-filter fragment
  * @return {jsx}
  */
-function SearchFilterListFragment({data}) {
+function SearchFilterListFragment({data, changeFilterField}) {
     const initialState = {
         selectData: data,
         value: data[0].value,
@@ -33,12 +33,17 @@ function SearchFilterListFragment({data}) {
         value,
     } = state;
 
+    const changeSelectValue = (value) => {
+        changeField('value', Number(value));
+        changeFilterField(data[0].text, Number(value));
+    }
+
     return (
         <select className="search-filter-select"
-            onChange={(e) => changeField('value', e.target.value)}
+            onChange={(e) => changeSelectValue(e.target.value)}
             value={value}>
-            {selectData.map(item => (
-                <option className="search-filter-select__item" value={item.value}>{item.text}</option>
+            {selectData.map((item, index) => (
+                <option className="search-filter-select__item" value={item.value} key={index}>{item.text}</option>
             ))}
         </select>
     );

@@ -1,15 +1,12 @@
 import React, {useReducer} from 'react';
 
-import './admin-page.css';
-import HeaderFragment from '../header/header';
+import './transfer-select.css';
 
 /**
- * Admin page fragment
+ * Transfer select fragment
  * @return {jsx}
  */
-function AdminPageFragment(props) {
-    const data = [];
-
+function TransferSelectFragment({data, transferHandler}) {
     const initialState = {
         dataComp: data,
     };
@@ -35,13 +32,11 @@ function AdminPageFragment(props) {
     } = state;
 
     return (
-        <div className="admin-page">
-            <HeaderFragment/>
-            <div className="admin-page__content">
-                {props.children}
-            </div>
+        <div className="transfer-select" onClick={() => transferHandler()}>
+            <div className="transfer-select__left-part">Передать на исполнение</div>
+            <div className="transfer-select__right-part">{dataComp.value}</div>
         </div>
     );
 }
 
-export default AdminPageFragment;
+export default TransferSelectFragment;
