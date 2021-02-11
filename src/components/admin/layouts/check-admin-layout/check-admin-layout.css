@@ -78,6 +78,7 @@
 .admin-check-layout-modern-title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .admin-check-layout-button {

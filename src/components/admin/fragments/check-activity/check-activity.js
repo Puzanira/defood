@@ -1,16 +1,24 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect} from 'react';
 
 import './check-activity.css';
 
 /**
- * List-part fragment
+ * Check activity fragment
  * @return {jsx}
  */
-function CheckActivityFragment({}) {
-    const data = [];
+function CheckActivityFragment({isTransferred}) {
+    useEffect(() => {
+        if (isTransferred) {
+            dispatch({type: 'CREATE_COPY'});
+            dispatch({type: 'BLOCK_ALL_VALUES_OF_STATUSES'});
+            dispatch({type: 'DELETE_IS_AVAILABLE_BY_INDEX', index: 0})
+            addItemToActiveList(10, 'Передан в другой пункт');
+        } else if (copyStatusesList.length > 0) {
+            dispatch({type: 'DELETE_COPY'});
+        }
+    }, [isTransferred]);
 
     const initialState = {
-        dataComp: data,
         valuesOfStatuses: [
             {id: 1, value: 'Создан', isSelected: false, isAvailable: true},
             {id: 2, value: 'Обрабатывается', isSelected: false, isAvailable: false},
@@ -19,10 +27,12 @@ function CheckActivityFragment({}) {
             {id: 5, value: 'В пути', isSelected: false, isAvailable: false},
             {id: 6, value: 'Доставлен', isSelected: false, isAvailable: false},
             {id: 7, value: 'Закрыт', isSelected: false, isAvailable: false},
-            {id: 8, value: 'Переведен в КС', isSelected: false, isAvailable: false},
-            {id: 9, value: 'Ожидает перевода', isSelected: false, isAvailable: false},
+            // {id: 8, value: 'Переведен в КС', isSelected: false, isAvailable: false},
+            // {id: 9, value: 'Ожидает перевода', isSelected: false, isAvailable: false},
         ],
         activeStatusesList: {},
+        copyStatusesList: [],
+        copyActiveStatusesList: {},
     };
 
     const changeField = (field, value) => {
@@ -59,6 +69,23 @@ function CheckActivityFragment({}) {
                     return {...state, valuesOfStatuses: newStatuses};
                 case 'ADD_ITEM_TO_ACTIVE_LIST':
                     return {...state, activeStatusesList: {...state.activeStatusesList, [action.id]:{time: action.time, value: action.value}}};
+                case 'BLOCK_ALL_VALUES_OF_STATUSES':
+                    return {...state, valuesOfStatuses: initialState.valuesOfStatuses, activeStatusesList: initialState.activeStatusesList};
+                case 'CREATE_COPY':
+                    return {...state, copyStatusesList: state.valuesOfStatuses, copyActiveStatusesList: state.activeStatusesList};
+                case 'DELETE_COPY':
+                    return {
+                        ...state,
+                        valuesOfStatuses: state.copyStatusesList,
+                        activeStatusesList: state.copyActiveStatusesList,
+                        copyStatusesList: initialState.copyStatusesList,
+                        copyActiveStatusesList: initialState.copyActiveStatusesList,
+                    };
+                case 'DELETE_IS_AVAILABLE_BY_INDEX':
+                    const newStatuse = state.valuesOfStatuses.slice();
+                    newStatuse[action.index].isAvailable = false;
+
+                    return {...state, valuesOfStatuses: newStatuse};
                 default:
                     return state;
             }
@@ -67,9 +94,10 @@ function CheckActivityFragment({}) {
     );
 
     const {
-        dataComp,
         valuesOfStatuses,
         activeStatusesList,
+        copyStatusesList,
+        copyActiveStatusesList,
     } = state;
 
     const setMarkedPoint = (id, value, isSelected) => {

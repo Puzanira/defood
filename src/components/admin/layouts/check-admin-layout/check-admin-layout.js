@@ -1,9 +1,11 @@
 import React, { useReducer } from 'react';
 
 import './check-admin-layout.css';
+
 import AdminPageFragment from '../../fragments/admin-page/admin-page';
 import CheckRightSideItemFragment from '../../fragments/check-right-side-item/check-right-side-item';
 import CheckActivityFragment from '../../fragments/check-activity/check-activity';
+import TransferSelectFragment from '../../fragments/transfer-select/transfer-select';
 
 /**
  * List layout
@@ -32,6 +34,7 @@ function CheckAdminLayout() {
     
     const initialState = {
         dataComp: data,
+        isTransferred: false,
     };
 
     const changeField = (field, value) => {
@@ -52,10 +55,11 @@ function CheckAdminLayout() {
 
     const {
         dataComp,
+        isTransferred,
     } = state;
 
-    const classs = {
-        background: 'black',
+    const transferHandler = () => {
+        changeField('isTransferred', !isTransferred);
     }
 
     return (
@@ -97,8 +101,9 @@ function CheckAdminLayout() {
                 <div className="admin-check-layout-title">
                     Модерирование заказа
                 </div>
+                <TransferSelectFragment data={{value: 'Ресторан №2'}} transferHandler={transferHandler}/>
             </div>
-            <CheckActivityFragment/>
+            <CheckActivityFragment isTransferred={isTransferred}/>
             <div className="admin-check-layout-button">Завершить работу с заказом</div>
         </AdminPageFragment>
     );
