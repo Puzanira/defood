@@ -78,6 +78,7 @@
 .admin-check-layout-modern-title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .admin-check-layout-button {
@@ -89,4 +90,51 @@
     padding: 10px 20px;
     font-size: 15px;
     cursor: pointer;
+}
+
+.check-agreement {
+    margin-top: 40px;
+    background-color: rgba(100, 135, 216, 0.2);
+    padding: 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat Medium';
+}
+
+.check-agreement__title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.check-agreement__buttons {
+    display: flex;
+}
+
+.check-agreement__button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer;
+
+    transition: 0.5s;
+}
+
+.check-agreement__button_agree {
+    background-color: rgba(118, 184, 42, 0.6);
+}
+
+.check-agreement__button_agree:hover {
+    background-color: rgba(118, 184, 42, 0.9);
+}
+
+.check-agreement__button_disagree {
+    background-color: rgba(244, 67, 54, 0.6);
+    margin-left: 10px;
+}
+
+.check-agreement__button_disagree:hover {
+    background-color: rgba(244, 67, 54, 0.9);
 }

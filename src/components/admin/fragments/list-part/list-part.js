@@ -1,4 +1,5 @@
 import React, {useReducer} from 'react';
+import {useHistory} from 'react-router-dom';
 
 import './list-part.css';
 
@@ -7,11 +8,26 @@ import './list-part.css';
  * @return {jsx}
  */
 function ListPartFragment({data}) {
-    const lable = {
-        'Принят': 'list-part-left__lable_green',
+    const history = useHistory();
+
+    const lableColor = {
+        'Создан': 'list-part-left__lable_green',
+        'Обрабатывается': 'list-part-left__lable_dark-green',
+        'Готовится': 'list-part-left__lable_orange',
+        'Готов': 'list-part-left__lable_dark-orange',
         'В пути': 'list-part-left__lable_blue',
-        'Завершен': 'list-part-left__lable_gray',
+        'Доставлен': 'list-part-left__lable_dark-blue',
+        'Закрыт': 'list-part-left__lable_gray',
+
+        'Переведен в КС': 'list-part-left__lable_dark-purple',
+        'Ожидает перевода': 'list-part-left__lable_purple',
     };
+
+    const transferredColor = {
+        'Переведен в КС': 'list-part_dark-purple',
+        'Ожидает перевода': 'list-part_purple',
+    }
+
 
     const initialState = {
         dataComp: data,
@@ -37,13 +53,17 @@ function ListPartFragment({data}) {
         dataComp,
     } = state;
 
+    const routToOrderHandler = () => {
+        history.push(`/admin/check/${dataComp.number}`);
+    }
+
     return (
-        <div className="list-part">
+        <div className={`list-part ${transferredColor[dataComp.lable]}`} onClick={() => routToOrderHandler()}>
             <div className="list-part-left">
                 <div className="list-part-left__title">
                     {dataComp.title}
                 </div>
-                <div className={`list-part-left__lable ${lable[dataComp.lable]}`}>
+                <div className={`list-part-left__lable ${lableColor[dataComp.lable]}`}>
                     {dataComp.lable}
                 </div>
             </div>

@@ -8,37 +8,13 @@ import pizza from '../../../../assets/pics/pizza.jpeg';
  * @return {jsx}
  */
 function CheckRightSideItemFragment({}) {
-    const data = {
+    const dataComp = {
         photo: pizza,
         title: 'Пицца “Бавария” 25см',
         weight: '500 г',
         count: 'х1',
         price: '400 ₽',
     };
-
-    const initialState = {
-        dataComp: data,
-    };
-
-    const changeField = (field, value) => {
-        dispatch({type: 'CHANGE_FIELD', field, value});
-    };
-
-    const [state, dispatch] = useReducer(
-        (state, action) => {
-            switch (action.type) {
-                case 'CHANGE_FIELD':
-                    return {...state, [action.field]: action.value};
-                default:
-                    return state;
-            }
-        },
-        initialState
-    );
-
-    const {
-        dataComp,
-    } = state;
 
     return (
         <div className="check-right-side-item">

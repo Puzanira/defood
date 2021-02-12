@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
 import ListPartFragment from '../../fragments/list-part/list-part';
 
@@ -12,13 +12,39 @@ import AdminPageFragment from '../../fragments/admin-page/admin-page';
 function ListAdminLayout() {
     const data =  [
         {
+            number: '111',
             title: 'Заказ №1212121',
-            lable: 'Принят',
+            lable: 'Создан',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
             cost: '950 ₽'
         },
         {
+            number: '112',
+            title: 'Заказ №1212134',
+            lable: 'Обрабатывается',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+        {
+            number: '113',
+            title: 'Заказ №1212134',
+            lable: 'Готовится',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+        {
+            number: '114',
+            title: 'Заказ №1212134',
+            lable: 'Готов',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+        {
+            number: '115',
             title: 'Заказ №1212134',
             lable: 'В пути',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
@@ -26,37 +52,38 @@ function ListAdminLayout() {
             cost: '1150 ₽'
         },
         {
+            number: '116',
+            title: 'Заказ №1212134',
+            lable: 'Доставлен',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+        {
+            number: '117',
             title: 'Заказ №1212140',
-            lable: 'Завершен',
+            lable: 'Закрыт',
             content: 'Пицца “Бавария” 25 см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
             cost: '450 ₽'
         },
-    ];
-    
-    const initialState = {
-        dataComp: data,
-    };
-
-    const changeField = (field, value) => {
-        dispatch({type: 'CHANGE_FIELD', field, value});
-    };
-
-    const [state, dispatch] = useReducer(
-        (state, action) => {
-            switch (action.type) {
-                case 'CHANGE_FIELD':
-                    return {...state, [action.field]: action.value};
-                default:
-                    return state;
-            }
+        {
+            number: '118',
+            title: 'Заказ №1212134',
+            lable: 'Переведен в КС',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
         },
-        initialState
-    );
-
-    const {
-        dataComp,
-    } = state;
+        {
+            number: '119',
+            title: 'Заказ №1212134',
+            lable: 'Ожидает перевода',
+            content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
+            home: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            cost: '1150 ₽'
+        },
+    ];
 
     return (
         <AdminPageFragment>
@@ -64,8 +91,8 @@ function ListAdminLayout() {
                 Реестр заказов
             </div>
             <SearchInputFragment />
-            {dataComp.map(item => (
-                <ListPartFragment data={item}/>
+            {data.map((item, index) => (
+                <ListPartFragment data={item} key={index}/>
             ))}
         </AdminPageFragment>
     );
