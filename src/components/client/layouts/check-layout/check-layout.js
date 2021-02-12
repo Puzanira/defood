@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import Page from "../../fragments/page/page";
+import Order from "../../fragments/order/order";
+
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+
 
 import './check-layout.css';
-import Order from "../../fragments/order/order";
 
 class CheckLayout extends Component {
     render() {
+        const steps = ['Оформлен', 'Изготавливается', 'Готов', 'В пути', 'Доставлен'];
+        const stepper = steps.map((item) => {
+            return (
+                <Step key={item}>
+                    <StepLabel>{item}</StepLabel>
+                </Step>
+            );
+        });
         return(
             <Page header={'small'}>
                 <div className={'check-title'}>Заказ № 111</div>
@@ -30,7 +43,9 @@ class CheckLayout extends Component {
                     </div>
                     <Order />
                 </div>
-                <div className={'check-controls'}></div>
+                <Stepper className={'check-controls'} activeStep={-1}>
+                    { stepper }
+                </Stepper>
             </Page>
         );
     }

@@ -44,3 +44,11 @@
 .check-content__wrap {
     min-height: 250px;
 }
+
+.check-controls {
+    margin-top: 50px;
+
+    border-radius: 10px;
+
+    background-color: var(--color-gray-1) !important;
+}
