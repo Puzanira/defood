@@ -9,6 +9,8 @@ class Order extends Component {
             <div className={'order'}>
                 <div className={'order__content'}>
                     <OrderItem />
+                    <OrderItem />
+                    <OrderItem />
                 </div>
                 <div className={'order__sum'}>
                     <div>Итого:</div>

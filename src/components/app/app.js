@@ -4,6 +4,7 @@ import { RouterStore } from '../../store/routes';
 
 import ListLayout from "../client/layouts/list-layout/list-layout";
 import CheckLayout from "../client/layouts/check-layout/check-layout";
+import OrderLayout from "../client/layouts/order-layoyut/order-layout";
 
 import ListAdminLayout from '../admin/layouts/list-layout.js/list-layout';
 import CheckAdmintLayout from '../admin/layouts/check-admin-layout/check-admin-layout';
@@ -18,6 +19,7 @@ class App extends Component {
     this.routes = [
         route(RouterStore.website.index, <ListLayout/>),
         route(RouterStore.website.check, <CheckLayout/>),
+        route(RouterStore.website.order, <OrderLayout />),
         route(RouterStore.admin.index, <ListAdminLayout />),
         route(RouterStore.admin.check, <CheckAdmintLayout />),
     ];
