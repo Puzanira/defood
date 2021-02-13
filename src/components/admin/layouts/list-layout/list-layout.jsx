@@ -1,101 +1,99 @@
 import React from 'react';
 
-import ListPartFragment from '../../fragments/list-part/list-part';
-
+import { ListPartFragment } from '../../fragments/list-part';
+import { SearchInputFragment } from '../../fragments/search-input';
+import { AdminPageFragment } from '../../fragments/admin-page';
 import './list-layout.css';
-import SearchInputFragment from '../../fragments/search-input/search-input';
-import AdminPageFragment from '../../fragments/admin-page/admin-page';
+
 
 /**
  * List layout
  */
-function ListAdminLayout() {
-    const data =  [
+export const ListLayout = () => {
+    const data = [
         {
             number: '111',
             title: 'Заказ №1212121',
-            lable: 'Создан',
+            label: 'Создан',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '950 ₽'
+            cost: '950 ₽',
         },
         {
             number: '112',
             title: 'Заказ №1212134',
-            lable: 'Обрабатывается',
+            label: 'Обрабатывается',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '113',
             title: 'Заказ №1212134',
-            lable: 'Готовится',
+            label: 'Готовится',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '114',
             title: 'Заказ №1212134',
-            lable: 'Готов',
+            label: 'Готов',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '115',
             title: 'Заказ №1212134',
-            lable: 'В пути',
+            label: 'В пути',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '116',
             title: 'Заказ №1212134',
-            lable: 'Доставлен',
+            label: 'Доставлен',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '117',
             title: 'Заказ №1212140',
-            lable: 'Закрыт',
+            label: 'Закрыт',
             content: 'Пицца “Бавария” 25 см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '450 ₽'
+            cost: '450 ₽',
         },
         {
             number: '118',
             title: 'Заказ №1212134',
-            lable: 'Переведен в КС',
+            label: 'Переведен в КС',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
         {
             number: '119',
             title: 'Заказ №1212134',
-            lable: 'Ожидает перевода',
+            label: 'Ожидает перевода',
             content: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30смб пицца “Карбонара" 25см',
             home: 'Москва, ул. Юных Ленинцев 12/17 к1',
-            cost: '1150 ₽'
+            cost: '1150 ₽',
         },
     ];
 
     return (
         <AdminPageFragment>
-            <div className="list-layout-content__title list-layout-content_margin-bottom">
+            <div className='list-layout-content__title list-layout-content_margin-bottom'>
                 Реестр заказов
             </div>
             <SearchInputFragment />
             {data.map((item, index) => (
-                <ListPartFragment data={item} key={index}/>
+                <ListPartFragment data={item} key={index} />
             ))}
         </AdminPageFragment>
     );
-}
-
-export default ListAdminLayout;
+};
