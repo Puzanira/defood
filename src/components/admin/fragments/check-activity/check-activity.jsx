@@ -125,7 +125,7 @@ export const CheckActivityFragment = ({ isTransferred }) => {
             addItemToActiveList(10, 'Передан в другой пункт');
         } else if (copyStatusesList.length > 0)
             dispatch({ type: 'DELETE_COPY' });
-    }, [copyStatusesList.length, isTransferred]);
+    }, [isTransferred]);
 
     return (
         <div className='check-activity-admin'>

@@ -7,11 +7,11 @@ import './admin-page.css';
  * Admin page fragment
  * @return {jsx}
  */
-export const AdminPageFragment = props => (
+export const AdminPageFragment = ({ children }) => (
     <div className='admin-page'>
         <HeaderFragment />
         <div className='admin-page__content'>
-            {props.children}
+            {children}
         </div>
     </div>
 );

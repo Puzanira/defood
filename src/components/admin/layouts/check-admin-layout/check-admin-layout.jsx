@@ -4,6 +4,7 @@ import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
 import { TransferSelectFragment } from '../../fragments/transfer-select';
+import { checkData as dataComp } from '../../../../store/admin-mock-data';
 
 import './check-admin-layout.css';
 
@@ -12,29 +13,7 @@ import './check-admin-layout.css';
  * Check admin layout
  */
 export const CheckAdminLayout = () => {
-    const data = {
-        title: 'Заказ №1212121',
-        address: {
-            title: 'Доставка по адресу',
-            value: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        },
-        recipient: {
-            title: 'Получатель',
-            value: 'Ольга, +7 916 720 64 95',
-        },
-        processingTime: {
-            title: 'Время оформления',
-            value: '2 февраля 2021 17:00',
-        },
-        payment: {
-            title: 'Оплата',
-            value: 'Онлайн на сайте',
-        },
-        resultPrice: '950 ₽',
-    };
-
     const initialState = {
-        dataComp: data,
         isTransferred: false,
         isTransferAgreement: true,
     };
@@ -56,7 +35,6 @@ export const CheckAdminLayout = () => {
     };
 
     const {
-        dataComp,
         isTransferred,
         isTransferAgreement,
     } = state;
