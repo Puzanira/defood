@@ -27,16 +27,16 @@ export const ListPartFragment = ({ data }) => {
     );
 
     const labelColor = {
-        'Создан': 'list-part-left__lable_green',
-        'Обрабатывается': 'list-part-left__lable_dark-green',
-        'Готовится': 'list-part-left__lable_orange',
-        'Готов': 'list-part-left__lable_dark-orange',
-        'В пути': 'list-part-left__lable_blue',
-        'Доставлен': 'list-part-left__lable_dark-blue',
-        'Закрыт': 'list-part-left__lable_gray',
+        'Создан': 'list-part-left__label_green',
+        'Обрабатывается': 'list-part-left__label_dark-green',
+        'Готовится': 'list-part-left__label_orange',
+        'Готов': 'list-part-left__label_dark-orange',
+        'В пути': 'list-part-left__label_blue',
+        'Доставлен': 'list-part-left__label_dark-blue',
+        'Закрыт': 'list-part-left__label_gray',
 
-        'Переведен в КС': 'list-part-left__lable_dark-purple',
-        'Ожидает перевода': 'list-part-left__lable_purple',
+        'Переведен в КС': 'list-part-left__label_dark-purple',
+        'Ожидает перевода': 'list-part-left__label_purple',
     };
 
     const transferredColor = {
@@ -57,13 +57,13 @@ export const ListPartFragment = ({ data }) => {
     };
 
     return (
-        <div className={`list-part ${transferredColor[dataComp.lable]}`} onClick={() => routToOrderHandler()}>
+        <div className={`list-part ${transferredColor[dataComp.label]}`} onClick={() => routToOrderHandler()}>
             <div className='list-part-left'>
                 <div className='list-part-left__title'>
                     {dataComp.title}
                 </div>
-                <div className={`list-part-left__lable ${labelColor[dataComp.lable]}`}>
-                    {dataComp.lable}
+                <div className={`list-part-left__label ${labelColor[dataComp.label]}`}>
+                    {dataComp.label}
                 </div>
             </div>
             <div className='list-part-middle'>
