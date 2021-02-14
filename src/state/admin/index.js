@@ -2,7 +2,7 @@ import { reducer } from './reducer';
 import { sagas } from './sagas';
 
 
-export const client = {
+export const admin = {
     reducer,
     sagas,
 };
