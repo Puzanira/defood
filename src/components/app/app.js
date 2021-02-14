@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { RouterStore } from '../../store/routes';
 
-import ListLayout from "../client/layouts/list-layout/list-layout";
-import CheckLayout from "../client/layouts/check-layout/check-layout";
-import OrderLayout from "../client/layouts/order-layoyut/order-layout";
+import { ListLayout } from '../client/layouts/list-layout';
+import { CheckLayout } from '../client/layouts/check-layout';
+import { OrderLayout } from '../client/layouts/order-layoyut';
 
-import ListAdminLayout from '../admin/layouts/list-layout.js/list-layout';
+import ListAdminLayout from '../admin/layouts/list-layout.jsx/list-layout';
 import CheckAdmintLayout from '../admin/layouts/check-admin-layout/check-admin-layout';
 
 
