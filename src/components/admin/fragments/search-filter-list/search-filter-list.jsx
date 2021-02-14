@@ -9,7 +9,7 @@ import './search-filter-list.css';
 export const SearchFilterListFragment = ({ data, changeFilterField }) => {
     const initialState = {
         selectData: data,
-        value: data[0].value,
+        value: Object.keys(data)[0],
     };
 
     const [state, dispatch] = useReducer(
@@ -35,7 +35,7 @@ export const SearchFilterListFragment = ({ data, changeFilterField }) => {
 
     const changeSelectValue = value => {
         changeField('value', Number(value));
-        changeFilterField(data[0].text, Number(value));
+        changeFilterField(data[0], Number(value));
     };
 
     return (
@@ -44,8 +44,8 @@ export const SearchFilterListFragment = ({ data, changeFilterField }) => {
             onChange={e => changeSelectValue(e.target.value)}
             value={value}
         >
-            {selectData.map((item, index) => (
-                <option className='search-filter-select__item' value={item.value} key={index}>{item.text}</option>
+            {Object.keys(selectData).map((item, index) => (
+                <option className='search-filter-select__item' value={item} key={index}>{selectData[item]}</option>
             ))}
         </select>
     );

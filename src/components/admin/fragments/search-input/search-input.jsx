@@ -10,42 +10,33 @@ import './search-input.css';
  * @return {jsx}
  */
 export const SearchInputFragment = ({ data }) => {
-    const searchFilters = [
-        {
-            id: 'Статус',
-            array: [
-                { value: '0', text: 'Статус' },
-                { value: '1', text: 'Принят' },
-                { value: '2', text: 'Готов' },
-                { value: '3', text: 'В пути' },
-                { value: '4', text: 'Завершен' },
-            ],
+    const searchFilters = {
+        Статус: {
+            0: 'Статус',
+            1: 'Принят',
+            2: 'Готов',
+            3: 'В пути',
+            4: 'Завершен',
         },
-        {
-            id: 'Стоимость',
-            array: [
-                { value: '0', text: 'Стоимость' },
-                { value: '1', text: 'По возрастанию' },
-                { value: '2', text: 'По убыванию' },
-            ],
+        Стоимость: {
+            0: 'Стоимость',
+            1: 'По возрастанию',
+            2: 'По убыванию',
         },
-        {
-            id: 'Время',
-            array: [
-                { value: '0', text: 'Время' },
-                { value: '1', text: 'Ближайшие' },
-                { value: '2', text: 'Давнейшие' },
-            ],
+        Время: {
+            0: 'Время',
+            1: 'Ближайшие',
+            2: 'Давнейшие',
         },
-    ];
+    };
 
     const initialState = {
         dataComp: data,
 
         searchFiltersTexts: searchFilters,
         isOpenFilters: false,
-        filtersState: searchFilters.reduce((acc, elem) => {
-            acc[elem.id] = 0;
+        filtersState: Object.keys(searchFilters).reduce((acc, elem) => {
+            acc[elem] = 0;
             return acc;
         }, {}),
 
@@ -111,9 +102,9 @@ export const SearchInputFragment = ({ data }) => {
             </div>
             {isOpenFilters && (
                 <div className='search-input__filters'>
-                    {searchFiltersTexts.map((item, index) => (
+                    {Object.keys(searchFiltersTexts).map((item, index) => (
                         <SearchFilterListFragment
-                            data={item.array}
+                            data={searchFiltersTexts[item]}
                             changeFilterField={changeFilterField}
                             key={index}
                         />
