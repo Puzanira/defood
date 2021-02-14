@@ -1,8 +1,8 @@
-export const RouterStore =  {
+export const RouterStore = {
     website: {
         index: '/',
         check: '/check/',
-        order: '/order/'
+        order: '/order/',
     },
     admin: {
         index: '/admin/index',

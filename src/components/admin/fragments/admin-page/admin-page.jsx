@@ -1,21 +1,17 @@
 import React from 'react';
 
+import { HeaderFragment } from '../header';
 import './admin-page.css';
-import HeaderFragment from '../header/header';
 
 /**
  * Admin page fragment
  * @return {jsx}
  */
-function AdminPageFragment(props) {
-    return (
-        <div className="admin-page">
-            <HeaderFragment/>
-            <div className="admin-page__content">
-                {props.children}
-            </div>
+export const AdminPageFragment = ({ children }) => (
+    <div className='admin-page'>
+        <HeaderFragment />
+        <div className='admin-page__content'>
+            {children}
         </div>
-    );
-}
-
-export default AdminPageFragment;
+    </div>
+);
