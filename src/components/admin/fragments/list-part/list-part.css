@@ -42,7 +42,7 @@
     margin-bottom: 5px;
 }
 
-.list-part-left__lable {
+.list-part-left__label {
     font-size: 13px;
     color: #FFFFFF;
     border-radius: 10px;
@@ -50,39 +50,39 @@
     width: fit-content;
 }
 
-.list-part-left__lable_green {
+.list-part-left__label_green {
     background-color: #76B82A;
 }
 
-.list-part-left__lable_dark-green {
+.list-part-left__label_dark-green {
     background-color: #008000;
 }
 
-.list-part-left__lable_blue {
+.list-part-left__label_blue {
     background-color: #2A96B8;
 }
 
-.list-part-left__lable_dark-blue {
+.list-part-left__label_dark-blue {
     background-color: #20639B;
 }
 
-.list-part-left__lable_purple {
+.list-part-left__label_purple {
     background-color: #6386D8;
 }
 
-.list-part-left__lable_dark-purple {
+.list-part-left__label_dark-purple {
     background-color: #533C70;
 }
 
-.list-part-left__lable_orange {
+.list-part-left__label_orange {
     background-color: #FFC12C;
 }
 
-.list-part-left__lable_dark-orange {
+.list-part-left__label_dark-orange {
     background-color: #FFA617;
 }
 
-.list-part-left__lable_gray {
+.list-part-left__label_gray {
     background-color: var(--color-gray-3);
 }
 
