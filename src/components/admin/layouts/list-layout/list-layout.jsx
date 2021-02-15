@@ -6,21 +6,23 @@ import { AdminPageFragment } from '../../fragments/admin-page';
 import { useSelector } from 'react-redux';
 
 import './list-layout.css';
-// import { useAction } from '../../../../utils';
-// import { adminActions } from '../../../../state/admin/actions';
+import { adminActions } from '../../../../state/admin/actions';
+import { useAction } from '../../../../utils';
 
 
 /**
  * List layout
  */
 export const ListLayout = () => {
-    const data = useSelector(state => state);
+    const data = useSelector(state => state.admin.orders);
+
+    const getOrders = useAction(
+        () => adminActions.getOrders(),
+        [],
+    );
 
     useEffect(() => {
-        console.log(data);
-
-        // const dispatch = useDispatch();
-        // dispatch({ type: 'SET_ORDERS_DATA' });
+        getOrders();
     }, []);
 
     return (
@@ -29,9 +31,9 @@ export const ListLayout = () => {
                 Реестр заказов
             </div>
             <SearchInputFragment />
-            {/* {data.map((item, index) => (
+            {data.map((item, index) => (
                 <ListPartFragment data={item} key={index} />
-            ))} */}
+            ))}
         </AdminPageFragment>
     );
 };

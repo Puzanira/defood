@@ -93,3 +93,38 @@ export const checkData = {
     },
     resultPrice: '950 ₽',
 };
+
+export const searchFilters = {
+    Статус: {
+        0: 'Статус',
+        1: 'Принят',
+        2: 'Готов',
+        3: 'В пути',
+        4: 'Завершен',
+    },
+    Стоимость: {
+        0: 'Стоимость',
+        1: 'По возрастанию',
+        2: 'По убыванию',
+    },
+    Время: {
+        0: 'Время',
+        1: 'Ближайшие',
+        2: 'Давнейшие',
+    },
+};
+
+export const checkStatuses = {
+    valuesOfStatuses: {
+        'Создан': { id: 1, isSelected: false, isAvailable: true },
+        'Обрабатывается': { id: 2, isSelected: false, isAvailable: false },
+        'Готовится': { id: 3, isSelected: false, isAvailable: false },
+        'Готов': { id: 4, isSelected: false, isAvailable: false },
+        'В пути': { id: 5, isSelected: false, isAvailable: false },
+        'Доставлен': { id: 6, isSelected: false, isAvailable: false },
+        'Закрыт': { id: 7, isSelected: false, isAvailable: false },
+    },
+    activeStatusesList: {},
+    copyStatusesList: {},
+    copyActiveStatusesList: {},
+};
