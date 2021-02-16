@@ -26,17 +26,17 @@ export const CheckAdminLayout = () => {
     );
 
     const transferHandler = useAction(
-        () => adminActions.setIsTransferred(!isTransferred),
+        () => adminActions.setIsTransferredData(!isTransferred),
         [],
     );
 
     const agreementHandler = useAction(
-        () => adminActions.setIsTransferAgreement(false),
+        () => adminActions.setIsTransferAgreementData(false),
         [],
     );
 
     useEffect(() => {
-        console.log(dataComp);
+        // console.log(dataComp);
         getCheckData();
     }, []);
 
@@ -98,7 +98,7 @@ export const CheckAdminLayout = () => {
                             </div>
                             <TransferSelectFragment data={{ value: 'Ресторан №2' }} transferHandler={transferHandler} />
                         </div>
-                        <CheckActivityFragment isTransferred={isTransferred} />
+                        <CheckActivityFragment />
                         <div className='admin-check-layout-button'>Завершить работу с заказом</div>
                     </div>
                 </div>

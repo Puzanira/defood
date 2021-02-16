@@ -128,3 +128,18 @@ export const checkStatuses = {
     copyStatusesList: {},
     copyActiveStatusesList: {},
 };
+
+export const statuses = {
+    valuesOfStatuses: {
+        'Создан': { id: 1, isSelected: false, isAvailable: true },
+        'Обрабатывается': { id: 2, isSelected: false, isAvailable: false },
+        'Готовится': { id: 3, isSelected: false, isAvailable: false },
+        'Готов': { id: 4, isSelected: false, isAvailable: false },
+        'В пути': { id: 5, isSelected: false, isAvailable: false },
+        'Доставлен': { id: 6, isSelected: false, isAvailable: false },
+        'Закрыт': { id: 7, isSelected: false, isAvailable: false },
+    },
+    activeStatusesList: {},
+    copyStatusesList: {},
+    copyActiveStatusesList: {},
+};
