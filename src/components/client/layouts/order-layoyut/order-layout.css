@@ -11,6 +11,19 @@
     font-size: 24px;
 }
 
+.checkout__error {
+    margin: 5px 0;
+
+    min-height: 20px;
+
+    color: red;
+}
+
+.checkout-item__card_active {
+    background-color: var(--color-black) !important;
+    color: white;
+}
+
 .checkout-item {
     display: flex;
     justify-content: space-between;
@@ -53,6 +66,10 @@
     padding: 10px 15px;
     margin-bottom: 10px;
     margin-left: 10px;
+
+    cursor: pointer;
+
+    transition: ease-in-out all 0.3s;
 
     border-radius: 10px;
     background-color: var(--color-gray-1);

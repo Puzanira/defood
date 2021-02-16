@@ -1,4 +1,5 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { PizzaArray } from '../../store/client-mock-data';
 
 import { clientActions, clientActionTypes } from './actions';
 
@@ -7,15 +8,33 @@ function* setBusy(value) {
     yield put(clientActions.setStatus({ busy: value }));
 }
 
-/*
-    All your functions to call from pages or components
-    Register them to sagas to use later
- */
+function* setOrderItem({ $payload: { item } }) {
+    yield put(clientActions.addOrderItem(item));
+}
+
+// API для отслеживание статуса
+function* getWaitingStatus() {
+    yield put(clientActions.setWaitingStatus(0));
+}
+
+// API для получение списка пицц
+function* getItems() {
+    yield put(clientActions.setItems(PizzaArray));
+}
+
+function* deleteOrderItem({ $payload: { item } }) {
+    yield put(clientActions.removeOrderItem(item));
+}
+
+// API для отправки формы
+function* fetchFormData({ $payload: { formData } }) {
+    yield put(clientActions.setFormData(formData));
+}
 
 export const sagas = [
-    // takeLatest(repoActionTypes.UPDATE_FILES, updateFiles),
-    // takeLatest(repoActionTypes.GO_TO_DIRECTORY, goToDirectory),
-    // takeLatest(repoActionTypes.GO_FORWARD_TO_DIRECTORY, goForwardToDirectory),
-    // takeEvery(repoActionTypes.TOGGLE_CHECKED_FOLDER, toggleCheckedFolder),
-    // takeEvery(repoActionTypes.TOGGLE_CHECKED_FILE, toggleCheckedFile),
+    takeEvery(clientActionTypes.DELETE_ORDER_ITEM, deleteOrderItem),
+    takeEvery(clientActionTypes.SET_ORDER_ITEM, setOrderItem),
+    takeLatest(clientActionTypes.FETCH_FORM_DATA, fetchFormData),
+    takeLatest(clientActionTypes.GET_ITEMS, getItems),
+    takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
 ];
