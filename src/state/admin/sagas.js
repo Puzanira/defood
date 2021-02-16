@@ -27,7 +27,7 @@ function* setIsTransferredData(isTransferred) {
 }
 
 function* setIsTransferAgreementData(agreement) {
-    // Запрос на подтверждение "принять" в всплывающем меню
+    // Запрос на подтверждение "принять"/"отклонить" в всплывающем меню
     yield put(adminActions.setIsTransferAgreement(agreement.$payload));
 }
 
@@ -39,7 +39,7 @@ function* setMarkeredPoint(markeredData) {
     } = markeredData.$payload;
 
     if (!isSelected) {
-        // Запрос на добавление маркера
+        // Запрос на добавление статуса (у меня списочек со статусами)
         const date = new Date();
         const time = date.toTimeString(date.getTime).split(' ')[0];
 
