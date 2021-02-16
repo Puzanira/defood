@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
  */
 export const CheckActivityFragment = () => {
     const isTransferred = useSelector(state => state.admin.checkData.isTransferred);
-    const valuesOfStatuses = useSelector(state => state.admin.checkStatuses.valuesOfStatuses);
-    const activeStatusesList = useSelector(state => state.admin.checkStatuses.activeStatusesList);
-    const copyStatusesList = useSelector(state => state.admin.checkStatuses.copyStatusesList);
+    const valuesOfStatuses = useSelector(state => state.admin.valuesOfStatuses);
+    const activeStatusesList = useSelector(state => state.admin.activeStatusesList);
+    const copyStatusesList = useSelector(state => state.admin.copyStatusesList);
 
     const deleteCopiesOfLists = useAction(
         () => adminActions.deleteCopiesOfLists(),
