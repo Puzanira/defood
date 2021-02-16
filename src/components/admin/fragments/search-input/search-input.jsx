@@ -3,36 +3,15 @@ import SearchBar from 'material-ui-search-bar';
 
 import { SearchFilterListFragment } from '../search-filter-list';
 import './search-input.css';
+import { searchFilters } from '../../../../store/admin-mock-data';
 
 
 /**
  * Search-input fragment
  * @return {jsx}
  */
-export const SearchInputFragment = ({ data }) => {
-    const searchFilters = {
-        Статус: {
-            0: 'Статус',
-            1: 'Принят',
-            2: 'Готов',
-            3: 'В пути',
-            4: 'Завершен',
-        },
-        Стоимость: {
-            0: 'Стоимость',
-            1: 'По возрастанию',
-            2: 'По убыванию',
-        },
-        Время: {
-            0: 'Время',
-            1: 'Ближайшие',
-            2: 'Давнейшие',
-        },
-    };
-
+export const SearchInputFragment = () => {
     const initialState = {
-        dataComp: data,
-
         searchFiltersTexts: searchFilters,
         isOpenFilters: false,
         filtersState: Object.keys(searchFilters).reduce((acc, elem) => {
@@ -69,7 +48,6 @@ export const SearchInputFragment = ({ data }) => {
     };
 
     const {
-        dataComp,
         searchFiltersTexts,
         isOpenFilters,
         filtersState,
