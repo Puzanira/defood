@@ -24,6 +24,13 @@ const types = prefixTypes('admin', {
     DELETE_IS_AVAILABLE_BY_INDEX: 'DELETE_IS_AVAILABLE_BY_INDEX',
     SET_MARKERED_POINT: 'SET_MARKERED_POINT', // sagas
     SET_IS_TRANSFERRED_ACTIVITY: 'SET_IS_TRANSFERRED_ACTIVITY', // sagas
+
+    UPDATE_NEXT_STATUS: 'UPDATE_NEXT_STATUS',
+    UPDATE_ORDER_PARAMETERS: 'UPDATE_ORDER_PARAMETERS',
+    CREATE_ORDER: 'CREATE_ORDER',
+    GET_ORDER: 'GET_ORDER',
+    UPDATE_ORDER: 'UPDATE_ORDER',
+    SET_ORDER: 'SET_ORDER',
 });
 
 export { types as adminActionTypes };
@@ -51,4 +58,11 @@ export const adminActions = {
     deleteIsAvailableByIndex: createAction(types.DELETE_IS_AVAILABLE_BY_INDEX),
     setMarkeredPoint: createAction(types.SET_MARKERED_POINT),
     setIsTransferredActivity: createAction(types.SET_IS_TRANSFERRED_ACTIVITY),
+
+    updateNextStatus: createAction(types.UPDATE_NEXT_STATUS),
+    updateOrderParameters: createAction(types.UPDATE_ORDER_PARAMETERS),
+    createOrder: createAction(types.CREATE_ORDER),
+    getOrder: createAction(types.GET_ORDER),
+    updateOrder: createAction(types.UPDATE_ORDER),
+    setOrder: createAction(types.SET_ORDER),
 };

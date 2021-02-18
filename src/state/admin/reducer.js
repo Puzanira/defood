@@ -7,6 +7,7 @@ import { checkStatuses, statuses } from '../../store/admin-mock-data';
 const defaultState = {
     busy: false,
     orders: [],
+    currentOrder: {},
 
     checkData: {
         data: {},
@@ -110,4 +111,9 @@ export const reducer = lookupTableReducer(defaultState, {
 
         return { ...state, valuesOfStatuses: newStatus };
     },
+
+    [adminActionTypes.SET_ORDER]: (state, order) => ({
+        ...state,
+        currentOrder: order,
+    }),
 });

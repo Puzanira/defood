@@ -1,7 +1,8 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { adminActions, adminActionTypes } from './actions';
-import { data as newOrdersData, checkData } from '../../store/admin-mock-data';
+import { data as newOrdersData, checkData, orderMock, orderMock2 } from '../../store/admin-mock-data';
+import { orderStatusMap } from './deals';
 
 
 function* setBusy(value) {
@@ -51,12 +52,45 @@ function* setIsTransferredActivity() {
     yield put(adminActions.setItemToActiveList({ id: 10, value: 'Передан в другой пункт', time: date.toTimeString(date.getTime).split(' ')[0] }));
 }
 
+// actionType one of 'onSuccess', 'onReject'
+function* updateNextStatus({ $payload: { actionType } }) {
+    const currentOrder = yield select(
+        ({ admin }) => admin.currentOrder,
+    );
+    const currentStatus = currentOrder.status;
+    const nextStatus = orderStatusMap[currentStatus].next[actionType];
+    // call API updateStatus
+    yield put(adminActions.setOrder({ ...currentOrder, status: nextStatus }));
+}
+
+function* createOrder({ $payload: { orderData } }) {
+    // After calling createOrder API we get a queueId and localDealId
+    const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
+    const { queueId, localDealId } = response;
+    yield put(adminActions.setOrder(
+    { ...orderData, queueId, localDealId },
+    ));
+
+    yield updateNextStatus({ $payload: { actionType: 'onSuccess' } });
+}
+
+function* getOrder({ $payload: { id } }) {
+    // call API getOrder
+    const order = orderMock2;
+    yield put(adminActions.setOrder(
+        { ...order },
+    ));
+}
+
 export const sagas = [
-    // takeEvery(adminActionTypes.SET_ORDERS_DATA, getOrders),
     takeLatest(adminActionTypes.GET_ORDERS, getOrders),
     takeLatest(adminActionTypes.GET_CHECK_DATA, getCheckData),
     takeEvery(adminActionTypes.SET_IS_TRANSFERRED_DATA, setIsTransferredData),
     takeEvery(adminActionTypes.SET_IS_TRANSFER_AGREEMENT_DATA, setIsTransferAgreementData),
     takeEvery(adminActionTypes.SET_MARKERED_POINT, setMarkeredPoint),
     takeEvery(adminActionTypes.SET_IS_TRANSFERRED_ACTIVITY, setIsTransferredActivity),
+
+    takeEvery(adminActionTypes.GET_ORDER, getOrder),
+    takeEvery(adminActionTypes.CREATE_ORDER, createOrder),
+    takeEvery(adminActionTypes.UPDATE_NEXT_STATUS, updateNextStatus),
 ];
