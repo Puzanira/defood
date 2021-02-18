@@ -26,12 +26,12 @@ export const CheckAdminLayout = () => {
     );
 
     const transferHandler = useAction(
-        () => adminActions.setIsTransferredData(!isTransferred),
+        () => adminActions.setIsTransferredData({ isTransferred: !isTransferred }),
         [],
     );
 
     const agreementHandler = useAction(
-        () => adminActions.setIsTransferAgreementData(false),
+        () => adminActions.setIsTransferAgreementData({ agreement: false }),
         [],
     );
 

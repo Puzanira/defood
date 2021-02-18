@@ -21,25 +21,19 @@ function* getCheckData() {
     yield put(adminActions.clearCheckStatuses());
 }
 
-function* setIsTransferredData(isTransferred) {
+function* setIsTransferredData({ $payload: { isTransferred } }) {
     // Запрос на перенаправление продукта в другой отдел
-    yield put(adminActions.setIsTransferred(isTransferred.$payload));
+    yield put(adminActions.setIsTransferred(isTransferred));
 }
 
-function* setIsTransferAgreementData(agreement) {
-    // Запрос на подтверждение "принять" в всплывающем меню
-    yield put(adminActions.setIsTransferAgreement(agreement.$payload));
+function* setIsTransferAgreementData({ $payload: { agreement } }) {
+    // Запрос на подтверждение "принять"/"отклонить" в всплывающем меню
+    yield put(adminActions.setIsTransferAgreement(agreement));
 }
 
-function* setMarkeredPoint(markeredData) {
-    const {
-        id,
-        value,
-        isSelected,
-    } = markeredData.$payload;
-
+function* setMarkeredPoint({ $payload: { id, value, isSelected } }) {
     if (!isSelected) {
-        // Запрос на добавление маркера
+        // Запрос на добавление статуса (у меня списочек со статусами)
         const date = new Date();
         const time = date.toTimeString(date.getTime).split(' ')[0];
 

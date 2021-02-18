@@ -3,7 +3,7 @@ import { adminActionTypes } from './actions';
 
 import { checkStatuses, statuses } from '../../store/admin-mock-data';
 
-// Почему меняется defaultState???
+// Разложила на более простые, причины изменения defaultState не обнаружила
 const defaultState = {
     busy: false,
     orders: [],
@@ -13,7 +13,10 @@ const defaultState = {
         isTransferred: false,
         isTransferAgreement: true,
     },
-    checkStatuses: { ...checkStatuses },
+    valuesOfStatuses: { ...checkStatuses.valuesOfStatuses },
+    activeStatusesList: {},
+    copyStatusesList: {},
+    copyActiveStatusesList: {},
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -52,10 +55,13 @@ export const reducer = lookupTableReducer(defaultState, {
     }),
     [adminActionTypes.CLEAR_CHECK_STATUSES]: state => ({
         ...state,
-        checkStatuses: { ...defaultState.checkStatuses }, // Тут происходит что-то нпонентное с изменением массива
+        valuesOfStatuses: { ...defaultState.valuesOfStatuses }, // Тут происходит что-то нпонентное с изменением массива
+        activeStatusesList: {},
+        copyStatusesList: {},
+        copyActiveStatusesList: {},
     }),
     [adminActionTypes.SET_STATUS_MARKER]: (state, id) => {
-        const newStatuses = { ...state.checkStatuses.valuesOfStatuses };
+        const newStatuses = { ...state.valuesOfStatuses };
 
         Object.keys(newStatuses).forEach(elem => {
             if (newStatuses[elem].id === id)
@@ -66,54 +72,42 @@ export const reducer = lookupTableReducer(defaultState, {
             newStatuses[elem].isAvailable = true;
         });
 
-        return { ...state, checkStatuses: { ...state.checkStatuses, valuesOfStatuses: newStatuses } };
+        return { ...state, valuesOfStatuses: newStatuses };
     },
     [adminActionTypes.SET_ITEM_TO_ACTIVE_LIST]: (state, { id, value, time }) => ({
         ...state,
-        checkStatuses: {
-            ...state.checkStatuses,
-            activeStatusesList: {
-                ...state.checkStatuses.activeStatusesList,
-                [id]: { time, value },
-            },
+        activeStatusesList: {
+            ...state.activeStatusesList,
+            [id]: { time, value },
         },
     }),
     [adminActionTypes.BLOCK_ALL_VALUES_OF_STATUSES]: state => {
         console.log('block');
-        console.log(defaultState.checkStatuses.valuesOfStatuses);
-        console.log(defaultState.checkStatuses.activeStatusesList);
+        console.log(defaultState.valuesOfStatuses);
+        console.log(defaultState.activeStatusesList);
 
         return {
             ...state,
-            checkStatuses: {
-                ...state.checkStatuses,
-                valuesOfStatuses: { ...statuses.valuesOfStatuses },
-                activeStatusesList: { ...defaultState.checkStatuses.activeStatusesList },
-            },
+            valuesOfStatuses: { ...statuses.valuesOfStatuses },
+            activeStatusesList: { ...defaultState.activeStatusesList },
         };
     },
     [adminActionTypes.CREATE_COPIES_OF_LISTS]: state => ({
         ...state,
-        checkStatuses: {
-            ...state.checkStatuses,
-            copyStatusesList: state.checkStatuses.valuesOfStatuses,
-            copyActiveStatusesList: state.checkStatuses.activeStatusesList,
-        },
+        copyStatusesList: { ...state.valuesOfStatuses },
+        copyActiveStatusesList: { ...state.activeStatusesList },
     }),
     [adminActionTypes.DELETE_COPIES_OF_LISTS]: state => ({
         ...state,
-        checkStatuses: {
-            ...state.checkStatuses,
-            valuesOfStatuses: state.checkStatuses.copyStatusesList,
-            activeStatusesList: state.checkStatuses.copyActiveStatusesList,
-            copyStatusesList: {},
-            copyActiveStatusesList: {},
-        },
+        valuesOfStatuses: { ...state.copyStatusesList },
+        activeStatusesList: { ...state.copyActiveStatusesList },
+        copyStatusesList: {},
+        copyActiveStatusesList: {},
     }),
     [adminActionTypes.DELETE_IS_AVAILABLE_BY_INDEX]: (state, key) => {
-        const newStatus = { ...state.checkStatuses.valuesOfStatuses };
+        const newStatus = { ...state.valuesOfStatuses };
         newStatus[key].isAvailable = false;
 
-        return { ...state, checkStatuses: { ...state.checkStatuses, valuesOfStatuses: newStatus } };
+        return { ...state, valuesOfStatuses: newStatus };
     },
 });
