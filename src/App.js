@@ -6,11 +6,11 @@ import { Route, Switch } from 'react-router-dom';
 
 import { store } from './configureStore';
 import { RouterStore } from './store/routes';
-import ListLayout from './components/client/layouts/list-layout/list-layout';
-import CheckLayout from './components/client/layouts/check-layout/check-layout';
-import OrderLayout from './components/client/layouts/order-layoyut/order-layout';
-import CheckAdmintLayout from './components/admin/layouts/check-admin-layout/check-admin-layout';
-import ListAdminLayout from '../admin/layouts/list-layout/list-layout';
+import { ListLayout } from './components/client/layouts/list-layout';
+import { CheckLayout } from './components/client/layouts/check-layout';
+import { OrderLayout } from './components/client/layouts/order-layoyut';
+import { CheckAdminLayout } from './components/admin/layouts/check-admin-layout';
+import { ListLayout as ListAdminLayout } from './components/admin/layouts/list-layout';
 
 
 export class App extends Component {
@@ -26,7 +26,7 @@ export class App extends Component {
           route(RouterStore.website.check, <CheckLayout />),
           route(RouterStore.website.order, <OrderLayout />),
           route(RouterStore.admin.index, <ListAdminLayout />),
-          route(RouterStore.admin.check, <CheckAdmintLayout />),
+          route(RouterStore.admin.check, <CheckAdminLayout />),
       ];
   }
 

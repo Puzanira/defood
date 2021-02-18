@@ -34,6 +34,12 @@
 
     font-size: 44px;
     font-family: "Arial Black";
+
+    text-decoration: none;
+}
+
+.page-header__link {
+    color: white !important;
 }
 
 .page-header__wrap {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-
+import { useSelector } from 'react-redux';
 import { Order } from '../../fragments/order';
 import { Page } from '../../fragments/page';
 
@@ -12,11 +12,14 @@ import './check-layout.css';
 
 export const CheckLayout = () => {
     const steps = ['Оформлен', 'Изготавливается', 'Готов', 'В пути', 'Доставлен'];
+    const data = useSelector(state => state.client.waiting);
+
     const stepper = steps.map(item => (
         <Step key={item}>
             <StepLabel>{item}</StepLabel>
         </Step>
         ));
+
     return (
         <Page header='small'>
             <div className='check-title'>Заказ № 111</div>
@@ -41,7 +44,7 @@ export const CheckLayout = () => {
                 </div>
                 <Order />
             </div>
-            <Stepper className='check-controls' activeStep={-1}>
+            <Stepper className='check-controls' activeStep={data}>
                 { stepper }
             </Stepper>
         </Page>
