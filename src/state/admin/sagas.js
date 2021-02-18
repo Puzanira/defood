@@ -39,14 +39,15 @@ function* updateNextStatus({ $payload: { actionType } }) {
     ));
 }
 
-function* createOrder({ $payload: { orderData } }) {
+function* createOrder({ $payload: { params } }) {
     // After calling createOrder API we get a queueId and localDealId
-    const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
+
+    // const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
+    const response = { queueId: 'QUEUEID', localDealId: '3321' };
     const { queueId, localDealId } = response;
 
-    // status: 'created' or 'transferringToPizza'
     yield put(adminActions.setOrder(
-    { queueId, localDealId, parameters: { ...orderData } },
+    { queueId, localDealId, parameters: { ...params }, status: 'created', history: [] },
     ));
 
     yield updateNextStatus({ $payload: { actionType: 'onSuccess' } });

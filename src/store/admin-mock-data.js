@@ -136,3 +136,14 @@ export const searchFilters = {
         'closed',
     ],
 };
+
+export const headerData = {
+    depi1: {
+        ordersPath: '/admin/',
+        indexTitle: 'DePi1 Admin',
+    },
+    depi2: {
+        ordersPath: '/admin/',
+        indexTitle: 'DePi2 Admin',
+    },
+};

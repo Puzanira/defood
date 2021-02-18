@@ -8,12 +8,12 @@ import './header.css';
  * Header fragment
  * @return {jsx}
  */
-export const HeaderFragment = () => (
+export const HeaderFragment = ({ headerData }) => (
     <div className='header-admin-container'>
         <div className='header-admin'>
-            <Link to='/admin/index' className='header-admin__logo'>DePi Admin</Link>
+            <Link to={headerData.ordersPath} className='header-admin__logo'>{headerData.indexTitle}</Link>
             <div className='header-admin__links'>
-                <Link to='/admin/index' className='header-admin__link'>Заказы</Link>
+                <Link to={headerData.ordersPath} className='header-admin__link'>Заказы</Link>
                 <div className='header-admin__link'>Профиль</div>
             </div>
         </div>

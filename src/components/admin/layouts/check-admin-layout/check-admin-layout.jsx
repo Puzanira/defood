@@ -8,6 +8,7 @@ import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
 import { orderStatusMap } from '../../../../state/admin/deals';
+import { headerData } from '../../../../store/admin-mock-data';
 import './check-admin-layout.css';
 
 
@@ -35,7 +36,7 @@ export const CheckAdminLayout = () => {
     }, [currentOrder, getData, id]);
 
     return (
-        <AdminPageFragment>
+        <AdminPageFragment headerData={headerData.depi1}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>

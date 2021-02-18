@@ -6,6 +6,7 @@ import { SearchInputFragment } from '../../fragments/search-input';
 import { AdminPageFragment } from '../../fragments/admin-page';
 import { adminActions } from '../../../../state/admin/actions';
 import { useAction } from '../../../../utils';
+import { headerData } from '../../../../store/admin-mock-data';
 import './list-layout.css';
 
 
@@ -21,11 +22,12 @@ export const ListLayout = () => {
     );
 
     useEffect(() => {
-        getOrders();
+        if (!data)
+            getOrders();
     }, [getOrders]);
 
     return (
-        <AdminPageFragment>
+        <AdminPageFragment headerData={headerData.depi1}>
             <div className='list-layout-content__title list-layout-content_margin-bottom'>
                 Реестр заказов
             </div>
