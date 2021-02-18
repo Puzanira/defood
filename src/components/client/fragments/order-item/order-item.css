@@ -16,6 +16,12 @@
     align-items: center;
 }
 
+.order-item__toggle {
+    margin: 0 10px;
+
+    cursor: pointer;
+}
+
 .order-item__img {
     height: 50px;
     width: 50px;
