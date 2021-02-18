@@ -1,13 +1,12 @@
-import { React, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import { ListPartFragment } from '../../fragments/list-part';
 import { SearchInputFragment } from '../../fragments/search-input';
 import { AdminPageFragment } from '../../fragments/admin-page';
-import { useSelector } from 'react-redux';
-
-import './list-layout.css';
 import { adminActions } from '../../../../state/admin/actions';
 import { useAction } from '../../../../utils';
+import './list-layout.css';
 
 
 /**
@@ -23,7 +22,7 @@ export const ListLayout = () => {
 
     useEffect(() => {
         getOrders();
-    }, []);
+    }, [getOrders]);
 
     return (
         <AdminPageFragment>
