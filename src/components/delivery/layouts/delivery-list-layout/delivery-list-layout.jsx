@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { ListPartFragment } from '../../fragments/list-part';
-import { SearchInputFragment } from '../../fragments/search-input';
-import { AdminPageFragment } from '../../fragments/admin-page';
-import { adminActions } from '../../../../state/admin/actions';
+import { ListPartFragment } from '../../../admin/fragments/list-part';
+import { AdminPageFragment } from '../../../admin/fragments/admin-page';
 import { useAction } from '../../../../utils';
 import { headerData } from '../../../../store/admin-mock-data';
-import './list-layout.css';
+import '../../../admin/layouts/list-layout/list-layout.css';
+import { deliveryActions } from '../../../../state/delivery/actions';
 
 
 /**
- * List layout
+ * Delivery ist layout
  */
-export const ListLayout = () => {
-    const data = useSelector(state => state.admin.orders);
+export const DeliveryListLayout = () => {
+    const data = useSelector(state => state.delivery.orders);
 
     const getOrders = useAction(
-        () => adminActions.getOrders(),
+        () => deliveryActions.getOrders(),
         [],
     );
 
@@ -27,13 +26,12 @@ export const ListLayout = () => {
     }, [getOrders]);
 
     return (
-        <AdminPageFragment headerData={headerData.depi2}>
+        <AdminPageFragment headerData={headerData.delivery}>
             <div className='list-layout-content__title list-layout-content_margin-bottom'>
                 Реестр заказов
             </div>
-            <SearchInputFragment />
             {data.map((item, index) => (
-                <ListPartFragment data={item} pageType='admin' key={index} />
+                <ListPartFragment data={item} pageType='delivery' key={index} />
             ))}
         </AdminPageFragment>
     );

@@ -6,10 +6,10 @@ export const RouterStore = {
     },
     admin: {
         index: '/admin/',
-        check: '/admin/order/:id',
+        order: '/admin/order/:id',
     },
     delivery: {
         index: '/delivery/',
-        check: '/delivery/order/:id',
+        order: '/delivery/order/:id',
     },
 };

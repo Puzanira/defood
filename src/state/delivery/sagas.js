@@ -1,28 +1,28 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
-import { adminActions, adminActionTypes } from './actions';
-import { pagedData, orderMock2 } from '../../store/admin-mock-data';
+import { deliveryActions, deliveryActionTypes } from './actions';
+import { pagedDeliveryData, deliveryOrderMock } from '../../store/admin-mock-data';
 import { orderStatusMap } from './deals';
 
 
 function* setBusy(value) {
-    yield put(adminActions.setStatus({ busy: value }));
+    yield put(deliveryActions.setStatus({ busy: value }));
 }
 
 function* getOrders() {
-    // Запрос на получение всех данных для списка
-    yield put(adminActions.setOrders(pagedData.data));
+    // Запрос на получение всех данных для списка доставки
+    yield put(deliveryActions.setOrders(pagedDeliveryData.data));
 }
 
 // actionType one of 'onSuccess', 'onReject'
 function* updateNextStatus({ $payload: { actionType } }) {
     const currentOrder = yield select(
-        ({ admin }) => admin.currentOrder,
+        ({ delivery }) => delivery.currentOrder,
     );
     const currentStatus = currentOrder.status;
     const nextStatus = orderStatusMap[currentStatus].next[actionType];
     // call API updateStatus
-    yield put(adminActions.setOrder(
+    yield put(deliveryActions.setOrder(
         {
             ...currentOrder,
             status: nextStatus,
@@ -46,7 +46,7 @@ function* createOrder({ $payload: { params } }) {
     const response = { queueId: 'QUEUEID', localDealId: '3321' };
     const { queueId, localDealId } = response;
 
-    yield put(adminActions.setOrder(
+    yield put(deliveryActions.setOrder(
         { queueId, localDealId, parameters: { ...params }, status: 'created', history: [] },
     ));
 
@@ -55,15 +55,15 @@ function* createOrder({ $payload: { params } }) {
 
 function* getOrder({ $payload: { id } }) {
     // call API getOrder
-    const order = orderMock2;
-    yield put(adminActions.setOrder(
+    const order = deliveryOrderMock;
+    yield put(deliveryActions.setOrder(
         { ...order },
     ));
 }
 
 export const sagas = [
-    takeLatest(adminActionTypes.GET_ORDERS, getOrders),
-    takeEvery(adminActionTypes.GET_ORDER, getOrder),
-    takeEvery(adminActionTypes.CREATE_ORDER, createOrder),
-    takeEvery(adminActionTypes.UPDATE_NEXT_STATUS, updateNextStatus),
+    takeLatest(deliveryActionTypes.DELIVERY_GET_ORDERS, getOrders),
+    takeEvery(deliveryActionTypes.DELIVERY_GET_ORDER, getOrder),
+    takeEvery(deliveryActionTypes.DELIVERY_CREATE_ORDER, createOrder),
+    takeEvery(deliveryActionTypes.DELIVERY_UPDATE_NEXT_STATUS, updateNextStatus),
 ];

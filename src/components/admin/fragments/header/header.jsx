@@ -9,7 +9,7 @@ import './header.css';
  * @return {jsx}
  */
 export const HeaderFragment = ({ headerData }) => (
-    <div className='header-admin-container'>
+    <div className={`header-admin-container ${headerData.style}`}>
         <div className='header-admin'>
             <Link to={headerData.ordersPath} className='header-admin__logo'>{headerData.indexTitle}</Link>
             <div className='header-admin__links'>

@@ -1,32 +1,32 @@
-import React, { useReducer, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { useAction } from '../../../../utils';
-import { adminActions } from '../../../../state/admin/actions';
-import { AdminPageFragment } from '../../fragments/admin-page';
-import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
-import { CheckActivityFragment } from '../../fragments/check-activity';
+import { deliveryActions } from '../../../../state/delivery/actions';
+import { AdminPageFragment } from '../../../admin/fragments/admin-page';
+import { CheckRightSideItemFragment } from '../../../admin/fragments/check-right-side-item';
+import { CheckActivityFragment } from '../../../admin/fragments/check-activity';
 import { orderStatusMap } from '../../../../state/admin/deals';
 import { headerData } from '../../../../store/admin-mock-data';
-import './check-admin-layout.css';
+import '../../../admin/layouts/check-admin-layout/check-admin-layout.css';
 
 
 /**
- * Check admin layout
+ * Check Delivery layout
  */
-export const CheckAdminLayout = () => {
+export const CheckDeliveryLayout = () => {
     const { id } = useParams();
 
-    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
+    const currentOrder = useSelector(({ delivery }) => delivery.currentOrder);
 
     const getData = useAction(
-        () => adminActions.getOrder({ id }),
+        () => deliveryActions.getOrder({ id }),
         [id],
     );
 
     const updateStatus = useAction(
-        actionType => adminActions.updateNextStatus({ actionType }),
+        actionType => deliveryActions.updateNextStatus({ actionType }),
         [],
     );
 
@@ -36,7 +36,7 @@ export const CheckAdminLayout = () => {
     }, [currentOrder, getData, id]);
 
     return (
-        <AdminPageFragment headerData={headerData.depi2}>
+        <AdminPageFragment headerData={headerData.delivery}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>
@@ -45,27 +45,20 @@ export const CheckAdminLayout = () => {
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Адрес</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts.addressTo}</div>
+                                <div className='admin-check-content-item__title'>Адрес доставки</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
                             </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, ${currentOrder.parameters.clientContacts.tel}`}</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts}</div>
+                            </div>
+                            <div className='admin-check-content-item'>
+                                <div className='admin-check-content-item__title'>Адрес отправителя</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressFrom}</div>
                             </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Оплата</div>
                                 <div className='admin-check-content-item__text'>произведена</div>
-                            </div>
-                        </div>
-                        <div className='admin-check-content__right-side'>
-                            <div className='admin-check-right-side-items'>
-                                {currentOrder.parameters.orderData.map((elem, index) => (
-                                    <CheckRightSideItemFragment data={elem} key={index} />
-                                ))}
-                            </div>
-                            <div className='admin-check-right-side-price'>
-                                <div className='admin-check-right-side-price__result'>Итого</div>
-                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.total}</div>
                             </div>
                         </div>
                     </div>

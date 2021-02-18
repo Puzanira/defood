@@ -8,7 +8,7 @@ import './list-part.css';
  * List-part fragment
  * @return {jsx}
  */
-export const ListPartFragment = ({ data }) => {
+export const ListPartFragment = ({ data, pageType }) => {
     const history = useHistory();
 
     const labelColor = {
@@ -30,7 +30,7 @@ export const ListPartFragment = ({ data }) => {
     };
 
     const routToOrderHandler = () => {
-        history.push(`${RouterStore.admin.check.replace(':id', data.localDealId)}`);
+        history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
     };
 
     return (
