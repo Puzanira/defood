@@ -96,11 +96,15 @@ export const checkData = {
 };
 
 export const searchFilters = {
-    Статус: {
-        0: 'Статус',
-        1: 'Принят',
-        2: 'Готов',
-        3: 'В пути',
-        4: 'Завершен',
-    },
+    Статус: [
+        'created',
+        'accepting',
+        'payment',
+        'processing',
+        'transferringToPizza',
+        'deliveryAgreement',
+        'baking',
+        'transferredToDelivery',
+        'closed',
+    ],
 };
