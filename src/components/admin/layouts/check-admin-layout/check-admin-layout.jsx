@@ -7,9 +7,8 @@ import { adminActions } from '../../../../state/admin/actions';
 import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
-
-import './check-admin-layout.css';
 import { orderStatusMap } from '../../../../state/admin/deals';
+import './check-admin-layout.css';
 
 
 /**
