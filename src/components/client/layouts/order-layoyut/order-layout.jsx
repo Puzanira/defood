@@ -10,7 +10,7 @@ import './order-layout.css';
 
 
 export const OrderLayout = () => {
-    const data = useSelector(state => state.client.order);
+    const order = useSelector(state => state.client.order);
 
     const fetchFormData = useAction(
         formData => clientActions.fetchFormData({ formData }),
@@ -46,7 +46,7 @@ export const OrderLayout = () => {
                                 <div className='checkout-item__card'>Web Money</div>
                             </div>
                         </div>
-                        <button className='checkout__submit' type='submit' disabled={data.length === 0}>Оформить</button>
+                        <button className='checkout__submit' type='submit' disabled={order.length === 0}>Оформить</button>
                     </form>
                 )}
             />
