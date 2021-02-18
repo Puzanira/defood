@@ -23,6 +23,26 @@ export const orderMock2 = {
         orderData: 'пицца “Карбонара" 30см',
         clientContacts: 'Булаков Олег Игоревич +791298481586',
     },
+    history: [
+        {
+            status: 'created',
+            version: 2,
+            remark: 'REMARK',
+            executor: 'CLIENT1',
+        },
+        {
+            status: 'accepting',
+            version: 3,
+            remark: 'REMARK2',
+            executor: 'CLIENT2',
+        },
+        {
+            status: 'payment',
+            version: 3,
+            remark: 'REMARK2',
+            executor: 'CLIENT2',
+        },
+    ],
 };
 
 export const pagedData = {

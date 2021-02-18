@@ -1,7 +1,7 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { adminActions, adminActionTypes } from './actions';
-import { data as newOrdersData, checkData, orderMock, orderMock2 } from '../../store/admin-mock-data';
+import { data as newOrdersData, pagedData, checkData, orderMock, orderMock2 } from '../../store/admin-mock-data';
 import { orderStatusMap } from './deals';
 
 
@@ -11,7 +11,7 @@ function* setBusy(value) {
 
 function* getOrders() {
     // Запрос на получение всех данных для списка
-    yield put(adminActions.setOrdersData(newOrdersData));
+    yield put(adminActions.setOrdersData(pagedData.data));
 }
 
 function* getCheckData() {
@@ -60,7 +60,21 @@ function* updateNextStatus({ $payload: { actionType } }) {
     const currentStatus = currentOrder.status;
     const nextStatus = orderStatusMap[currentStatus].next[actionType];
     // call API updateStatus
-    yield put(adminActions.setOrder({ ...currentOrder, status: nextStatus }));
+    yield put(adminActions.setOrder(
+        {
+            ...currentOrder,
+            status: nextStatus,
+            history: [
+                ...currentOrder.history,
+                {
+                    status: currentStatus,
+                    version: 2,
+                    remark: 'REMARK',
+                    executor: 'CLIENT1',
+                },
+            ],
+        },
+    ));
 }
 
 function* createOrder({ $payload: { orderData } }) {

@@ -1,69 +1,60 @@
 import React, { useReducer, useEffect } from 'react';
-
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+
 import { useAction } from '../../../../utils';
 import { adminActions } from '../../../../state/admin/actions';
-
 import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
-import { TransferSelectFragment } from '../../fragments/transfer-select';
 
 import './check-admin-layout.css';
+import { orderStatusMap } from '../../../../state/admin/deals';
 
 
 /**
  * Check admin layout
  */
 export const CheckAdminLayout = () => {
-    const dataComp = useSelector(state => state.admin.checkData.data);
-    const isTransferred = useSelector(state => state.admin.checkData.isTransferred);
-    const isTransferAgreement = useSelector(state => state.admin.checkData.isTransferAgreement);
+    const { id } = useParams();
 
-    const getCheckData = useAction(
-        () => adminActions.getCheckData(),
-        [],
+    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
+
+    const getData = useAction(
+        () => adminActions.getOrder({ id }),
+        [id],
     );
 
-    const transferHandler = useAction(
-        () => adminActions.setIsTransferredData({ isTransferred: !isTransferred }),
-        [],
-    );
-
-    const agreementHandler = useAction(
-        () => adminActions.setIsTransferAgreementData({ agreement: false }),
+    const updateStatus = useAction(
+        actionType => adminActions.updateNextStatus({ actionType }),
         [],
     );
 
     useEffect(() => {
-        // console.log(dataComp);
-        getCheckData();
-    }, []);
+        if (!(currentOrder && currentOrder.parameters))
+            getData();
+    }, [currentOrder, getData, id]);
 
     return (
         <AdminPageFragment>
-            {dataComp.title && (
+            {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>
-                        {dataComp.title}
+                        Заказ № {currentOrder.localDealId}
                     </div>
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>{dataComp.address.title}</div>
-                                <div className='admin-check-content-item__text'>{dataComp.address.value}</div>
+                                <div className='admin-check-content-item__title'>Адрес</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
                             </div>
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>{dataComp.recipient.title}</div>
-                                <div className='admin-check-content-item__text'>{dataComp.recipient.value}</div>
+                                <div className='admin-check-content-item__title'>Клиент</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts}</div>
                             </div>
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>{dataComp.processingTime.title}</div>
-                                <div className='admin-check-content-item__text'>{dataComp.processingTime.value}</div>
-                            </div>
-                            <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>{dataComp.payment.title}</div>
-                                <div className='admin-check-content-item__text'>{dataComp.payment.value}</div>
+                                <div className='admin-check-content-item__title'>Оплата</div>
+                                <div className='admin-check-content-item__text'>произведена</div>
                             </div>
                         </div>
                         <div className='admin-check-content__right-side'>
@@ -73,34 +64,49 @@ export const CheckAdminLayout = () => {
                             </div>
                             <div className='admin-check-right-side-price'>
                                 <div className='admin-check-right-side-price__result'>Итого</div>
-                                <div className='admin-check-right-side-price__price'>{dataComp.resultPrice}</div>
+                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.price}</div>
                             </div>
                         </div>
                     </div>
-                    {isTransferAgreement && (
-                        <div className='check-agreement'>
-                            <div className='check-agreement__title'>Заказ передан от компании №2</div>
-                            <div className='check-agreement__buttons'>
-                                <div
-                                    className='check-agreement__button check-agreement__button_agree'
-                                    onClick={agreementHandler}
-                                >
-                                    Принять
+                    <div className='check-agreement'>
+                        {currentOrder.status ? (
+                            <>
+                                <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
+                                <div className='check-agreement__buttons'>
+                                    {orderStatusMap[currentOrder.status].next.onReject ? (
+                                        <>
+                                            <div
+                                                className='check-agreement__button check-agreement__button_agree'
+                                                onClick={() => updateStatus('onSuccess')}
+                                            >
+                                                Принять
+                                            </div>
+                                            <div
+                                                className='check-agreement__button check-agreement__button_disagree'
+                                                onClick={() => updateStatus('onReject')}
+                                            >
+                                                Отклонить
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div
+                                            className='check-agreement__button check-agreement__button_agree'
+                                            onClick={() => updateStatus('onSuccess')}
+                                        >
+                                            Далее
+                                        </div>
+                                    )}
                                 </div>
-                                <div className='check-agreement__button check-agreement__button_disagree'>Отклонить</div>
-                            </div>
-                        </div>
-                    )}
-                    <div className={isTransferAgreement ? 'disabled-elem' : ''}>
-                        <div className='admin-check-layout-modern-title admin-check-layout-title_margin-top'>
-                            <div className='admin-check-layout-title'>
-                                Модерирование заказа
-                            </div>
-                            <TransferSelectFragment data={{ value: 'Ресторан №2' }} transferHandler={transferHandler} />
-                        </div>
-                        <CheckActivityFragment />
-                        <div className='admin-check-layout-button'>Завершить работу с заказом</div>
+                            </>
+                        ) : (
+                            <>
+                                <div className='check-agreement__title'>Текущий статус: Заказ закрыт</div>
+                                <div className='admin-check-layout-button'>Завершить работу с заказом</div>
+                            </>
+                        )}
+
                     </div>
+                    <CheckActivityFragment history={currentOrder.history} />
                 </div>
             )}
         </AdminPageFragment>
