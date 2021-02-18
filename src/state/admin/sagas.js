@@ -14,13 +14,13 @@ function* getOrders() {
     yield put(adminActions.setOrders(pagedData.data));
 }
 
-// actionType one of 'onSuccess', 'onReject'
+// actionType one of 'success', 'reject'
 function* updateNextStatus({ $payload: { actionType } }) {
     const currentOrder = yield select(
         ({ admin }) => admin.currentOrder,
     );
     const currentStatus = currentOrder.status;
-    const nextStatus = orderStatusMap[currentStatus].next[actionType];
+    const nextStatus = orderStatusMap[currentStatus].next[actionType](currentOrder);
     // call API updateStatus
     yield put(adminActions.setOrder(
         {
@@ -44,10 +44,10 @@ function* createOrder({ $payload: { orderData } }) {
     const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
     const { queueId, localDealId } = response;
     yield put(adminActions.setOrder(
-    { ...orderData, queueId, localDealId },
+    { ...orderData, queueId, localDealId, type: 'Initial' },
     ));
 
-    yield updateNextStatus({ $payload: { actionType: 'onSuccess' } });
+    yield updateNextStatus({ $payload: { actionType: 'success' } });
 }
 
 function* getOrder({ $payload: { id } }) {

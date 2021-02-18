@@ -5,6 +5,7 @@ export const dealTypes = {
         dealId: String,
         queueId: String,
         parameters: {
+            type: 'Initial',
             addressTo: String,
             addressFrom: String,
             price: Number,
@@ -27,6 +28,7 @@ export const dealTypes = {
         dealId: String,
         queueId: String,
         parameters: {
+            type: 'Transfer',
             initiator: String,
             queueId: String,
             price: Number,
@@ -56,70 +58,74 @@ export const dealTypes = {
 export const orderStatusMap = {
     created: {
         next: {
-            onSuccess: 'accepting',
+            success: order => 'accepting',
         },
     },
     accepting: {
         next: {
-            onSuccess: 'payment',
-            onReject: 'closed',
+            success: order => 'payment',
+            reject: order => 'closed',
         },
     },
     payment: {
         next: {
-            onSuccess: 'processing',
+            success: order => 'processing',
         },
     },
     processing: {
         next: {
-            onSuccess: 'deliveryAgreement',
-            onReject: 'transferringToPizza',
+            success: order => 'deliveryAgreement',
+            reject: order => 'transferringToPizza',
         },
     },
     transferringToPizza: {
         next: {
-            onSuccess: 'deliveryAgreement',
-            onReject: 'processing',
+            success: order => 'deliveryAgreement',
+            reject: order => 'processing',
         },
     },
     deliveryAgreement: {
         next: {
-            onSuccess: 'baking',
+            success: order => 'baking',
         },
     },
     baking: {
         next: {
-            onSuccess: 'transferredToDelivery',
+            success: order => 'transferredToDelivery',
         },
     },
-    transferredToDelivery: { next: 'closed' },
+    transferredToDelivery: {
+        next: {
+            success: order => 'closed',
+        },
+    },
     closed: { next: null },
 };
 
 export const deliveryStatusMap = {
     created: {
         next: {
-            onSuccess: 'accepting',
+            success: order => 'accepting',
         },
     },
     accepting: {
         next: {
-            onSuccess: 'payment',
+            success: order => 'payment',
         },
     },
     payment: {
         next: {
-            onSuccess: 'receiving',
+            success: order => 'receiving',
         },
     },
     receiving: {
         next: {
-            onSuccess: 'delivering',
+            success: order => 'delivering',
         },
     },
     delivering: {
         next: {
-            onSuccess: 'closed',
+            success: order => 'closed',
         },
     },
     closed: { next: null },

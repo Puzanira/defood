@@ -43,17 +43,30 @@ export const CheckAdminLayout = () => {
                     </div>
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
-                            <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Адрес</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
-                            </div>
-                            <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts}</div>
-                            </div>
+                            {currentOrder.parameters.type === 'Initial' ? (
+                                <div className='admin-check-content-item'>
+                                    <div className='admin-check-content-item__title'>Адрес</div>
+                                    <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
+                                </div>
+                            ) : (
+                                <div className='admin-check-content-item'>
+                                    <div className='admin-check-content-item__title'>Получен от</div>
+                                    <div className='admin-check-content-item__text'>{currentOrder.parameters.initiator}</div>
+                                </div>
+                            )}
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Оплата</div>
-                                <div className='admin-check-content-item__text'>произведена</div>
+                                <div className='admin-check-content-item__text'>
+                                    {currentOrder.status === 'created' || currentOrder.status === 'accepted'
+                                        ? 'не произведена'
+                                        : 'произведена'}
+                                </div>
+                            </div>
+                            <div className='admin-check-content-item'>
+                                <div className='admin-check-content-item__title'>Доставщик</div>
+                                <div className='admin-check-content-item__text'>
+                                    {currentOrder.parameters.deliverer || 'не назначен'}
+                                </div>
                             </div>
                         </div>
                         <div className='admin-check-content__right-side'>
@@ -72,17 +85,17 @@ export const CheckAdminLayout = () => {
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__buttons'>
-                                    {orderStatusMap[currentOrder.status].next.onReject ? (
+                                    {orderStatusMap[currentOrder.status].next.reject ? (
                                         <>
                                             <div
                                                 className='check-agreement__button check-agreement__button_agree'
-                                                onClick={() => updateStatus('onSuccess')}
+                                                onClick={() => updateStatus('success')}
                                             >
                                                 Принять
                                             </div>
                                             <div
                                                 className='check-agreement__button check-agreement__button_disagree'
-                                                onClick={() => updateStatus('onReject')}
+                                                onClick={() => updateStatus('reject')}
                                             >
                                                 Отклонить
                                             </div>
@@ -90,7 +103,7 @@ export const CheckAdminLayout = () => {
                                     ) : (
                                         <div
                                             className='check-agreement__button check-agreement__button_agree'
-                                            onClick={() => updateStatus('onSuccess')}
+                                            onClick={() => updateStatus('success')}
                                         >
                                             Далее
                                         </div>

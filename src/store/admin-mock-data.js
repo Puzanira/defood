@@ -96,7 +96,7 @@ export const checkData = {
 };
 
 export const searchFilters = {
-    Статус: {
+    status: {
         0: 'Статус',
         1: 'Принят',
         2: 'Готов',
