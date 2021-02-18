@@ -19,6 +19,7 @@ function* updateNextStatus({ $payload: { actionType } }) {
     const currentOrder = yield select(
         ({ admin }) => admin.currentOrder,
     );
+
     const currentStatus = currentOrder.status;
     const nextStatus = orderStatusMap[currentStatus].next[actionType];
     // call API updateStatus

@@ -128,7 +128,7 @@ export const deliveryOrderMock = {
     dealId: 'ad04c39314184ac0847304fc22eaac75:fc5567d419c647e0b4f8806dc8d3a9ae',
     queueId: 1,
     localDealId: 3511,
-    status: 'processing',
+    status: 'accepting',
     parameters: {
         addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
         addressFrom: 'Москва, Рязанский проспект 14 к2',
@@ -140,18 +140,6 @@ export const deliveryOrderMock = {
             version: 2,
             remark: 'REMARK',
             executor: 'CLIENT1',
-        },
-        {
-            status: 'accepting',
-            version: 3,
-            remark: 'REMARK2',
-            executor: 'CLIENT2',
-        },
-        {
-            status: 'payment',
-            version: 3,
-            remark: 'REMARK2',
-            executor: 'CLIENT2',
         },
     ],
 };

@@ -2,7 +2,7 @@ import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { deliveryActions, deliveryActionTypes } from './actions';
 import { pagedDeliveryData, deliveryOrderMock } from '../../store/admin-mock-data';
-import { orderStatusMap } from './deals';
+import { deliveryStatusMap } from './deals';
 
 
 function* setBusy(value) {
@@ -20,7 +20,8 @@ function* updateNextStatus({ $payload: { actionType } }) {
         ({ delivery }) => delivery.currentOrder,
     );
     const currentStatus = currentOrder.status;
-    const nextStatus = orderStatusMap[currentStatus].next[actionType];
+    const nextStatus = (currentStatus !== 'closed') ? deliveryStatusMap[currentStatus].next[actionType] : undefined;
+
     // call API updateStatus
     yield put(deliveryActions.setOrder(
         {

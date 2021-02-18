@@ -7,7 +7,7 @@ import { deliveryActions } from '../../../../state/delivery/actions';
 import { AdminPageFragment } from '../../../admin/fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../../admin/fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../../admin/fragments/check-activity';
-import { orderStatusMap } from '../../../../state/admin/deals';
+import { deliveryStatusMap } from '../../../../state/admin/deals';
 import { headerData } from '../../../../store/admin-mock-data';
 import '../../../admin/layouts/check-admin-layout/check-admin-layout.css';
 
@@ -67,7 +67,7 @@ export const CheckDeliveryLayout = () => {
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__buttons'>
-                                    {orderStatusMap[currentOrder.status].next.onReject ? (
+                                    {deliveryStatusMap[currentOrder.status].next && deliveryStatusMap[currentOrder.status].next.onReject ? (
                                         <>
                                             <div
                                                 className='check-agreement__button check-agreement__button_agree'
