@@ -91,9 +91,16 @@
     border: 0;
     border-radius: 10px;
 
+    cursor: pointer;
+
     background-color: var(--color-black);
 }
 
 .checkout__submit:focus {
     outline: none;
+}
+
+.checkout__submit:disabled {
+    cursor: initial;
+    background-color: var(--color-gray);
 }
