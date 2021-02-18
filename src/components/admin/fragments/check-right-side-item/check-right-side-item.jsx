@@ -7,13 +7,13 @@ import pizza from '../../../../assets/pics/pizza.jpeg';
  * List-part fragment
  * @return {jsx}
  */
-export const CheckRightSideItemFragment = () => {
+export const CheckRightSideItemFragment = ({ data }) => {
     const dataComp = {
         photo: pizza,
-        title: 'Пицца “Бавария” 25см',
-        weight: '500 г',
+        title: `Пицца "${data.title}"`,
+        weight: `${data.size} см`,
         count: 'х1',
-        price: '400 ₽',
+        price: data.price,
     };
 
     return (

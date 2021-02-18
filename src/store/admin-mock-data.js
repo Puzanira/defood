@@ -2,10 +2,24 @@
 export const orderMock = {
     status: 'created',
     parameters: {
-        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        price: 1150,
-        orderData: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30см, пицца “Карбонара" 25см',
-        clientContacts: 'Ярина Анастасия Дмитриевна +791298481586',
+        clientContacts: {
+            addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            name: 'Ольга Павлова',
+            tel: '+7 916 720 64 95',
+        },
+        orderData: [
+            {
+                title: 'Маргaрита',
+                price: '1000',
+                size: '30',
+            },
+            {
+                title: 'Четыре сыра',
+                price: '800',
+                size: '25',
+            },
+        ],
+        total: 1800,
     },
 };
 
@@ -18,10 +32,24 @@ export const orderMock2 = {
     localDealId: 3511,
     status: 'processing',
     parameters: {
-        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        price: 500,
-        orderData: 'пицца “Карбонара" 30см',
-        clientContacts: 'Булаков Олег Игоревич +791298481586',
+        clientContacts: {
+            addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            name: 'Ольга Павлова',
+            tel: '+7 916 720 64 95',
+        },
+        orderData: [
+            {
+                title: 'Маргaрита',
+                price: '1000',
+                size: '30',
+            },
+            {
+                title: 'Четыре сыра',
+                price: '800',
+                size: '25',
+            },
+        ],
+        total: 1800,
     },
     history: [
         {
@@ -75,24 +103,24 @@ export const pagedData = {
 };
 
 export const checkData = {
-    title: 'Заказ №1212121',
-    address: {
-        title: 'Доставка по адресу',
-        value: 'Москва, ул. Юных Ленинцев 12/17 к1',
+    clientContacts: {
+        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+        name: 'Ольга Павлова',
+        tel: '+7 916 720 64 95',
     },
-    recipient: {
-        title: 'Получатель',
-        value: 'Ольга, +7 916 720 64 95',
-    },
-    processingTime: {
-        title: 'Время оформления',
-        value: '2 февраля 2021 17:00',
-    },
-    payment: {
-        title: 'Оплата',
-        value: 'Онлайн на сайте',
-    },
-    resultPrice: '950 ₽',
+    orderData: [
+        {
+            title: 'Маргaрита',
+            price: '1000',
+            size: '30',
+        },
+        {
+            title: 'Четыре сыра',
+            price: '800',
+            size: '25',
+        },
+    ],
+    total: 1800,
 };
 
 export const searchFilters = {
