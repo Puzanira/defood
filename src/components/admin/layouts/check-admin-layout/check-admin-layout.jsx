@@ -45,11 +45,11 @@ export const CheckAdminLayout = () => {
                         <div className='admin-check-content__left-side'>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Адрес</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
+                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts.addressTo}</div>
                             </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts}</div>
+                                <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, ${currentOrder.parameters.clientContacts.tel}`}</div>
                             </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Оплата</div>
@@ -58,12 +58,13 @@ export const CheckAdminLayout = () => {
                         </div>
                         <div className='admin-check-content__right-side'>
                             <div className='admin-check-right-side-items'>
-                                <CheckRightSideItemFragment />
-                                <CheckRightSideItemFragment />
+                                {currentOrder.parameters.orderData.map((elem, index) => (
+                                    <CheckRightSideItemFragment data={elem} key={index} />
+                                ))}
                             </div>
                             <div className='admin-check-right-side-price'>
                                 <div className='admin-check-right-side-price__result'>Итого</div>
-                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.price}</div>
+                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.total}</div>
                             </div>
                         </div>
                     </div>
