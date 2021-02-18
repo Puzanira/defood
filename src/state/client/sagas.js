@@ -1,4 +1,4 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import { PizzaArray } from '../../store/client-mock-data';
 
 import { clientActions, clientActionTypes } from './actions';
@@ -28,6 +28,26 @@ function* deleteOrderItem({ $payload: { item } }) {
 
 // API для отправки формы
 function* fetchFormData({ $payload: { formData } }) {
+    const order = yield select(
+        ({ client }) => client.order,
+    );
+
+    const total = order.reduce((acc, item) => acc + Number(item.price), 0);
+
+    const orderData = order.map(item => ({
+          title: item.title,
+          price: item.price,
+          size: item.size,
+        }));
+
+    const clientContacts = {
+        addressTo: formData.address,
+        tel: formData.number,
+        name: formData.name,
+    };
+
+    const params = { orderData, total, clientContacts };
+
     yield put(clientActions.setFormData(formData));
 }
 

@@ -31,7 +31,6 @@ export const reducer = lookupTableReducer(defaultState, {
     [clientActionTypes.SET_ITEMS]: (state, items) => ({
        ...state,
        items: [
-           ...state.items,
            ...items,
        ],
     }),
