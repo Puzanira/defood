@@ -9,6 +9,7 @@ import { CheckRightSideItemFragment } from '../../fragments/check-right-side-ite
 import { CheckActivityFragment } from '../../fragments/check-activity';
 import { orderStatusMap } from '../../../../state/admin/deals';
 import { headerData } from '../../../../store/admin-mock-data';
+import { config } from '../../../../config';
 import './check-admin-layout.css';
 
 
@@ -36,7 +37,7 @@ export const CheckAdminLayout = () => {
     }, [currentOrder, getData, id]);
 
     return (
-        <AdminPageFragment headerData={headerData.depi2}>
+        <AdminPageFragment headerData={headerData[config.nodeType]}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>

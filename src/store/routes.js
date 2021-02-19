@@ -5,8 +5,14 @@ export const RouterStore = {
         order: '/order/',
     },
     admin: {
-        index: '/admin/',
-        order: '/admin/order/:id',
+        pizza1: {
+            index: '/admin/pizza1/',
+            order: '/admin/pizza1/order/:id',
+        },
+        pizza2: {
+            index: '/admin/pizza2/',
+            order: '/admin/pizza2/order/:id',
+        },
     },
     delivery: {
         index: '/delivery/',
