@@ -32,6 +32,18 @@ code {
   opacity: 0.6;
 }
 
+.header_depi1 {
+  background-color: #d6a3d3;
+}
+
+.header_depi2 {
+  background-color: #82a5d6;
+}
+
+.header_delivery {
+  background-color: #a7d86e; /* #99da4d */
+}
+
 :root {
   --color-gray: #cdcdcd;
   --color-gray-1: #f3f3f3;

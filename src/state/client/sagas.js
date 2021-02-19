@@ -2,6 +2,7 @@ import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import { PizzaArray } from '../../store/client-mock-data';
 
 import { clientActions, clientActionTypes } from './actions';
+import { adminActions } from '../admin/actions';
 
 
 function* setBusy(value) {
@@ -48,7 +49,7 @@ function* fetchFormData({ $payload: { formData } }) {
 
     const params = { orderData, total, clientContacts };
 
-    yield put(clientActions.setFormData(formData));
+    yield put(adminActions.createOrder({ params }));
 }
 
 export const sagas = [
