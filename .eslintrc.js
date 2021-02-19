@@ -50,7 +50,7 @@ module.exports = {
             ignoreTemplateLiterals: true,
         }],
         'linebreak-style': 'off',
-
+        'no-use-before-define': 'off',
         'no-plusplus': 'off',
         'no-debugger': 'warn',
 

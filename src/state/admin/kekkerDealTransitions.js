@@ -3,6 +3,7 @@ import { put, delay } from 'redux-saga/effects';
 import { callApi } from '../../api/core/apiCaller';
 import { dealsApi, queueApi } from '../../api';
 import { config } from '../../config';
+import { plainify } from '../../utils';
 
 
 export function callPizza1Api(apiCall, callArgs) {
@@ -10,9 +11,7 @@ export function callPizza1Api(apiCall, callArgs) {
 }
 
 function mapParametersToArray(parameters) {
-    return Object.entries(parameters).map(([key, value]) => (
-        { key, value }
-    ));
+    return plainify(parameters);
 }
 
 function mapParametersToObject(parameters) {
