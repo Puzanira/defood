@@ -1,7 +1,7 @@
 export const RouterStore = {
     website: {
         index: '/',
-        check: '/check/',
+        check: '/check/:id',
         order: '/order/',
     },
     admin: {

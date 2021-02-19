@@ -26,10 +26,13 @@ export const dealsApi = {
           "localDealId": "LOCALDEALID"
         }
      */
+    getDeals: get(
+        () => dealsPart(),
+    ),
     createDeal: post(
-        ({ params }) => dealsPart({
+        ({ deal }) => dealsPart({
             body: {
-                ...params,
+                ...deal,
             },
         }),
     ),
@@ -43,6 +46,14 @@ export const dealsApi = {
             path: id,
             body: {
                 status,
+            },
+        }),
+    ),
+    updateParameters: post(
+        ({ parameters, id }) => dealsPart({
+            path: id,
+            body: {
+                parameters,
             },
         }),
     ),
@@ -60,10 +71,10 @@ export const dealsApi = {
         RESPONSE: empty
      */
     updateDeal: post(
-        ({ data, id }) => dealsPart({
+        ({ dealData, id }) => dealsPart({
             path: id,
             body: {
-                ...data,
+                ...dealData,
             },
         }),
     ),

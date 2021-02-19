@@ -16,6 +16,8 @@ const types = prefixTypes('client', {
     GET_ITEMS: 'GET_ITEMS',
     GET_WAITING_STATUS: 'GET_WAITING_STATUS',
     SET_WAITING_STATUS: 'SET_WAITING_STATUS',
+    SET_TICKET_DATA: 'SET_TICKET_DATA',
+    GET_TICKET_DATA: 'GET_TICKET_DATA',
 });
 
 export { types as clientActionTypes };
@@ -33,4 +35,7 @@ export const clientActions = {
     getItems: createAction(types.GET_ITEMS),
     getWaitingStatus: createAction(types.GET_WAITING_STATUS),
     setWaitingStatus: createAction(types.SET_WAITING_STATUS),
+    setTicketData: createAction(types.SET_TICKET_DATA),
+    getTicketData: createAction(types.GET_TICKET_DATA),
+
 };

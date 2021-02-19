@@ -1,6 +1,14 @@
+import {
+    transferringDeal,
+    updateDealStatus,
+    createDeliveryDeal,
+    waitForDeliveryStatus,
+    waitForBakingStatus,
+} from './kekkerDealTransitions';
+
 
 export const dealTypes = {
-    initialOrder: {
+    order: {
         localDealId: String,
         dealId: String,
         queueId: String,
@@ -22,30 +30,12 @@ export const dealTypes = {
 
         },
     },
-    transferOrder: {
-        localDealId: String,
-        dealId: String,
-        queueId: String,
-        parameters: {
-            initiator: String,
-            queueId: String,
-            price: Number,
-            orderData: String,
-
-            // delivery:
-            deliverer: String,
-
-            // transfer:
-            isTransferred: Boolean,
-            transferredTo: String,
-            transferOrderId: String,
-        },
-    },
     deliveryOrder: {
         localDealId: String,
         dealId: String,
         queueId: String,
         parameters: {
+            orderId: String,
             addressTo: String,
             addressFrom: String,
             clientContacts: String,
@@ -56,71 +46,74 @@ export const dealTypes = {
 export const orderStatusMap = {
     created: {
         next: {
-            onSuccess: 'accepting',
+            success: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'accepting' }),
         },
     },
     accepting: {
         next: {
-            onSuccess: 'payment',
-            onReject: 'closed',
+            success: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'payment' }),
+            reject: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'closed' }),
         },
     },
     payment: {
         next: {
-            onSuccess: 'processing',
-        },
-    },
-    processing: {
-        next: {
-            onSuccess: 'deliveryAgreement',
-            onReject: 'transferringToPizza',
+            success: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'processing' }),
         },
     },
     transferringToPizza: {
         next: {
-            onSuccess: 'deliveryAgreement',
-            onReject: 'processing',
+            success: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'deliveryAgreement' }),
+            reject: deal => transferringDeal({ deal }),
         },
     },
     deliveryAgreement: {
         next: {
-            onSuccess: 'baking',
+            success: deal => createDeliveryDeal({ deal }),
         },
     },
     baking: {
         next: {
-            onSuccess: 'transferredToDelivery',
+            success: deal => updateDealStatus({ dealId: deal.dealId, nextStatus: 'transferredToDelivery' }),
         },
     },
-    transferredToDelivery: { next: 'closed' },
+    transferredToDelivery: {
+        next: {
+            success: deal => waitForDeliveryStatus({ deal }),
+        },
+    },
     closed: { next: null },
 };
 
 export const deliveryStatusMap = {
     created: {
         next: {
-            onSuccess: 'accepting',
+            success: deal => updateDealStatus({ deal, nextStatus: 'accepting' }),
         },
     },
     accepting: {
         next: {
-            onSuccess: 'payment',
+            success: deal => updateDealStatus({ deal, nextStatus: 'payment' }),
         },
     },
     payment: {
         next: {
-            onSuccess: 'receiving',
+            success: deal => updateDealStatus({ deal, nextStatus: 'receiving' }),
         },
     },
     receiving: {
         next: {
-            onSuccess: 'delivering',
+            success: deal => waitForBakingStatus({ deal }),
         },
     },
     delivering: {
         next: {
-            onSuccess: 'closed',
+            success: deal => updateDealStatus({ deal, nextStatus: 'closed' }),
         },
     },
     closed: { next: null },
 };
+
+export const callNext = ({ order, actionType }) =>
+    actionType === 'closed'
+        ? order
+        : orderStatusMap[order.status].next[actionType](order);

@@ -5,10 +5,10 @@ import { OrderItem } from '../order-item';
 import './order.css';
 
 
-export const Order = () => {
-    const data = useSelector(state => state.client.order);
-    const price = data.reduce((acc, item) => acc + Number(item.price), 0);
-    const orderItems = data.map((item, index) => <OrderItem key={index} item={item} />);
+export const Order = (props = null) => {
+    const order = useSelector(state => state.client.order);
+    const price = order.reduce((acc, item) => acc + Number(item.price), 0);
+    const orderItems = order.map((item, index) => <OrderItem key={index} item={item} visiable={props.visible} />);
 
     return (
         <div className='order'>

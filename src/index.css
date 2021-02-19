@@ -20,6 +20,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--color-background);
 }
 
 code {
@@ -46,10 +48,8 @@ code {
 
 :root {
   --color-gray: #cdcdcd;
-  --color-gray-1: #f3f3f3;
   --color-gray-2: #c4c4c4;
   --color-gray-3: #858585;
-  --color-black: #333333;
   --color-black-light: #444444;
   --color-white: #ffffff;
 }
