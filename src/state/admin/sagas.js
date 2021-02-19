@@ -1,8 +1,13 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { adminActions, adminActionTypes } from './actions';
-import { pagedData, orderMock2 } from '../../store/admin-mock-data';
-import { orderStatusMap } from './deals';
+import {
+    createDeal,
+    callPizza1Api,
+} from './kekkerDealTransitions';
+import { callNext } from './deals';
+import { dealsApi } from '../../api';
+import { config } from '../../config';
 
 
 function* setBusy(value) {
@@ -10,8 +15,9 @@ function* setBusy(value) {
 }
 
 function* getOrders() {
-    // Запрос на получение всех данных для списка
-    yield put(adminActions.setOrders(pagedData.data));
+    const orders = yield callPizza1Api(dealsApi.getDeals);
+    if (orders && orders.data)
+        yield put(adminActions.setOrders(orders.data));
 }
 
 // actionType one of 'success', 'reject'
@@ -19,40 +25,30 @@ function* updateNextStatus({ $payload: { actionType } }) {
     const currentOrder = yield select(
         ({ admin }) => admin.currentOrder,
     );
-    const currentStatus = currentOrder.status;
-    const nextStatus = orderStatusMap[currentStatus].next[actionType](currentOrder);
-    // call API updateStatus
-    yield put(adminActions.setOrder(
-        {
-            ...currentOrder,
-            status: nextStatus,
-            history: [
-                ...currentOrder.history,
-                {
-                    status: currentStatus,
-                    version: 2,
-                    remark: 'REMARK',
-                    executor: 'CLIENT1',
-                },
-            ],
-        },
-    ));
+    yield setBusy(true);
+    const updatedOrder = yield callNext({ order: currentOrder, actionType });
+    yield put(adminActions.setOrder(updatedOrder));
+    yield setBusy(false);
 }
 
 function* createOrder({ $payload: { orderData } }) {
-    // After calling createOrder API we get a queueId and localDealId
-    const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
-    const { queueId, localDealId } = response;
-    yield put(adminActions.setOrder(
-    { ...orderData, queueId, localDealId, type: 'Initial' },
-    ));
-
-    yield updateNextStatus({ $payload: { actionType: 'success' } });
+    const initiator = config.nodes.PIZZA1;
+    const orderDeal = {
+        kind: 'FirstDeal',
+            status: 'created',
+        parties: [
+            {
+                key: initiator,
+                role: 'Sender',
+            },
+        ],
+        parameters: orderData,
+    };
+    yield createDeal({ deal: orderDeal });
 }
 
 function* getOrder({ $payload: { id } }) {
-    // call API getOrder
-    const order = orderMock2;
+    const order = yield callPizza1Api(dealsApi.getDeal, { id });
     yield put(adminActions.setOrder(
         { ...order },
     ));

@@ -9,4 +9,8 @@ export const config = {
         PIZZA2: 'qrm2',
         DELIVERY: 'qrm3',
     },
+    addresses: {
+        PIZZA1: 'Pizza 1 address',
+        PIZZA2: 'Pizza 2 address',
+    },
 };
