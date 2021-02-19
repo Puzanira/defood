@@ -12,8 +12,16 @@ import InputBase from '@material-ui/core/InputBase';
 import './header.css';
 
 
-export const Header = ({ size }) => {
+export const Header = props => {
     const data = useSelector(state => state.client.order);
+    const { size, config } = props;
+    const { title, background } = config;
+
+    const styles = {
+        background: `linear-gradient(0deg, #000000 0%, rgba(128, 128, 128, 0) 100%), url('${background}')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+    };
 
     return (
         <div className={size ? 'page-header page-header_small' : 'page-header'}>
@@ -40,8 +48,8 @@ export const Header = ({ size }) => {
                     </Link>
                 </Toolbar>
             </AppBar>
-            <div className='page-header__placeholder'>
-                <Link to='/' className='page-header__title'>Decentralized Pizza</Link>
+            <div className='page-header__placeholder' style={styles}>
+                <Link to='/' className='page-header__title'>{ title }</Link>
             </div>
             <div className='page-sub-header' />
         </div>

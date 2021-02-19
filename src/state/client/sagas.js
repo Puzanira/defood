@@ -1,5 +1,5 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
-import { PizzaArray } from '../../store/client-mock-data';
+import { PizzaArray, UserData } from '../../store/client-mock-data';
 
 import { clientActions, clientActionTypes } from './actions';
 import { adminActions } from '../admin/actions';
@@ -25,6 +25,11 @@ function* getItems() {
 
 function* deleteOrderItem({ $payload: { item } }) {
     yield put(clientActions.removeOrderItem(item));
+}
+
+// Запрос на получение заказа
+function* getTicketData({ $payload: { id } }) {
+    yield put(clientActions.setTicketData(UserData));
 }
 
 // API для отправки формы
@@ -58,4 +63,5 @@ export const sagas = [
     takeLatest(clientActionTypes.FETCH_FORM_DATA, fetchFormData),
     takeLatest(clientActionTypes.GET_ITEMS, getItems),
     takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
+    takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),
 ];

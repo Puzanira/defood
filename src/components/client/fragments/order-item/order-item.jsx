@@ -15,6 +15,8 @@ export const OrderItem = props => {
         [],
     );
 
+    const cancelButton = props.visible ? <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} /> : null;
+
     return (
         <div className='order-item'>
             <div className='order-item__left-bar'>
@@ -27,7 +29,7 @@ export const OrderItem = props => {
             <div className='order-item__right-bar'>
                 <div className='order-item__count'>x 1</div>
                 <div className='order-item__price'>{price} ₽</div>
-                <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} />
+                { cancelButton }
             </div>
         </div>
     );
