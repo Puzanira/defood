@@ -180,13 +180,13 @@ export const searchFilters = {
 };
 
 export const headerData = {
-    depi1: {
-        ordersPath: '/admin/',
+    pizza1: {
+        ordersPath: '/admin/pizza1/',
         indexTitle: 'DePi1 Admin',
         style: 'header_depi1',
     },
-    depi2: {
-        ordersPath: '/admin/',
+    pizza2: {
+        ordersPath: '/admin/pizza2/',
         indexTitle: 'DePi2 Admin',
         style: 'header_depi2',
     },

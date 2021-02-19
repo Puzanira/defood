@@ -7,6 +7,7 @@ import { AdminPageFragment } from '../../fragments/admin-page';
 import { adminActions } from '../../../../state/admin/actions';
 import { useAction } from '../../../../utils';
 import { headerData } from '../../../../store/admin-mock-data';
+import { config } from '../../../../config';
 import './list-layout.css';
 
 
@@ -27,7 +28,7 @@ export const ListLayout = () => {
     }, [getOrders]);
 
     return (
-        <AdminPageFragment headerData={headerData.depi2}>
+        <AdminPageFragment headerData={headerData[config.nodeType]}>
             <div className='list-layout-content__title list-layout-content_margin-bottom'>
                 Реестр заказов
             </div>

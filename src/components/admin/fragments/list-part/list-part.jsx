@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { RouterStore } from '../../../../store/routes';
+import { config } from '../../../../config';
 
 import './list-part.css';
 
@@ -30,7 +31,10 @@ export const ListPartFragment = ({ data, pageType }) => {
     };
 
     const routToOrderHandler = () => {
-        history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
+        if (pageType === 'delivery')
+            history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
+        else
+            history.push(`${RouterStore[pageType][config.nodeType].order.replace(':id', data.localDealId)}`);
     };
 
     return (
