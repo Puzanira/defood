@@ -8,6 +8,7 @@ import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
 import { orderStatusMap } from '../../../../state/admin/deals';
+import { headerData } from '../../../../store/admin-mock-data';
 import './check-admin-layout.css';
 
 
@@ -35,7 +36,7 @@ export const CheckAdminLayout = () => {
     }, [currentOrder, getData, id]);
 
     return (
-        <AdminPageFragment>
+        <AdminPageFragment headerData={headerData.depi2}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>
@@ -71,12 +72,13 @@ export const CheckAdminLayout = () => {
                         </div>
                         <div className='admin-check-content__right-side'>
                             <div className='admin-check-right-side-items'>
-                                <CheckRightSideItemFragment />
-                                <CheckRightSideItemFragment />
+                                {currentOrder.parameters.orderData.map((elem, index) => (
+                                    <CheckRightSideItemFragment data={elem} key={index} />
+                                ))}
                             </div>
                             <div className='admin-check-right-side-price'>
                                 <div className='admin-check-right-side-price__result'>Итого</div>
-                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.price}</div>
+                                <div className='admin-check-right-side-price__price'>{currentOrder.parameters.total}</div>
                             </div>
                         </div>
                     </div>

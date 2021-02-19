@@ -2,10 +2,24 @@
 export const orderMock = {
     status: 'created',
     parameters: {
-        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        price: 1150,
-        orderData: 'Пицца “Бавария” 25 см, пицца “Карбонара" 30см, пицца “Карбонара" 25см',
-        clientContacts: 'Ярина Анастасия Дмитриевна +791298481586',
+        clientContacts: {
+            addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            name: 'Ольга Павлова',
+            tel: '+7 916 720 64 95',
+        },
+        orderData: [
+            {
+                title: 'Маргaрита',
+                price: '1000',
+                size: '30',
+            },
+            {
+                title: 'Четыре сыра',
+                price: '800',
+                size: '25',
+            },
+        ],
+        total: 1800,
     },
 };
 
@@ -18,10 +32,24 @@ export const orderMock2 = {
     localDealId: 3511,
     status: 'processing',
     parameters: {
-        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        price: 500,
-        orderData: 'пицца “Карбонара" 30см',
-        clientContacts: 'Булаков Олег Игоревич +791298481586',
+        clientContacts: {
+            addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+            name: 'Ольга Павлова',
+            tel: '+7 916 720 64 95',
+        },
+        orderData: [
+            {
+                title: 'Маргaрита',
+                price: '1000',
+                size: '30',
+            },
+            {
+                title: 'Четыре сыра',
+                price: '800',
+                size: '25',
+            },
+        ],
+        total: 1800,
     },
     history: [
         {
@@ -74,33 +102,97 @@ export const pagedData = {
     ],
 };
 
+export const pagedDeliveryData = {
+    pageNumber: 1,
+    pageSize: 10,
+    totalRecords: 3,
+    data: [
+        {
+            dealId: 'ad04c39314184ac0847304fc22eaac75:fc5567d419c647e0b4f8806dc8d3a9ae',
+            localDealId: 3511,
+            kind: 'FirstDeal',
+            version: 8,
+            status: 'processing',
+        },
+        {
+            dealId: null,
+            localDealId: 3510,
+            kind: 'FirstDeal',
+            version: 0,
+            status: 'created',
+        },
+    ],
+};
+
+export const deliveryOrderMock = {
+    dealId: 'ad04c39314184ac0847304fc22eaac75:fc5567d419c647e0b4f8806dc8d3a9ae',
+    queueId: 1,
+    localDealId: 3511,
+    status: 'accepting',
+    parameters: {
+        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+        addressFrom: 'Москва, Рязанский проспект 14 к2',
+        clientContacts: 'Ольга Павлова, +7 916 720 64 95',
+    },
+    history: [
+        {
+            status: 'created',
+            version: 2,
+            remark: 'REMARK',
+            executor: 'CLIENT1',
+        },
+    ],
+};
+
 export const checkData = {
-    title: 'Заказ №1212121',
-    address: {
-        title: 'Доставка по адресу',
-        value: 'Москва, ул. Юных Ленинцев 12/17 к1',
+    clientContacts: {
+        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
+        name: 'Ольга Павлова',
+        tel: '+7 916 720 64 95',
     },
-    recipient: {
-        title: 'Получатель',
-        value: 'Ольга, +7 916 720 64 95',
-    },
-    processingTime: {
-        title: 'Время оформления',
-        value: '2 февраля 2021 17:00',
-    },
-    payment: {
-        title: 'Оплата',
-        value: 'Онлайн на сайте',
-    },
-    resultPrice: '950 ₽',
+    orderData: [
+        {
+            title: 'Маргaрита',
+            price: '1000',
+            size: '30',
+        },
+        {
+            title: 'Четыре сыра',
+            price: '800',
+            size: '25',
+        },
+    ],
+    total: 1800,
 };
 
 export const searchFilters = {
-    status: {
-        0: 'Статус',
-        1: 'Принят',
-        2: 'Готов',
-        3: 'В пути',
-        4: 'Завершен',
+    Статус: [
+        'created',
+        'accepting',
+        'payment',
+        'processing',
+        'transferringToPizza',
+        'deliveryAgreement',
+        'baking',
+        'transferredToDelivery',
+        'closed',
+    ],
+};
+
+export const headerData = {
+    depi1: {
+        ordersPath: '/admin/',
+        indexTitle: 'DePi1 Admin',
+        style: 'header_depi1',
+    },
+    depi2: {
+        ordersPath: '/admin/',
+        indexTitle: 'DePi2 Admin',
+        style: 'header_depi2',
+    },
+    delivery: {
+        ordersPath: '/delivery/',
+        indexTitle: 'DePi Delivery',
+        style: 'header_delivery',
     },
 };

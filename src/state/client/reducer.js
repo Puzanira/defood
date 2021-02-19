@@ -10,6 +10,7 @@ const defaultState = {
     items: [],
     waiting: 0,
     formData: {},
+    ticket: {},
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -31,7 +32,6 @@ export const reducer = lookupTableReducer(defaultState, {
     [clientActionTypes.SET_ITEMS]: (state, items) => ({
        ...state,
        items: [
-           ...state.items,
            ...items,
        ],
     }),
@@ -46,5 +46,9 @@ export const reducer = lookupTableReducer(defaultState, {
     [clientActionTypes.SET_WAITING_STATUS]: (state, value) => ({
         ...state,
         waiting: value,
+    }),
+    [clientActionTypes.SET_TICKET_DATA]: (state, data) => ({
+        ...state,
+        ticket: data,
     }),
 });

@@ -31,3 +31,11 @@ export const PizzaArray = [
         photo: pizza,
     },
 ];
+
+
+export const UserData = {
+    address: 'Москва, ул. Юных Ленинцев 12/17 к1',
+    info: 'Ольга, +7 916 720 64 95',
+    date: '2 февраля 2021 17:00',
+    pay: 'Онлайн на сайте',
+};
