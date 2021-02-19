@@ -8,12 +8,11 @@ import {
 
 
 export const dealTypes = {
-    initialOrder: {
+    order: {
         localDealId: String,
         dealId: String,
         queueId: String,
         parameters: {
-            type: 'Initial',
             addressTo: String,
             addressFrom: String,
             price: Number,
@@ -29,26 +28,6 @@ export const dealTypes = {
             deliverer: String,
             deliveryOrderId: String,
 
-        },
-    },
-    transferOrder: {
-        localDealId: String,
-        dealId: String,
-        queueId: String,
-        parameters: {
-            type: 'Transfer',
-            initiator: String,
-            queueId: String,
-            price: Number,
-            orderData: String,
-
-            // delivery:
-            deliverer: String,
-
-            // transfer:
-            isTransferred: Boolean,
-            transferredTo: String,
-            transferOrderId: String,
         },
     },
     deliveryOrder: {

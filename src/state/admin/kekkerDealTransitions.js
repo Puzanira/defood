@@ -79,11 +79,12 @@ export function* transferringDeal({ deal }) {
     const initiator = config.nodes.PIZZA1.toUpperCase();
     const transferNode = config.nodes.PIZZA2.toUpperCase();
 
-    const { price, orderData } = deal.parameters;
+    const { price, orderData, clientContacts } = deal.parameters;
     const parameters = {
         price,
         orderData,
         initiator,
+        clientContacts,
         type: 'Transfer',
     };
 

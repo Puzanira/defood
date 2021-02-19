@@ -1,8 +1,8 @@
 export const config = {
     apiScheme: 'https://',
     apiPath: 'kekker.com/api',
-    channel: '',
-    authorization: '',
+    channel: 'puzanova.ira2011@yandex.ru',
+    authorization: 'Basic S2Vra2VyVXNlcjp6RGZqbTMz',
     xApiVersion: '2.0',
     nodes: {
         PIZZA1: 'qrm1',

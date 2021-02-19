@@ -34,7 +34,6 @@ export const mergeStateParts = (prefix, parts) => ({
 const ABORT_SAGAS_HMR = 'ABORT_SAGAS_HMR';
 
 export const createRootSaga = ({ sagas }) => {
-    console.log(sagas);
     if (process.env.NODE_ENV === 'development') {
         return function* main() {
             yield all(sagas);
