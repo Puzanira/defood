@@ -94,3 +94,7 @@ const webApiCaller = createApiCaller(({ headers, node }) => ({
 
 export const callApi = (apiCall, node, callArgs) =>
     wrapRequest(args => webApiCaller(apiCall, { ...args, node }), callArgs);
+
+const globalNode = process.env.REACT_APP_NODE;
+export const callNodeApi = (apiCall, callArgs) =>
+    callApi(apiCall, globalNode, callArgs);
