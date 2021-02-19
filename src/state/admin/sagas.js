@@ -31,7 +31,7 @@ function* updateNextStatus({ $payload: { actionType } }) {
     yield setBusy(false);
 }
 
-function* createOrder({ $payload: { orderData } }) {
+function* createOrder({ $payload: { parameters } }) {
     const initiator = config.nodes.PIZZA1;
     const orderDeal = {
         kind: 'FirstDeal',
@@ -42,7 +42,7 @@ function* createOrder({ $payload: { orderData } }) {
                 role: 'Sender',
             },
         ],
-        parameters: orderData,
+        parameters,
     };
     yield createDeal({ deal: orderDeal });
 }

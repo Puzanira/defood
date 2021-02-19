@@ -31,10 +31,12 @@ function withMappedParametersToArray({ deal }) {
 }
 
 export function* createDeal({ deal }) {
-    const { queueId } = yield callPizza1Api(dealsApi.createDeal, withMappedParametersToArray(deal));
+    const { queueId } = yield callPizza1Api(
+        dealsApi.createDeal, { deal: withMappedParametersToArray({ deal }) },
+    );
     const { dealId, queueId: newQueueId } =
-        yield callPizza1Api(queueApi.getGlobalDealIdentifier, queueId);
-    const newDeal = yield callPizza1Api(dealsApi.getDeal, dealId);
+        yield callPizza1Api(queueApi.getGlobalDealIdentifier, { id: queueId });
+    const newDeal = yield callPizza1Api(dealsApi.getDeal, { id: dealId });
 
     return withMappedParameters({ ...newDeal, queueId: newQueueId });
 }
@@ -43,7 +45,7 @@ function* waitForDealStatus({ dealId, statuses, node = config.nodes.PIZZA1 }) {
     let responseDeal;
     for (let i = 0; i < 5; i++) {
         try {
-            responseDeal = yield callApi(dealsApi.getDeal, node, dealId);
+            responseDeal = yield callApi(dealsApi.getDeal, node, { id: dealId });
             if (statuses.find(responseDeal.status))
                 return withMappedParameters(responseDeal);
         } catch (err) {
@@ -181,7 +183,7 @@ export function* createDeliveryDeal({ deal }) {
         parameters,
     };
 
-    const deliveryDeal = yield callPizza1Api(dealsApi.createDeal, deliveryDealObject);
+    const deliveryDeal = yield createDeal({ deal: deliveryDealObject });
     const updatedDeal = yield yield callPizza1Api(dealsApi.updateDeal, {
         id: deal.dealId,
         dealData: {

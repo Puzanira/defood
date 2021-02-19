@@ -30,9 +30,9 @@ export const dealsApi = {
         () => dealsPart(),
     ),
     createDeal: post(
-        ({ params }) => dealsPart({
+        ({ deal }) => dealsPart({
             body: {
-                ...params,
+                ...deal,
             },
         }),
     ),

@@ -52,9 +52,9 @@ function* fetchFormData({ $payload: { formData } }) {
         name: formData.name,
     };
 
-    const params = { orderData, total, clientContacts };
+    const parameters = { orderData, total, addressTo: formData.address, clientContacts };
 
-    yield put(adminActions.createOrder({ params }));
+    yield put(adminActions.createOrder({ parameters }));
 }
 
 export const sagas = [
