@@ -6,6 +6,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import { store } from './configureStore';
 import { RouterStore } from './store/routes';
+import { Pallete } from './pallete';
+
 import { ListLayout } from './components/client/layouts/list-layout';
 import { CheckLayout } from './components/client/layouts/check-layout';
 import { OrderLayout } from './components/client/layouts/order-layoyut';
@@ -31,10 +33,19 @@ export class App extends Component {
   }
 
     render() {
+        const { barColor, footerColor, toggleColor, backgroundColor } = Pallete;
+
+        document.documentElement.style.setProperty('--color-gray-1', barColor);
+        document.documentElement.style.setProperty('--color-black', footerColor);
+        document.documentElement.style.setProperty('--color-toggle', toggleColor);
+        document.documentElement.style.setProperty('--color-background', backgroundColor);
+
+
         const routes = this.routes.map((route, idx) => {
             const { path, layout, exact } = route;
             return <Route key={idx} path={path} exact={exact} render={() => layout} />;
         });
+
     return (
         <Provider store={this.store}>
             <PersistGate loading={null} persistor={this.store.persistor}>
