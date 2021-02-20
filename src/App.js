@@ -25,15 +25,18 @@ export class App extends Component {
 
       const route = (path, layout, exact = true) => ({ path, layout, exact });
 
-      this.routes = [
-          route(RouterStore.website.index, <ListLayout />),
-          route(RouterStore.website.check, <CheckLayout />),
-          route(RouterStore.website.order, <OrderLayout />),
-          route(RouterStore.admin[config.nodeType].index, <ListAdminLayout />),
-          route(RouterStore.admin[config.nodeType].order, <CheckAdminLayout />),
+      this.routes = (config.nodeType === 'delivery') ? [
           route(RouterStore.delivery.index, <DeliveryListLayout />),
           route(RouterStore.delivery.order, <CheckDeliveryLayout />),
+      ] : [
+        route(RouterStore.website.index, <ListLayout />),
+        route(RouterStore.website.check, <CheckLayout />),
+        route(RouterStore.website.order, <OrderLayout />),
+        route(RouterStore.admin.index, <ListAdminLayout />),
+        route(RouterStore.admin.order, <CheckAdminLayout />),
       ];
+
+      this.routes.push(route('', <h1>404: Такой страницы не существует</h1>, false));
   }
 
     render() {

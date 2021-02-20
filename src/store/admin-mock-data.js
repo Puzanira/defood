@@ -181,12 +181,12 @@ export const searchFilters = {
 
 export const headerData = {
     pizza1: {
-        ordersPath: '/admin/pizza1/',
+        ordersPath: '/admin/',
         indexTitle: 'DePi1 Admin',
         style: 'header_depi1',
     },
     pizza2: {
-        ordersPath: '/admin/pizza2/',
+        ordersPath: '/admin/',
         indexTitle: 'DePi2 Admin',
         style: 'header_depi2',
     },

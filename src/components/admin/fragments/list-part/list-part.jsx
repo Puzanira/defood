@@ -31,10 +31,7 @@ export const ListPartFragment = ({ data, pageType }) => {
     };
 
     const routToOrderHandler = () => {
-        if (pageType === 'delivery')
-            history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
-        else
-            history.push(`${RouterStore[pageType][config.nodeType].order.replace(':id', data.localDealId)}`);
+        history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
     };
 
     return (

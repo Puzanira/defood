@@ -24,6 +24,11 @@ body {
   background-color: var(--color-background);
 }
 
+h1 {
+  margin-left: 0.67em;
+  margin-right: 0.67em;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
