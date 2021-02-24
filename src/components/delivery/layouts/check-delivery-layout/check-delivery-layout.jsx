@@ -5,11 +5,9 @@ import { useParams } from 'react-router';
 import { useAction } from '../../../../utils';
 import { deliveryActions } from '../../../../state/delivery/actions';
 import { AdminPageFragment } from '../../../admin/fragments/admin-page';
-import { CheckRightSideItemFragment } from '../../../admin/fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../../admin/fragments/check-activity';
-import { deliveryStatusMap } from '../../../../state/admin/deals';
-import { headerData } from '../../../../store/admin-mock-data';
 import '../../../admin/layouts/check-admin-layout/check-admin-layout.css';
+import { NODE_CONFIG } from '../../../../config';
 
 
 /**
@@ -36,7 +34,7 @@ export const CheckDeliveryLayout = () => {
     }, [currentOrder, getData, id]);
 
     return (
-        <AdminPageFragment headerData={headerData.delivery}>
+        <AdminPageFragment headerData={NODE_CONFIG}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>
@@ -63,33 +61,16 @@ export const CheckDeliveryLayout = () => {
                         </div>
                     </div>
                     <div className='check-agreement'>
-                        {currentOrder.status ? (
+                        {currentOrder.status && currentOrder.status !== 'closed' ? (
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__buttons'>
-                                    {deliveryStatusMap[currentOrder.status].next && deliveryStatusMap[currentOrder.status].next.onReject ? (
-                                        <>
-                                            <div
-                                                className='check-agreement__button check-agreement__button_agree'
-                                                onClick={() => updateStatus('onSuccess')}
-                                            >
-                                                Принять
-                                            </div>
-                                            <div
-                                                className='check-agreement__button check-agreement__button_disagree'
-                                                onClick={() => updateStatus('onReject')}
-                                            >
-                                                Отклонить
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div
-                                            className='check-agreement__button check-agreement__button_agree'
-                                            onClick={() => updateStatus('onSuccess')}
-                                        >
-                                            Далее
-                                        </div>
-                                    )}
+                                    <div
+                                        className='check-agreement__button check-agreement__button_agree'
+                                        onClick={() => updateStatus('onSuccess')}
+                                    >
+                                        Далее
+                                    </div>
                                 </div>
                             </>
                         ) : (

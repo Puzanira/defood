@@ -1,65 +1,40 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
-import { deliveryActions, deliveryActionTypes } from './actions';
-import { pagedDeliveryData, deliveryOrderMock } from '../../store/admin-mock-data';
-import { deliveryStatusMap } from './deals';
+import { deliveryActionTypes } from './actions';
+import { adminActions } from '../admin/actions';
+import { dealsActions } from '../deals/actions';
 
 
 function* setBusy(value) {
-    yield put(deliveryActions.setStatus({ busy: value }));
-}
-
-function* getOrders() {
-    // Запрос на получение всех данных для списка доставки
-    yield put(deliveryActions.setOrders(pagedDeliveryData.data));
-}
-
-// actionType one of 'onSuccess', 'onReject'
-function* updateNextStatus({ $payload: { actionType } }) {
-    const currentOrder = yield select(
-        ({ delivery }) => delivery.currentOrder,
-    );
-    const currentStatus = currentOrder.status;
-    const nextStatus = (currentStatus !== 'closed') ? deliveryStatusMap[currentStatus].next[actionType] : undefined;
-
-    // call API updateStatus
-    yield put(deliveryActions.setOrder(
-        {
-            ...currentOrder,
-            status: nextStatus,
-            history: [
-                ...currentOrder.history,
-                {
-                    status: currentStatus,
-                    version: 2,
-                    remark: 'REMARK',
-                    executor: 'CLIENT1',
-                },
-            ],
-        },
-    ));
-}
-
-function* createOrder({ $payload: { params } }) {
-    // After calling createOrder API we get a queueId and localDealId
-
-    // const response = { queueId: 'QUEUEID', localDealId: 'LOCALDEALID' };
-    const response = { queueId: 'QUEUEID', localDealId: '3321' };
-    const { queueId, localDealId } = response;
-
-    yield put(deliveryActions.setOrder(
-        { queueId, localDealId, parameters: { ...params }, status: 'created', history: [] },
-    ));
-
-    yield updateNextStatus({ $payload: { actionType: 'onSuccess' } });
+    yield put(adminActions.setStatus({ busy: value }));
 }
 
 function* getOrder({ $payload: { id } }) {
-    // call API getOrder
-    const order = deliveryOrderMock;
-    yield put(deliveryActions.setOrder(
+    const order = yield put(dealsActions.getDeal({ id }));
+    yield put(adminActions.setOrder(
         { ...order },
     ));
+}
+
+function* getOrders() {
+    const orders = yield put(dealsActions.getDeals());
+    if (orders && orders.data)
+        yield put(adminActions.setOrders(orders.data));
+}
+
+// actionType one of 'success', 'reject'
+function* updateNextStatus({ $payload: { actionType } }) {
+    const currentOrder = yield select(
+        ({ admin }) => admin.currentOrder,
+    );
+    yield setBusy(true);
+    const updatedOrder = yield put(dealsActions.callOrderNext({ deal: currentOrder, actionType }));
+    yield put(adminActions.setOrder(updatedOrder));
+    yield setBusy(false);
+}
+
+function* createOrder({ $payload: { parameters } }) {
+    yield put(dealsActions.createOrderDeal({ orderData: parameters }));
 }
 
 export const sagas = [

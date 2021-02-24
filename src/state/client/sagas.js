@@ -41,6 +41,7 @@ function* fetchFormData({ $payload: { formData } }) {
     const total = order.reduce((acc, item) => acc + Number(item.price), 0);
 
     const orderData = order.map(item => ({
+          baker: item.baker,
           title: item.title,
           price: item.price,
           size: item.size,

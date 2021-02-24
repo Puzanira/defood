@@ -18,6 +18,10 @@ const types = prefixTypes('client', {
     SET_WAITING_STATUS: 'SET_WAITING_STATUS',
     SET_TICKET_DATA: 'SET_TICKET_DATA',
     GET_TICKET_DATA: 'GET_TICKET_DATA',
+
+    SET_ORDER: 'SET_ORDER',
+    SET_ORDERS: 'SET_ORDERS',
+    SET_ORDER_STATUS: 'SET_ORDER_STATUS',
 });
 
 export { types as clientActionTypes };
@@ -38,4 +42,7 @@ export const clientActions = {
     setTicketData: createAction(types.SET_TICKET_DATA),
     getTicketData: createAction(types.GET_TICKET_DATA),
 
+    setOrder: createAction(types.SET_ORDER),
+    setOrders: createAction(types.SET_ORDERS),
+    setOrderStatus: createAction(types.SET_ORDER_STATUS),
 };

@@ -9,14 +9,16 @@ export const orderMock = {
         },
         orderData: [
             {
+                baker: 'PIZZA1',
                 title: 'Маргaрита',
                 price: '1000',
                 size: '30',
             },
             {
-                title: 'Четыре сыра',
-                price: '800',
-                size: '25',
+                baker: 'PIZZA1',
+                title: 'Карбонара',
+                price: '700',
+                size: '33',
             },
         ],
         total: 1800,
@@ -39,14 +41,10 @@ export const orderMock2 = {
         },
         orderData: [
             {
+                baker: 'PIZZA1',
                 title: 'Маргaрита',
                 price: '1000',
                 size: '30',
-            },
-            {
-                title: 'Четыре сыра',
-                price: '800',
-                size: '25',
             },
         ],
         total: 1800,
@@ -144,27 +142,6 @@ export const deliveryOrderMock = {
     ],
 };
 
-export const checkData = {
-    clientContacts: {
-        addressTo: 'Москва, ул. Юных Ленинцев 12/17 к1',
-        name: 'Ольга Павлова',
-        tel: '+7 916 720 64 95',
-    },
-    orderData: [
-        {
-            title: 'Маргaрита',
-            price: '1000',
-            size: '30',
-        },
-        {
-            title: 'Четыре сыра',
-            price: '800',
-            size: '25',
-        },
-    ],
-    total: 1800,
-};
-
 export const searchFilters = {
     Статус: [
         'created',
@@ -177,22 +154,4 @@ export const searchFilters = {
         'transferredToDelivery',
         'closed',
     ],
-};
-
-export const headerData = {
-    pizza1: {
-        ordersPath: '/admin/',
-        indexTitle: 'DePi1 Admin',
-        style: 'header_depi1',
-    },
-    pizza2: {
-        ordersPath: '/admin/',
-        indexTitle: 'DePi2 Admin',
-        style: 'header_depi2',
-    },
-    delivery: {
-        ordersPath: '/delivery/',
-        indexTitle: 'DePi Delivery',
-        style: 'header_delivery',
-    },
 };

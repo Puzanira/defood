@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { ListPartFragment } from '../../../admin/fragments/list-part';
 import { AdminPageFragment } from '../../../admin/fragments/admin-page';
 import { useAction } from '../../../../utils';
-import { headerData } from '../../../../store/admin-mock-data';
 import '../../../admin/layouts/list-layout/list-layout.css';
 import { deliveryActions } from '../../../../state/delivery/actions';
+import { NODE_CONFIG } from '../../../../config';
 
 
 /**
@@ -23,10 +23,10 @@ export const DeliveryListLayout = () => {
     useEffect(() => {
         if (!data.length)
             getOrders();
-    }, [getOrders]);
+    }, [data, getOrders]);
 
     return (
-        <AdminPageFragment headerData={headerData.delivery}>
+        <AdminPageFragment headerData={NODE_CONFIG}>
             <div className='list-layout-content__title list-layout-content_margin-bottom'>
                 Реестр заказов
             </div>

@@ -6,8 +6,8 @@ import './item.css';
 
 
 export const Item = props => {
-    const { title, size, about, price, photo } = props.data;
-    const item = { title, size, price };
+    const { title, size, about, price, photo, baker } = props.data;
+    const item = { title, size, price, baker };
 
     const addOrder = useAction(
         () => clientActions.setOrderItem({ item }),

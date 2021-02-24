@@ -10,7 +10,7 @@ services:
     ports:
       - 3001:3000
     environment:
-      - "REACT_APP_NODE_TYPE=pizza1"
+      - "REACT_APP_NODE_TYPE=PIZZA1"
       - "REACT_APP_CHANNEL="
       - "REACT_APP_AUTHORIZATION="
 
@@ -22,7 +22,7 @@ services:
     ports:
       - 3002:3000
     environment:
-      - "REACT_APP_NODE_TYPE=pizza2"
+      - "REACT_APP_NODE_TYPE=PIZZA2"
       - "REACT_APP_CHANNEL="
       - "REACT_APP_AUTHORIZATION="
 
@@ -34,6 +34,6 @@ services:
     ports:
       - 3003:3000
     environment:
-      - "REACT_APP_NODE_TYPE=delivery"
+      - "REACT_APP_NODE_TYPE=DELIVERY"
       - "REACT_APP_CHANNEL="
       - "REACT_APP_AUTHORIZATION="

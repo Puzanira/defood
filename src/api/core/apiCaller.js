@@ -1,7 +1,7 @@
 import fp from 'lodash/fp';
 
 import { contentTypeJson } from './request';
-import { config } from '../../config';
+import { config, NODE_CONFIG } from '../../config';
 import { errorFormatter, UnknownError } from './errors';
 
 
@@ -95,6 +95,6 @@ const webApiCaller = createApiCaller(({ headers, node }) => ({
 export const callApi = (apiCall, node, callArgs) =>
     wrapRequest(args => webApiCaller(apiCall, { ...args, node }), callArgs);
 
-const globalNode = process.env.REACT_APP_NODE;
+const globalNode = NODE_CONFIG.node;
 export const callNodeApi = (apiCall, callArgs) =>
     callApi(apiCall, globalNode, callArgs);

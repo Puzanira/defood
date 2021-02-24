@@ -3,6 +3,7 @@ import pizza from '../assets/pics/pizza.jpeg';
 
 export const PizzaArray = [
     {
+        baker: 'PIZZA1',
         title: 'Маргарита',
         size: '30',
         about: 'соус томатный масло оливковое сыр Моцарелла подимодры базилик',
@@ -10,6 +11,7 @@ export const PizzaArray = [
         photo: pizza,
     },
     {
+        baker: 'PIZZA1',
         title: 'Грибная пицца',
         size: '30',
         about: 'Моцарелла Рикотта шампиньоны оливковое масло',
@@ -17,6 +19,7 @@ export const PizzaArray = [
         photo: pizza,
     },
     {
+        baker: 'PIZZA2',
         title: 'Баварская',
         size: '30',
         about: 'Томатный соус, соус чипотл саусвест, сыр моцарелла, сосиски баварские, салями, шампиньоны, перец болгарский',
@@ -24,6 +27,7 @@ export const PizzaArray = [
         photo: pizza,
     },
     {
+        baker: 'PIZZA2',
         title: 'Цезарь',
         size: '30',
         about: 'Салат айсберг, цыпленок, томаты черри, сыры чеддер и пармезан, моцарелла, соус альфредо, соус цезарь',
