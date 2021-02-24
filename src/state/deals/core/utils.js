@@ -1,16 +1,17 @@
-export const mapToArray = object =>
-    Object.entries(object).map(([key, value]) => (
-        { key, value }
-    ));
+import { plainify, reversePlainify } from '../../../utils';
 
-export const mapToObject = array =>
-    array.reduce((acc, cur) => {
+
+export const mapToArray = object => {
+    const plainParameters = plainify(object);
+    return Object.entries(plainParameters).map(([key, value]) => ({
+        key, value,
+    }));
+};
+
+export const mapToObject = array => {
+    const plainObject = array.reduce((acc, cur) => {
         acc[cur.key] = cur.value;
         return acc;
     }, {});
-
-export const withMappedParametersToObject = ({ deal }) =>
-    ({ ...deal, parameters: mapToObject(deal.parameters) });
-
-export const withMappedParametersToArray = ({ deal }) =>
-    ({ ...deal, parameters: mapToArray(deal.parameters) });
+    return reversePlainify(plainObject);
+};

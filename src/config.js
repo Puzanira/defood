@@ -4,14 +4,29 @@ export const config = {
     channel: process.env.REACT_APP_CHANNEL || '',
     authorization: process.env.REACT_APP_AUTHORIZATION || '',
     xApiVersion: '2.0',
-    nodes: {
-        PIZZA1: 'qrm1',
-        PIZZA2: 'qrm2',
-        DELIVERY: 'qrm3',
+    parties: {
+        PIZZA1: {
+            node: 'qrm1',
+            address: 'Pizza 1 address',
+            ordersPath: '/admin/',
+            indexTitle: 'DePi1 Admin',
+            style: 'header_depi1',
+        },
+        PIZZA2: {
+            node: 'qrm2',
+            address: 'Pizza 2 address',
+            ordersPath: '/admin/',
+            indexTitle: 'DePi2 Admin',
+            style: 'header_depi2',
+        },
+        DELIVERY: {
+            node: 'qrm3',
+            ordersPath: '/delivery/',
+            indexTitle: 'DePi Delivery',
+            style: 'header_delivery',
+        },
     },
-    addresses: {
-        PIZZA1: 'Pizza 1 address',
-        PIZZA2: 'Pizza 2 address',
-    },
-    nodeType: process.env.REACT_APP_NODE_TYPE || 'pizza1',
 };
+
+export const NODE = process.env.REACT_APP_NODE_TYPE || 'PIZZA1';
+export const NODE_CONFIG = config.parties[NODE];
