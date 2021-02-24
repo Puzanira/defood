@@ -2,6 +2,7 @@ import fp from 'lodash/fp';
 import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import _ from 'lodash';
 
 
 export const MOBILE_WIDTH = 480;
@@ -78,3 +79,33 @@ export const plainify = object => {
     }), {});
 };
 
+const reverseplainifyInner = (keys, value) =>
+    keys.reduce((acc, item, index) => {
+        if (keys.length === 1)
+            return _.merge(acc, { [item]: value });
+        if (index === 0 && index !== (keys.length - 1))
+            return { ...acc, [item]: parseInt(keys[index + 1], 10) >= 0 ? [{}] : {} };
+        if (index === (keys.length - 1) && !(parseInt(keys[index - 1], 10) >= 0)) {
+            const temp = { [keys[index - 1]]: {} };
+
+            temp[keys[index - 1]][item] = value;
+
+            return _.merge(acc, temp);
+        } if (parseInt(keys[index - 1], 10) >= 0) {
+            const len = parseInt(keys[index - 1], 10);
+
+            for (let i = 0; i < len; i++)
+                acc[keys[0]].push({});
+
+            acc[keys[0]][keys[index - 1]][item] = value;
+            return acc;
+        }
+        return acc;
+    }, {});
+
+export const reversePlainify = object =>
+    Object.entries(object).reduce((acc, obj) => {
+        const [key, value] = obj;
+
+        return _.merge(acc, reverseplainifyInner(key.split('.'), value));
+    }, {});
