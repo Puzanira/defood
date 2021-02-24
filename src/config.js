@@ -1,8 +1,8 @@
 export const config = {
     apiScheme: 'https://',
     apiPath: 'kekker.com/api',
-    channel: process.env.REACT_APP_CHANNEL,
-    authorization: process.env.REACT_APP_AUTHORIZATION,
+    channel: process.env.REACT_APP_CHANNEL || '',
+    authorization: process.env.REACT_APP_AUTHORIZATION || '',
     xApiVersion: '2.0',
     nodes: {
         PIZZA1: 'qrm1',
