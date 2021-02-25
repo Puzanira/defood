@@ -26,10 +26,10 @@ function* getOrders() {
 }
 
 function* updateNextStatus() {
+    yield setBusy(true);
     const currentOrder = yield select(
         ({ admin }) => admin.currentOrder,
     );
-    yield setBusy(true);
     const [updatedOrder, nextAction] = yield callNext({ deal: currentOrder });
     yield put(adminActions.setOrder(updatedOrder));
     yield put(adminActions.setOrderAction(nextAction));

@@ -1,5 +1,5 @@
 export const actionMap = {
-    created: {
+    $Initiated: {
         transferAction: 'wait',
         textMessage: 'Wait for order to be baked',
     },

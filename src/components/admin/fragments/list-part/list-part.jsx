@@ -13,15 +13,12 @@ export const ListPartFragment = ({ data, pageType }) => {
     const history = useHistory();
 
     const labelColor = {
-        created: 'list-part-left__label_green',
-        accepting: 'list-part-left__label_dark-green',
-        payment: 'list-part-left__label_orange',
-        processing: 'list-part-left__label_dark-orange',
-        transferringToPizza: 'list-part-left__label_blue',
-        deliveryAgreement: 'list-part-left__label_dark-blue',
-        baking: 'list-part-left__label_gray',
-
-        transferredToDelivery: 'list-part-left__label_dark-purple',
+        $Initiated: 'list-part-left__label_green',
+        payment: 'list-part-left__label_dark-green',
+        baking: 'list-part-left__label_orange',
+        baked: 'list-part-left__label_dark-orange',
+        delivering: 'list-part-left__label_blue',
+        delivered: 'list-part-left__label_dark-blue',
         closed: 'list-part-left__label_purple',
     };
 

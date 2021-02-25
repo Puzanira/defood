@@ -103,7 +103,7 @@ export const dealsApi = {
 const queuePart = withUrl('queue');
 
 export const queueApi = {
-    /*  Get the global deal identifier
+    /*  Get current operation status
         RESPONSE: {
           "dealId": "DEALID",
           "localDealId": "LOCALDEALID",
@@ -111,7 +111,7 @@ export const queueApi = {
           "status": "Success"
         }
      */
-    getGlobalDealIdentifier: get(
+    getQueueStatus: get(
         ({ id }) => queuePart({
             path: id,
         }),
