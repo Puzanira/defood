@@ -1,11 +1,5 @@
 export const statusMap = {
     $Initiated: {
-        next: 'payment',
-    },
-    payment: {
-        next: 'baking',
-    },
-    baking: {
         next: 'baked',
     },
     baked: {
@@ -19,4 +13,5 @@ export const statusMap = {
     },
     Closed: { next: null },
 };
+
 

@@ -1,15 +1,14 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { CircularProgress } from '@material-ui/core';
 
 import { useAction } from '../../../../utils';
 import { adminActions } from '../../../../state/admin/actions';
 import { AdminPageFragment } from '../../fragments/admin-page';
 import { CheckRightSideItemFragment } from '../../fragments/check-right-side-item';
 import { CheckActivityFragment } from '../../fragments/check-activity';
-import { orderStatusMap } from '../../../../state/admin/deals';
-import { headerData } from '../../../../store/admin-mock-data';
-import { config } from '../../../../config';
+import { NODE_CONFIG } from '../../../../config';
 import './check-admin-layout.css';
 
 
@@ -18,26 +17,26 @@ import './check-admin-layout.css';
  */
 export const CheckAdminLayout = () => {
     const { id } = useParams();
-
-    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
-
-    const getData = useAction(
+    const updateOrder = useAction(
         () => adminActions.getOrder({ id }),
         [id],
     );
 
+    const busy = useSelector(({ admin }) => admin.busy);
+    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
+    const currentAction = useSelector(({ admin }) => admin.currentAction);
+
     const updateStatus = useAction(
-        actionType => adminActions.updateNextStatus({ actionType }),
+        () => adminActions.updateNextStatus(),
         [],
     );
 
     useEffect(() => {
-        if (!(currentOrder && currentOrder.parameters))
-            getData();
-    }, [currentOrder, getData, id]);
+            updateOrder();
+    }, []);
 
     return (
-        <AdminPageFragment headerData={headerData[config.nodeType]}>
+        <AdminPageFragment headerData={NODE_CONFIG}>
             {currentOrder && currentOrder.parameters && (
                 <div>
                     <div className='admin-check-layout-title admin-check-layout-title_margin-bottom'>
@@ -45,7 +44,7 @@ export const CheckAdminLayout = () => {
                     </div>
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
-                            {currentOrder.parameters.type === 'Initial' ? (
+                            {currentOrder.parameters.type === 'InitialOrder' ? (
                                 <div className='admin-check-content-item'>
                                     <div className='admin-check-content-item__title'>Адрес</div>
                                     <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
@@ -57,23 +56,15 @@ export const CheckAdminLayout = () => {
                                 </div>
                             )}
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Оплата</div>
-                                <div className='admin-check-content-item__text'>
-                                    {currentOrder.status === 'created' || currentOrder.status === 'accepted'
-                                        ? 'не произведена'
-                                        : 'произведена'}
-                                </div>
-                            </div>
-                            <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Доставщик</div>
                                 <div className='admin-check-content-item__text'>
-                                    {currentOrder.parameters.deliverer || 'не назначен'}
+                                    Delivery Cub
                                 </div>
                             </div>
                         </div>
                         <div className='admin-check-content__right-side'>
                             <div className='admin-check-right-side-items'>
-                                {currentOrder.parameters.orderData.map((elem, index) => (
+                                {currentOrder.parameters.orderData && currentOrder.parameters.orderData.map((elem, index) => (
                                     <CheckRightSideItemFragment data={elem} key={index} />
                                 ))}
                             </div>
@@ -84,42 +75,33 @@ export const CheckAdminLayout = () => {
                         </div>
                     </div>
                     <div className='check-agreement'>
-                        {currentOrder.status ? (
+                        {currentOrder.status && currentAction.transferAction && currentOrder.status !== 'closed' ? (
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
-                                <div className='check-agreement__buttons'>
-                                    {orderStatusMap[currentOrder.status].next.reject ? (
-                                        <>
+                                <div className='check-agreement__title'>{currentAction.textMessage}</div>
+                                {currentAction.transferAction === 'wait' && (
+                                    <CircularProgress />
+                                )}
+                                { currentAction.transferAction === 'update' && (
+                                    <div className='check-agreement__buttons'>
+                                        {busy ? (
+                                            <CircularProgress />
+                                        ) : (
                                             <div
                                                 className='check-agreement__button check-agreement__button_agree'
-                                                onClick={() => updateStatus('success')}
+                                                onClick={updateStatus}
                                             >
-                                                Принять
+                                                Ок
                                             </div>
-                                            <div
-                                                className='check-agreement__button check-agreement__button_disagree'
-                                                onClick={() => updateStatus('reject')}
-                                            >
-                                                Отклонить
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div
-                                            className='check-agreement__button check-agreement__button_agree'
-                                            onClick={() => updateStatus('success')}
-                                        >
-                                            Далее
-                                        </div>
-                                    )}
-                                </div>
+                                        )}
+                                    </div>
+                                )}
                             </>
                         ) : (
                             <>
-                                <div className='check-agreement__title'>Текущий статус: Заказ закрыт</div>
-                                <div className='admin-check-layout-button'>Завершить работу с заказом</div>
+                                <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
                             </>
                         )}
-
                     </div>
                     <CheckActivityFragment history={currentOrder.history} />
                 </div>

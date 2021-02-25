@@ -1,57 +1,43 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { adminActions, adminActionTypes } from './actions';
-import {
-    createDeal,
-    callPizza1Api,
-} from './kekkerDealTransitions';
-import { callNext } from './deals';
-import { dealsApi } from '../../api';
-import { config } from '../../config';
+import { dealsActions } from '../deals/actions';
+import { callNext } from '../deals/sagas';
+import { getDeals, getDeal } from '../deals/core/sagas';
+import { getCurrentAction } from '../deals/helpers';
 
 
 function* setBusy(value) {
     yield put(adminActions.setStatus({ busy: value }));
 }
 
+function* getOrder({ $payload: { id } }) {
+    const order = yield getDeal({ dealId: id });
+    const nextAction = getCurrentAction(order);
+
+    yield put(adminActions.setOrder({ ...order }));
+    yield put(adminActions.setOrderAction(nextAction));
+}
+
 function* getOrders() {
-    const orders = yield callPizza1Api(dealsApi.getDeals);
+    const orders = yield getDeals();
     if (orders && orders.data)
         yield put(adminActions.setOrders(orders.data));
 }
 
-// actionType one of 'success', 'reject'
-function* updateNextStatus({ $payload: { actionType } }) {
+function* updateNextStatus() {
+    yield setBusy(true);
     const currentOrder = yield select(
         ({ admin }) => admin.currentOrder,
     );
-    yield setBusy(true);
-    const updatedOrder = yield callNext({ order: currentOrder, actionType });
+    const [updatedOrder, nextAction] = yield callNext({ deal: currentOrder });
     yield put(adminActions.setOrder(updatedOrder));
+    yield put(adminActions.setOrderAction(nextAction));
     yield setBusy(false);
 }
 
 function* createOrder({ $payload: { parameters } }) {
-    const initiator = config.nodes.PIZZA1;
-    const orderDeal = {
-        kind: 'FirstDeal',
-            status: 'created',
-        parties: [
-            {
-                key: initiator,
-                role: 'Sender',
-            },
-        ],
-        parameters,
-    };
-    yield createDeal({ deal: orderDeal });
-}
-
-function* getOrder({ $payload: { id } }) {
-    const order = yield callPizza1Api(dealsApi.getDeal, { id });
-    yield put(adminActions.setOrder(
-        { ...order },
-    ));
+    yield put(dealsActions.createOrderDeal({ parameters }));
 }
 
 export const sagas = [

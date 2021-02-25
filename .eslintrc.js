@@ -58,6 +58,11 @@ module.exports = {
         'no-unused-vars': 'off',
 
         'no-continue': 'off',
+        'no-prototype-builtins': 'off',
+        'array-callback-return': 'off',
+        'no-return-assign': 'off',
+        'consistent-return': 'off',
+
         'no-empty': ['error', {
             allowEmptyCatch: true,
         }],
