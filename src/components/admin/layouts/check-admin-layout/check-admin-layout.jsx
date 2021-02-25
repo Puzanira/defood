@@ -33,7 +33,7 @@ export const CheckAdminLayout = () => {
 
     useEffect(() => {
             updateOrder();
-    }, [updateOrder]);
+    }, []);
 
     return (
         <AdminPageFragment headerData={NODE_CONFIG}>
@@ -80,11 +80,6 @@ export const CheckAdminLayout = () => {
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__title'>{currentAction.textMessage}</div>
-                                { !currentAction.transferAction && (
-                                    <div className='check-agreement__buttons'>
-                                        Закрыто
-                                    </div>
-                                )}
                                 {currentAction.transferAction === 'wait' && (
                                     <CircularProgress />
                                 )}
@@ -105,7 +100,11 @@ export const CheckAdminLayout = () => {
                             </>
                         ) : (
                             <>
-                                <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
+                                {currentOrder.status === 'Closed' ? (
+                                    <div className='check-agreement__title'>Текущий статус: Заказ закрыт</div>
+                                ) : (
+                                    <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
+                                )}
                             </>
                         )}
                     </div>
