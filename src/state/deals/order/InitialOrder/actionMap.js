@@ -1,5 +1,5 @@
 export const BakerActionMap = {
-    created: {
+    $Initiated: {
         transferAction: 'update',
         textMessage: 'Start processing',
     },

@@ -1,5 +1,5 @@
 export const statusMap = {
-    created: {
+    $Initiated: {
         next: 'baked',
     },
     baked: {

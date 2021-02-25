@@ -23,8 +23,9 @@ export function* callNext({ deal }) {
 }
 
 function* createOrderDeal({ $payload: { parameters } }) {
-    const deliverer = config.parties.DELIVERY.node;
-    const transferBaker = config.parties.PIZZA2.node;
+    const initiator = NODE_CONFIG.node.toUpperCase();
+    const deliverer = config.parties.DELIVERY.node.toUpperCase();
+    const transferBaker = config.parties.PIZZA2.node.toUpperCase();
     const { InitialOrderDeal, TransferOrderDeal } = dealModels;
 
     const [initialOrderParameters, transferOrderParameters] =
@@ -32,7 +33,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
 
     if (initialOrderParameters.length > 0) {
         const initialDealData = new InitialOrderDeal({
-            baker: NODE_CONFIG.node,
+            baker: initiator,
             deliverer,
             parameters: { ...parameters, orderData: initialOrderParameters },
         });
@@ -48,7 +49,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
 
     if (transferOrderParameters.length > 0) {
         const transferDealData = new TransferOrderDeal({
-            initiator: NODE_CONFIG.node,
+            initiator,
             baker: transferBaker,
             deliverer,
             parameters: { ...parameters, orderData: transferOrderParameters },

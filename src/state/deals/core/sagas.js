@@ -26,22 +26,22 @@ export function* createDeal({ deal }) {
     const { queueId, localDealId } = yield callNodeApi(
         dealsApi.createDeal, { deal },
     );
-    yield updateDealStatus({ dealId: localDealId, nextStatus: 'created' });
-    yield delay(500);
-    const { dealId, queueId: newQueueId } =
-        yield callNodeApi(queueApi.getGlobalDealIdentifier, { id: queueId });
-    const newDeal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
+    yield waitForSuccessQueueStatus({ queueId });
+    const updatedDeal = yield updateDealStatus({ dealId: localDealId, nextStatus: 'payment' });
 
-    return new Deal({ ...newDeal, queueId: newQueueId });
+    return updatedDeal;
 }
 
-export function* waitForDealStatus({ dealId, status, delayTime = 500, repeatCount = 5 }) {
+export function* waitForDealStatus({ dealId, status, delayTime = 60000, repeatCount = 5 }) {
     let responseDeal;
     for (let i = 0; i < repeatCount; i++) {
         try {
             responseDeal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
             if (status === responseDeal.status)
                 return new Deal(responseDeal);
+
+            if (i < 4 && !status === responseDeal.status)
+                yield delay(delayTime);
         } catch (err) {
             if (i < 4 && !status === responseDeal.status)
                 yield delay(delayTime);
@@ -50,30 +50,52 @@ export function* waitForDealStatus({ dealId, status, delayTime = 500, repeatCoun
     throw new Error('Status has not changed');
 }
 
+export function* waitForSuccessQueueStatus({ queueId, delayTime = 60000, repeatCount = 5 }) {
+    let response;
+    for (let i = 0; i < repeatCount; i++) {
+        try {
+            response = yield callNodeApi(queueApi.getQueueStatus, { id: queueId });
+            if (i < 4 && response.status === 'InQueue')
+                yield delay(delayTime);
+            if (response.status === 'Success')
+                return true;
+            if (response.status === 'Error')
+                throw new Error(`Error on operation ${queueId}: ${response.error}`);
+        } catch (err) {
+            if (response.status === 'Error')
+                throw err;
+
+            if (i < 4 && response.status === 'InQueue')
+                yield delay(delayTime);
+        }
+    }
+    throw new Error('Status InQueue has not changed');
+}
+
 export function* updateDealStatus({ dealId, nextStatus }) {
-    const response = yield callNodeApi(dealsApi.changeStatus, {
+    const queueId = yield callNodeApi(dealsApi.changeStatus, {
         id: dealId, status: nextStatus,
     });
-    const { queueId } = response;
+    yield waitForSuccessQueueStatus({ queueId });
 
     const newDeal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
-    return new Deal({ ...newDeal, queueId });
+    return new Deal(newDeal);
 }
 
-export function* updateDealParameters({ dealId, parameters }) {
-    const response = yield callNodeApi(dealsApi.updateParameters, {
-        id: dealId, parameters: mapToArray(parameters),
-    });
-    const { queueId } = response;
-    const newDeal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
-    return new Deal({ ...newDeal, queueId });
-}
+// export function* updateDealParameters({ dealId, parameters }) {
+//     const response = yield callNodeApi(dealsApi.updateParameters, {
+//         id: dealId, parameters: mapToArray(parameters),
+//     });
+//     const { queueId } = response;
+//     const newDeal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
+//     return new Deal({ ...newDeal, queueId });
+// }
 
-export function* updateDeal({ dealId, dealData }) {
-    const mappedParameters = dealData.parameters && mapToArray(dealData.parameters);
-    const updatedDeal = yield callNodeApi(dealsApi.updateDeal, {
-        id: dealId,
-        dealData: { ...dealData, parameters: mappedParameters },
-    });
-    return new Deal(updatedDeal);
-}
+// export function* updateDeal({ dealId, dealData }) {
+//     const mappedParameters = dealData.parameters && mapToArray(dealData.parameters);
+//     const updatedDeal = yield callNodeApi(dealsApi.updateDeal, {
+//         id: dealId,
+//         dealData: { ...dealData, parameters: mappedParameters },
+//     });
+//     return new Deal(updatedDeal);
+// }

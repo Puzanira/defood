@@ -1,5 +1,5 @@
 export const BakerActionMap = {
-    created: {
+    $Initiated: {
         transferAction: 'wait',
         textMessage: 'Wait for payment initiation',
     },

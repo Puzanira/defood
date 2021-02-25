@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { CircularProgress } from '@material-ui/core';
@@ -22,6 +22,7 @@ export const CheckAdminLayout = () => {
         [id],
     );
 
+    const busy = useSelector(({ admin }) => admin.busy);
     const currentOrder = useSelector(({ admin }) => admin.currentOrder);
     const currentAction = useSelector(({ admin }) => admin.currentAction);
 
@@ -31,9 +32,8 @@ export const CheckAdminLayout = () => {
     );
 
     useEffect(() => {
-        if (!(currentOrder && currentOrder.parameters))
             updateOrder();
-    }, [updateOrder, id, currentOrder]);
+    }, []);
 
     return (
         <AdminPageFragment headerData={NODE_CONFIG}>
@@ -44,7 +44,7 @@ export const CheckAdminLayout = () => {
                     </div>
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
-                            {currentOrder.parameters.type === 'Initial' ? (
+                            {currentOrder.parameters.type === 'InitialOrder' ? (
                                 <div className='admin-check-content-item'>
                                     <div className='admin-check-content-item__title'>Адрес</div>
                                     <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
@@ -56,23 +56,15 @@ export const CheckAdminLayout = () => {
                                 </div>
                             )}
                             <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Оплата</div>
-                                <div className='admin-check-content-item__text'>
-                                    {currentOrder.status === 'created' || currentOrder.status === 'accepted'
-                                        ? 'не произведена'
-                                        : 'произведена'}
-                                </div>
-                            </div>
-                            <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Доставщик</div>
                                 <div className='admin-check-content-item__text'>
-                                    {currentOrder.parameters.deliverer || 'не назначен'}
+                                    Delivery Cub
                                 </div>
                             </div>
                         </div>
                         <div className='admin-check-content__right-side'>
                             <div className='admin-check-right-side-items'>
-                                {currentOrder.parameters.orderData.map((elem, index) => (
+                                {currentOrder.parameters.orderData && currentOrder.parameters.orderData.map((elem, index) => (
                                     <CheckRightSideItemFragment data={elem} key={index} />
                                 ))}
                             </div>
@@ -87,17 +79,21 @@ export const CheckAdminLayout = () => {
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__title'>{currentAction.textMessage}</div>
-                                { currentAction.transferAction === 'wait' && (
+                                {currentAction.transferAction === 'wait' && (
                                     <CircularProgress />
                                 )}
                                 { currentAction.transferAction === 'update' && (
                                     <div className='check-agreement__buttons'>
-                                        <div
-                                            className='check-agreement__button check-agreement__button_agree'
-                                            onClick={updateStatus}
-                                        >
-                                            Ок
-                                        </div>
+                                        {busy ? (
+                                            <CircularProgress />
+                                        ) : (
+                                            <div
+                                                className='check-agreement__button check-agreement__button_agree'
+                                                onClick={updateStatus}
+                                            >
+                                                Ок
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </>
