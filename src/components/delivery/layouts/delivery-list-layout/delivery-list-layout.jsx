@@ -5,7 +5,7 @@ import { ListPartFragment } from '../../../admin/fragments/list-part';
 import { AdminPageFragment } from '../../../admin/fragments/admin-page';
 import { useAction } from '../../../../utils';
 import '../../../admin/layouts/list-layout/list-layout.css';
-import { deliveryActions } from '../../../../state/delivery/actions';
+import { adminActions } from '../../../../state/admin/actions';
 import { NODE_CONFIG } from '../../../../config';
 
 
@@ -13,10 +13,10 @@ import { NODE_CONFIG } from '../../../../config';
  * Delivery ist layout
  */
 export const DeliveryListLayout = () => {
-    const data = useSelector(state => state.delivery.orders);
+    const data = useSelector(state => state.admin.orders);
 
     const getOrders = useAction(
-        () => deliveryActions.getOrders(),
+        () => adminActions.getOrders(),
         [],
     );
 

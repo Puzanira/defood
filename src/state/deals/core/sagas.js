@@ -50,7 +50,7 @@ export function* waitForDealStatus({ dealId, status, delayTime = 60000, repeatCo
     throw new Error('Status has not changed');
 }
 
-export function* waitForSuccessQueueStatus({ queueId, delayTime = 60000, repeatCount = 5 }) {
+export function* waitForSuccessQueueStatus({ queueId, delayTime = 60000, repeatCount = 8 }) {
     let response;
     for (let i = 0; i < repeatCount; i++) {
         try {

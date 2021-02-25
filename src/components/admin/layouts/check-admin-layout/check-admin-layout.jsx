@@ -75,7 +75,7 @@ export const CheckAdminLayout = () => {
                         </div>
                     </div>
                     <div className='check-agreement'>
-                        {currentOrder.status && currentAction.transferAction && currentOrder.status !== 'closed' ? (
+                        {currentOrder.status && currentAction && currentAction.transferAction && currentOrder.status !== 'closed' ? (
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__title'>{currentAction.textMessage}</div>
