@@ -7,7 +7,7 @@ import { orders } from './order';
 export function getOrderTransitions(deal) {
     const { role: currentRole } = _.find(deal.parties, ['key', NODE_CONFIG.node.toUpperCase()]);
     const { type } = deal.parameters;
-    
+
     return orders[type].parties[currentRole];
 }
 

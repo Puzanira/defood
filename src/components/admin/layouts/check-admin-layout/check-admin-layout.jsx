@@ -33,7 +33,7 @@ export const CheckAdminLayout = () => {
 
     useEffect(() => {
             updateOrder();
-    }, []);
+    }, [updateOrder]);
 
     return (
         <AdminPageFragment headerData={NODE_CONFIG}>
@@ -64,7 +64,8 @@ export const CheckAdminLayout = () => {
                         </div>
                         <div className='admin-check-content__right-side'>
                             <div className='admin-check-right-side-items'>
-                                {currentOrder.parameters.orderData && currentOrder.parameters.orderData.map((elem, index) => (
+                                {currentOrder.parameters.orderData &&
+                                currentOrder.parameters.orderData.map((elem, index) => (
                                     <CheckRightSideItemFragment data={elem} key={index} />
                                 ))}
                             </div>
@@ -79,6 +80,11 @@ export const CheckAdminLayout = () => {
                             <>
                                 <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
                                 <div className='check-agreement__title'>{currentAction.textMessage}</div>
+                                { !currentAction.transferAction && (
+                                    <div className='check-agreement__buttons'>
+                                        Закрыто
+                                    </div>
+                                )}
                                 {currentAction.transferAction === 'wait' && (
                                     <CircularProgress />
                                 )}

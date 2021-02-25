@@ -15,5 +15,8 @@ export const actionMap = {
         transferAction: 'wait',
         textMessage: 'Wait for order to be closed',
     },
-    Closed: { next: null },
+    Closed: {
+        transferAction: null,
+        textMessage: 'Заказ закрыт',
+    },
 };

@@ -23,5 +23,8 @@ export const BakerActionMap = {
         transferAction: 'update',
         textMessage: 'Close order',
     },
-    Closed: { next: null },
+    Closed: {
+        transferAction: null,
+        textMessage: 'Заказ закрыт',
+    },
 };
