@@ -18,6 +18,8 @@ const types = prefixTypes('client', {
     SET_WAITING_STATUS: 'SET_WAITING_STATUS',
     SET_TICKET_DATA: 'SET_TICKET_DATA',
     GET_TICKET_DATA: 'GET_TICKET_DATA',
+    SET_ADDRESS: 'SET_ADDRESS',
+    UPDATE_ADDRESS: 'UPDATE_ADDRESS',
 
     SET_ORDER: 'SET_ORDER',
     SET_ORDERS: 'SET_ORDERS',
@@ -41,6 +43,8 @@ export const clientActions = {
     setWaitingStatus: createAction(types.SET_WAITING_STATUS),
     setTicketData: createAction(types.SET_TICKET_DATA),
     getTicketData: createAction(types.GET_TICKET_DATA),
+    setAddress: createAction(types.SET_ADDRESS),
+    updateAddress: createAction(types.UPDATE_ADDRESS),
 
     setOrder: createAction(types.SET_ORDER),
     setOrders: createAction(types.SET_ORDERS),

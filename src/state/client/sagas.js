@@ -13,6 +13,10 @@ function* setOrderItem({ $payload: { item } }) {
     yield put(clientActions.addOrderItem(item));
 }
 
+function* setAddress({ $payload: { address } }) {
+    yield put(clientActions.setAddress(address));
+}
+
 // API для отслеживание статуса
 function* getWaitingStatus() {
     yield put(clientActions.setWaitingStatus(0));
@@ -37,6 +41,9 @@ function* fetchFormData({ $payload: { formData } }) {
     const order = yield select(
         ({ client }) => client.order,
     );
+    const address = yield select(
+        ({ client }) => client.address,
+    );
 
     const total = order.reduce((acc, item) => acc + Number(item.price), 0);
 
@@ -48,7 +55,7 @@ function* fetchFormData({ $payload: { formData } }) {
         }));
 
     const clientContacts = {
-        addressTo: formData.address,
+        addressTo: address,
         tel: formData.number,
         name: formData.name,
     };
@@ -62,6 +69,7 @@ export const sagas = [
     takeEvery(clientActionTypes.DELETE_ORDER_ITEM, deleteOrderItem),
     takeEvery(clientActionTypes.SET_ORDER_ITEM, setOrderItem),
     takeLatest(clientActionTypes.FETCH_FORM_DATA, fetchFormData),
+    takeLatest(clientActionTypes.UPDATE_ADDRESS, setAddress),
     takeLatest(clientActionTypes.GET_ITEMS, getItems),
     takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
     takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),

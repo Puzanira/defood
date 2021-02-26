@@ -26,7 +26,12 @@ export const config = {
             style: 'header_delivery',
         },
     },
+    zone: {
+        PIZZA1: 'Зона 1',
+        PIZZA2: 'Зона 2',
+    },
 };
 
 export const NODE = process.env.REACT_APP_NODE_TYPE || 'PIZZA1';
 export const NODE_CONFIG = config.parties[NODE];
+export const ADDRESS = config.zone[NODE];

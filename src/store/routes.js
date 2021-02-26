@@ -3,6 +3,7 @@ export const RouterStore = {
         index: '/',
         check: '/check/:id',
         order: '/order/',
+        pizza: '/pizza/:slug',
     },
     admin: {
         index: '/admin/',

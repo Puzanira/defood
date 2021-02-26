@@ -9,6 +9,7 @@ import { RouterStore } from './store/routes';
 import { Pallete } from './pallete';
 
 import { ListLayout } from './components/client/layouts/list-layout';
+import { PizzaListLayout } from './components/client/layouts/pizza-list-layout';
 import { CheckLayout } from './components/client/layouts/check-layout';
 import { OrderLayout } from './components/client/layouts/order-layoyut';
 import { CheckAdminLayout } from './components/admin/layouts/check-admin-layout';
@@ -29,11 +30,12 @@ export class App extends Component {
           route(RouterStore.delivery.index, <DeliveryListLayout />),
           route(RouterStore.delivery.order, <CheckDeliveryLayout />),
       ] : [
-        route(RouterStore.website.index, <ListLayout />),
-        route(RouterStore.website.check, <CheckLayout />),
-        route(RouterStore.website.order, <OrderLayout />),
-        route(RouterStore.admin.index, <ListAdminLayout />),
-        route(RouterStore.admin.order, <CheckAdminLayout />),
+          route(RouterStore.website.index, <PizzaListLayout />),
+          route(RouterStore.website.pizza, <ListLayout />),
+          route(RouterStore.website.check, <CheckLayout />),
+          route(RouterStore.website.order, <OrderLayout />),
+          route(RouterStore.admin.index, <ListAdminLayout />),
+          route(RouterStore.admin.order, <CheckAdminLayout />),
       ];
 
       this.routes.push(route('', <h1>404: Такой страницы не существует</h1>, false));
