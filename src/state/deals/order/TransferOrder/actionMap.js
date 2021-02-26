@@ -23,7 +23,10 @@ export const BakerActionMap = {
         transferAction: 'wait',
         textMessage: 'Wait for order closure',
     },
-    Closed: { next: null },
+    Closed: {
+        transferAction: null,
+        textMessage: 'Заказ закрыт',
+    },
 };
 
 
@@ -52,5 +55,8 @@ export const InitiatorActionMap = {
         transferAction: 'update',
         textMessage: 'Close deal',
     },
-    Closed: { next: null },
+    Closed: {
+        transferAction: null,
+        textMessage: 'Заказ закрыт',
+    },
 };

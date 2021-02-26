@@ -19,7 +19,7 @@ export const ListPartFragment = ({ data, pageType }) => {
         baked: 'list-part-left__label_dark-orange',
         delivering: 'list-part-left__label_blue',
         delivered: 'list-part-left__label_dark-blue',
-        closed: 'list-part-left__label_purple',
+        Closed: 'list-part-left__label_purple',
     };
 
     const transferredColor = {

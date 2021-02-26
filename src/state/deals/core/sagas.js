@@ -32,7 +32,7 @@ export function* createDeal({ deal }) {
     return updatedDeal;
 }
 
-export function* waitForDealStatus({ dealId, status, delayTime = 60000, repeatCount = 5 }) {
+export function* waitForDealStatus({ dealId, status, delayTime = 30000, repeatCount = 10 }) {
     let responseDeal;
     for (let i = 0; i < repeatCount; i++) {
         try {
@@ -50,12 +50,12 @@ export function* waitForDealStatus({ dealId, status, delayTime = 60000, repeatCo
     throw new Error('Status has not changed');
 }
 
-export function* waitForSuccessQueueStatus({ queueId, delayTime = 60000, repeatCount = 8 }) {
+export function* waitForSuccessQueueStatus({ queueId, delayTime = 30000, repeatCount = 10 }) {
     let response;
     for (let i = 0; i < repeatCount; i++) {
         try {
             response = yield callNodeApi(queueApi.getQueueStatus, { id: queueId });
-            if (i < 4 && response.status === 'InQueue')
+            if (i < 4 && (response.status === 'InProgress' || response.status === 'InQueue'))
                 yield delay(delayTime);
             if (response.status === 'Success')
                 return true;
@@ -65,7 +65,7 @@ export function* waitForSuccessQueueStatus({ queueId, delayTime = 60000, repeatC
             if (response.status === 'Error')
                 throw err;
 
-            if (i < 4 && response.status === 'InQueue')
+            if (i < 4 && (response.status === 'InProgress' || response.status === 'InQueue'))
                 yield delay(delayTime);
         }
     }
