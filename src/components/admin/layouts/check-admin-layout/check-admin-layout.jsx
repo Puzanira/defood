@@ -32,7 +32,7 @@ export const CheckAdminLayout = () => {
     );
 
     useEffect(() => {
-            updateOrder();
+        updateOrder();
     }, []);
 
     return (
@@ -55,6 +55,12 @@ export const CheckAdminLayout = () => {
                                     <div className='admin-check-content-item__text'>{currentOrder.parameters.initiator}</div>
                                 </div>
                             )}
+                            <div className='admin-check-content-item'>
+                                <div className='admin-check-content-item__title'>Клиент</div>
+                                <div className='admin-check-content-item__text'>
+                                    {`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}
+                                </div>
+                            </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Доставщик</div>
                                 <div className='admin-check-content-item__text'>
