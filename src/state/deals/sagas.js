@@ -40,10 +40,11 @@ function* createOrderDeal({ $payload: { parameters } }) {
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
         console.log(initialDeal);
-        yield put(clientActions.SET_ORDER({
+        yield put(clientActions.setOrder({
             id: initialDeal.dealId,
             status: 'created',
             data: initialOrderParameters,
+            localDealId: initialDeal.localDealId,
         }));
     }
 
@@ -56,10 +57,11 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const transferDeal = yield createDeal({ deal: transferDealData.toJSON() });
-        yield put(clientActions.SET_ORDER({
+        yield put(clientActions.setOrder({
             id: transferDeal.dealId,
             status: 'created',
             data: transferOrderParameters,
+            localDealId: transferDeal.localDealId,
         }));
     }
 }

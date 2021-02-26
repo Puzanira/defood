@@ -57,7 +57,7 @@ export const reducer = lookupTableReducer(defaultState, {
         ...state,
         orders: {
             ...state.orders,
-            order,
+            [order.id]: order,
         },
     }),
     [clientActionTypes.SET_ORDERS]: (state, orders) => ({
@@ -71,4 +71,16 @@ export const reducer = lookupTableReducer(defaultState, {
             [orderId.status]: orderStatus,
         },
     }),
+    [clientActionTypes.SET_NEW_STATUS]: (state, data) => {
+        const { id, status } = data;
+        const orders = { ...state.orders };
+
+        if (orders.hasOwnProperty(id))
+            orders[id].status = status;
+
+        return {
+            ...state,
+            orders,
+        };
+    },
 });

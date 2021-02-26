@@ -4,6 +4,8 @@ import { PizzaArray, UserData } from '../../store/client-mock-data';
 import { clientActions, clientActionTypes } from './actions';
 import { adminActions } from '../admin/actions';
 
+import { getDeals, getDeal, waitNewOrderStatus } from '../deals/core/sagas';
+
 
 function* setBusy(value) {
     yield put(clientActions.setStatus({ busy: value }));
@@ -58,6 +60,11 @@ function* fetchFormData({ $payload: { formData } }) {
     yield put(adminActions.createOrder({ parameters }));
 }
 
+function* waitStatus({ $payload: { id, status } }) {
+    const newStatus = yield waitNewOrderStatus({ id, status });
+    yield put(clientActions.setNewStatus({ id, status: newStatus }));
+}
+
 export const sagas = [
     takeEvery(clientActionTypes.DELETE_ORDER_ITEM, deleteOrderItem),
     takeEvery(clientActionTypes.SET_ORDER_ITEM, setOrderItem),
@@ -65,4 +72,5 @@ export const sagas = [
     takeLatest(clientActionTypes.GET_ITEMS, getItems),
     takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
     takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),
+    takeEvery(clientActionTypes.WAIT_STATUS, waitStatus),
 ];
