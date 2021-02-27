@@ -39,7 +39,9 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
-        console.log(initialDeal);
+
+        yield put(clientActions.setIsOrderCreated('ready'));
+
         yield put(clientActions.setOrder({
             id: initialDeal.dealId,
             status: 'created',

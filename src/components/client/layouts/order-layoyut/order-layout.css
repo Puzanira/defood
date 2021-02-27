@@ -32,6 +32,10 @@
     margin: 10px 0;
 }
 
+.checkout-item_margin {
+    margin-top: 10px;
+}
+
 .checkout-item__input {
     width: 200px;
 

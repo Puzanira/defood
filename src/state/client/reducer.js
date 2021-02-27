@@ -12,6 +12,8 @@ const defaultState = {
     formData: {},
     ticket: {},
     orders: {},
+
+    isOrderCreated: 'disabled', // 'inProcess', 'ready'
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -83,4 +85,12 @@ export const reducer = lookupTableReducer(defaultState, {
             orders,
         };
     },
+    [clientActionTypes.SET_IS_ORDER_CREATED]: (state, isOrderCreated) => ({
+        ...state,
+        isOrderCreated,
+    }),
+    [clientActionTypes.REMOVE_ORDER]: state => ({
+        ...state,
+        order: [],
+    }),
 });

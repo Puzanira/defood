@@ -21,9 +21,17 @@ export const CheckLayout = () => {
 
     return (
         <Page header='small'>
-            {Object.keys(orders).map((item, index) => (
-                <ClientCheckItem itemData={orders[item]} key={index} />
-            ))}
+            {Object.keys(orders).length ? (
+                <>
+                    {Object.keys(orders).map((item, index) => (
+                        <ClientCheckItem itemData={orders[item]} key={index} />
+                    ))}
+                </>
+            ) : (
+                <>
+                    <div>Текущих заказов не обнаружено</div>
+                </>
+            )}
         </Page>
     );
 };

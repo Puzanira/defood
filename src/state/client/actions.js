@@ -25,6 +25,11 @@ const types = prefixTypes('client', {
 
     WAIT_STATUS: 'WAIT_STATUS',
     SET_NEW_STATUS: 'SET_NEW_STATUS',
+
+    SET_IS_ORDER_CREATED: 'SET_IS_ORDER_CREATED',
+    REMOVE_ORDER: 'REMOVE_ORDER',
+
+    EMPTY_TRASH: 'EMPTY_TRASH',
 });
 
 export { types as clientActionTypes };
@@ -51,4 +56,9 @@ export const clientActions = {
 
     waitStatus: createAction(types.WAIT_STATUS),
     setNewStatus: createAction(types.SET_NEW_STATUS),
+
+    setIsOrderCreated: createAction(types.SET_IS_ORDER_CREATED),
+    removeOrder: createAction(types.REMOVE_ORDER),
+
+    emptyTrash: createAction(types.EMPTY_TRASH),
 };

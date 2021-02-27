@@ -65,6 +65,11 @@ function* waitStatus({ $payload: { id, status } }) {
     yield put(clientActions.setNewStatus({ id, status: newStatus }));
 }
 
+function* emptyTrash() {
+    yield put(clientActions.setIsOrderCreated('disabled'));
+    yield put(clientActions.removeOrder());
+}
+
 export const sagas = [
     takeEvery(clientActionTypes.DELETE_ORDER_ITEM, deleteOrderItem),
     takeEvery(clientActionTypes.SET_ORDER_ITEM, setOrderItem),
@@ -73,4 +78,5 @@ export const sagas = [
     takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
     takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),
     takeEvery(clientActionTypes.WAIT_STATUS, waitStatus),
+    takeLatest(clientActionTypes.EMPTY_TRASH, emptyTrash),
 ];
