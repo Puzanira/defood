@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 import { dealsActionTypes } from './actions';
-import { getDeal, getDeals, createDeal, waitForDealStatus, updateDealStatus } from './core/sagas';
+import { createDeal, waitForDealStatus, updateDealStatus } from './core/sagas';
 import { config, NODE, NODE_CONFIG } from '../../config';
 import { clientActions } from '../client/actions';
 import { dealModels } from './order';
@@ -23,9 +23,11 @@ export function* callNext({ deal }) {
 }
 
 function* createOrderDeal({ $payload: { parameters } }) {
-    const initiator = NODE_CONFIG.node.toUpperCase();
-    const deliverer = config.parties.DELIVERY.node.toUpperCase();
-    const transferBaker = config.parties.PIZZA2.node.toUpperCase();
+    const { baker } = parameters;
+    const initiatorNode = NODE_CONFIG.node.toUpperCase();
+    const delivererNode = config.parties.DELIVERY.node.toUpperCase();
+    const bakerNode = config.parties[baker].node.toUpperCase();
+
     const { InitialOrderDeal, TransferOrderDeal } = dealModels;
 
     const [initialOrderParameters, transferOrderParameters] =
@@ -35,8 +37,8 @@ function* createOrderDeal({ $payload: { parameters } }) {
 
     if (initialOrderParameters.length > 0) {
         const initialDealData = new InitialOrderDeal({
-            baker: initiator,
-            deliverer,
+            baker: initiatorNode,
+            deliverer: delivererNode,
             parameters: {
                 ...parameters,
                 addressFrom: NODE_CONFIG.address,
@@ -54,12 +56,11 @@ function* createOrderDeal({ $payload: { parameters } }) {
 
     if (transferOrderParameters.length > 0) {
         const transferDealData = new TransferOrderDeal({
-            initiator,
-            baker: transferBaker,
-            deliverer,
+            initiator: initiatorNode,
+            baker: bakerNode,
+            deliverer: delivererNode,
             parameters: {
                 ...parameters,
-                baker: config.parties.PIZZA2.name,
                 addressFrom: config.parties.PIZZA2.address,
                 orderData: transferOrderParameters,
             },
