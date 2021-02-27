@@ -7,7 +7,7 @@ export class TransferOrderDeal extends Deal {
             type: 'Transfer',
             kind: 'FirstDeal',
             parties: [
-                { key: initiator, role: 'Initiator ' },
+                { key: initiator, role: 'Initiator' },
                 { key: baker, role: 'Baker' },
                 { key: deliverer, role: 'Deliverer' },
             ],

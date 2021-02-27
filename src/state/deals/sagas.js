@@ -45,6 +45,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
+        yield put(clientActions.setIsOrderCreated('ready'));
         yield put(clientActions.setOrder({
             id: initialDeal.dealId,
             data: initialOrderParameters,
@@ -68,9 +69,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const transferDeal = yield createDeal({ deal: transferDealData.toJSON() });
-
         yield put(clientActions.setIsOrderCreated('ready'));
-
         yield put(clientActions.setOrder({
             id: transferDeal.dealId,
             data: transferOrderParameters,
