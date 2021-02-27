@@ -47,10 +47,12 @@ export const CheckDeliveryLayout = () => {
                                 <div className='admin-check-content-item__title'>Адрес доставки</div>
                                 <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
                             </div>
-                            <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
-                            </div>
+                            {currentOrder.parameters.clientContacts && (
+                                <div className='admin-check-content-item'>
+                                    <div className='admin-check-content-item__title'>Клиент</div>
+                                    <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
+                                </div>
+                            )}
                             {/* <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Адрес отправителя</div>
                                 <div className='admin-check-content-item__text'>{currentOrder.parameters.addressFrom}</div>
@@ -86,7 +88,11 @@ export const CheckDeliveryLayout = () => {
                             </>
                         ) : (
                             <>
-                                <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
+                                {currentOrder.status === 'Closed' ? (
+                                    <div className='check-agreement__title'>Текущий статус: Заказ закрыт</div>
+                                ) : (
+                                    <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
+                                )}
                             </>
                         )}
                     </div>

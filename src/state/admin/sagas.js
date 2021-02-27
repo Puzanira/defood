@@ -39,7 +39,6 @@ function* updateNextStatus() {
 }
 
 function* createOrder({ $payload: { parameters } }) {
-    yield put(clientActions.setIsOrderCreated('inProcess'));
     yield put(dealsActions.createOrderDeal({ parameters }));
 }
 

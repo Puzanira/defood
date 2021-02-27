@@ -55,12 +55,12 @@ export const CheckAdminLayout = () => {
                                     <div className='admin-check-content-item__text'>{currentOrder.parameters.baker}</div>
                                 </div>
                             )}
-                            <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>
-                                    {`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}
+                            {currentOrder.parameters.clientContacts && (
+                                <div className='admin-check-content-item'>
+                                    <div className='admin-check-content-item__title'>Клиент</div>
+                                    <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
                                 </div>
-                            </div>
+                            )}
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Доставщик</div>
                                 <div className='admin-check-content-item__text'>
