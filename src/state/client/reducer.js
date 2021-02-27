@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { lookupTableReducer } from '../utils';
 import { clientActions, clientActionTypes } from './actions';
+import { ADDRESS } from '../../config';
 
 
 const defaultState = {
@@ -14,6 +15,7 @@ const defaultState = {
     orders: {},
 
     isOrderCreated: 'disabled', // 'inProcess', 'ready'
+    address: ADDRESS,
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -53,6 +55,10 @@ export const reducer = lookupTableReducer(defaultState, {
     [clientActionTypes.SET_TICKET_DATA]: (state, data) => ({
         ...state,
         ticket: data,
+    }),
+    [clientActionTypes.SET_ADDRESS]: (state, data) => ({
+        ...state,
+        address: data,
     }),
 
     [clientActionTypes.SET_ORDER]: (state, order) => ({

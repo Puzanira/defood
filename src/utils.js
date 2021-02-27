@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
+import { config } from './config';
 
 
 export const MOBILE_WIDTH = 480;
@@ -109,3 +110,6 @@ export const reversePlainify = object =>
 
         return _.merge(acc, reverseplainifyInner(key.split('.'), value));
     }, {});
+
+
+export const getDeliveryTime = (zone, item) => zone === item ? config.time.fast : config.time.slow;
