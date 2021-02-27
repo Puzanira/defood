@@ -31,9 +31,9 @@ function* createOrderDeal({ $payload: { parameters } }) {
     const [initialOrderParameters, transferOrderParameters] =
         _.partition(parameters.orderData, ['baker', NODE]);
 
-    if (initialOrderParameters.length > 0) {
-        yield put(clientActions.setIsOrderCreated('inProcess'));
+    yield put(clientActions.setIsOrderCreated('inProcess'));
 
+    if (initialOrderParameters.length > 0) {
         const initialDealData = new InitialOrderDeal({
             baker: initiator,
             deliverer,
@@ -45,7 +45,6 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
-        yield put(clientActions.setIsOrderCreated('ready'));
         yield put(clientActions.setOrder({
             id: initialDeal.dealId,
             data: initialOrderParameters,
@@ -54,8 +53,6 @@ function* createOrderDeal({ $payload: { parameters } }) {
     }
 
     if (transferOrderParameters.length > 0) {
-        yield put(clientActions.setIsOrderCreated('inProcess'));
-
         const transferDealData = new TransferOrderDeal({
             initiator,
             baker: transferBaker,
@@ -69,13 +66,14 @@ function* createOrderDeal({ $payload: { parameters } }) {
         });
 
         const transferDeal = yield createDeal({ deal: transferDealData.toJSON() });
-        yield put(clientActions.setIsOrderCreated('ready'));
         yield put(clientActions.setOrder({
             id: transferDeal.dealId,
             data: transferOrderParameters,
             localDealId: transferDeal.localDealId,
         }));
     }
+
+    yield put(clientActions.setIsOrderCreated('ready'));
 }
 
 
