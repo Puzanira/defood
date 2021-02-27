@@ -19,7 +19,7 @@ export const OrderLayout = () => {
 
     return (
         <Page>
-            <Order />
+            <Order visible />
             <Form
                 onSubmit={fetchFormData}
                 render={({ handleSubmit }) => (
@@ -32,10 +32,6 @@ export const OrderLayout = () => {
                         <div className='checkout-item'>
                             <div className='checkout-item__title'>Номер телефон</div>
                             <Field className='checkout-item__input' name='number' type='text' component='input' />
-                        </div>
-                        <div className='checkout-item'>
-                            <div className='checkout-item__title'>Адрес доставки</div>
-                            <Field className='checkout-item__input' name='address' type='text' component='input' />
                         </div>
                         <div className='checkout-item'>
                             <div className='checkout-item__title'>Способ оплаты</div>
