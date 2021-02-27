@@ -5,6 +5,7 @@ import { RouterStore } from '../../../../store/routes';
 import { Page } from '../../fragments/page';
 import { useSelector } from 'react-redux';
 import { config } from '../../../../config';
+import { getDeliveryTime } from '../../../../utils';
 
 import './pizza-list-layout.css';
 
@@ -13,8 +14,7 @@ export const PizzaListLayout = () => {
     const address = useSelector(state => state.client.address);
 
     const zones = Object.keys(config.zone).map((item, index) => {
-        const time = address === item ? '30 мин' : '2 часа';
-        console.log(time, address, item);
+        const time = getDeliveryTime(address, item);
 
         return (
             <Link key={index} to={RouterStore.website.pizza.replace(':slug', item)} className='pizza-item'>

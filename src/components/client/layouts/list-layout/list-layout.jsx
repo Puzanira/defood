@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Page } from '../../fragments/page';
 import { ListItems } from '../../fragments/list-items';
 import { useSelector } from 'react-redux';
-import { useAction } from '../../../../utils';
+import { getDeliveryTime, useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
 import { config } from '../../../../config';
 
@@ -24,10 +24,10 @@ export const ListLayout = () => {
 
     const currentPizza = window.location.pathname.replace('/pizza/', '');
     const isPizza = Object.keys(config.zone).indexOf(currentPizza);
-    const time = address === currentPizza ? '30 мин' : '2 часа';
+    const time = getDeliveryTime(address, currentPizza);
 
     const pizzaArray = Object.keys(config.zone).filter(item => item !== currentPizza).map(item => {
-        const time = address === item ? '30 мин' : '2 часа';
+        const time = getDeliveryTime(address, item);
         return (
             <div className='list-item'>
                 <div className='list-title'>Меню дружественной {item} <span className='list-time'>{ time }</span></div>

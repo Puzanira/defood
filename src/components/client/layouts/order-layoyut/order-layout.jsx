@@ -19,7 +19,7 @@ export const OrderLayout = () => {
 
     return (
         <Page>
-            <Order visible='true' />
+            <Order visible />
             <Form
                 onSubmit={fetchFormData}
                 render={({ handleSubmit }) => (

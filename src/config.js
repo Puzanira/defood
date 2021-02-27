@@ -30,6 +30,10 @@ export const config = {
         PIZZA1: 'Зона 1',
         PIZZA2: 'Зона 2',
     },
+    time: {
+        fast: '30 мин',
+        slow: '2 часа',
+    },
 };
 
 export const NODE = process.env.REACT_APP_NODE_TYPE || 'PIZZA1';

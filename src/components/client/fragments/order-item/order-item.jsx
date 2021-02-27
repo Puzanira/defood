@@ -15,7 +15,7 @@ export const OrderItem = props => {
         [],
     );
 
-    const cancelButton = props.visible === 'true' ? <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} /> : null;
+    const cancelButton = props.visible ? <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} /> : null;
 
     return (
         <div className='order-item'>
