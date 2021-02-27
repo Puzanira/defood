@@ -6,6 +6,7 @@ export const config = {
     xApiVersion: '2.0',
     parties: {
         PIZZA1: {
+            name: 'PIZZA 1 DoDoDo',
             node: 'qrm1',
             address: 'Pizza 1 address',
             ordersPath: '/admin/',
@@ -13,6 +14,7 @@ export const config = {
             style: 'header_depi1',
         },
         PIZZA2: {
+            name: 'PIZZA 2 Domino',
             node: 'qrm2',
             address: 'Pizza 2 address',
             ordersPath: '/admin/',

@@ -1,10 +1,10 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
-import { PizzaArray, UserData } from '../../store/client-mock-data';
 
+import { PizzaArray, UserData } from '../../store/client-mock-data';
 import { clientActions, clientActionTypes } from './actions';
 import { adminActions } from '../admin/actions';
-
 import { getDeals, getDeal, waitNewOrderStatus } from '../deals/core/sagas';
+import { config } from '../../config';
 
 
 function* setBusy(value) {
@@ -57,12 +57,17 @@ function* fetchFormData({ $payload: { formData } }) {
         }));
 
     const clientContacts = {
-        addressTo: address,
+        addressTo: config.zone[address],
         tel: formData.number,
         name: formData.name,
     };
 
-    const parameters = { orderData, total, addressTo: address, clientContacts };
+    const parameters = {
+        orderData,
+        total,
+        addressTo: config.zone[address],
+        clientContacts,
+    };
 
     yield put(adminActions.createOrder({ parameters }));
 }

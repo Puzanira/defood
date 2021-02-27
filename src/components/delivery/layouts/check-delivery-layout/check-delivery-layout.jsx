@@ -53,10 +53,6 @@ export const CheckDeliveryLayout = () => {
                                     <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
                                 </div>
                             )}
-                            {/* <div className='admin-check-content-item'>
-                                <div className='admin-check-content-item__title'>Адрес отправителя</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.addressFrom}</div>
-                            </div> */}
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Оплата</div>
                                 <div className='admin-check-content-item__text'>произведена</div>

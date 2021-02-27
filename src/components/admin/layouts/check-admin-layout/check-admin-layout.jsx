@@ -51,14 +51,17 @@ export const CheckAdminLayout = () => {
                                 </div>
                             ) : (
                                 <div className='admin-check-content-item'>
-                                    <div className='admin-check-content-item__title'>Получен от</div>
-                                    <div className='admin-check-content-item__text'>{currentOrder.parameters.initiator}</div>
+                                    <div className='admin-check-content-item__title'>Исполняется</div>
+                                    <div className='admin-check-content-item__text'>{currentOrder.parameters.baker}</div>
                                 </div>
                             )}
                             {currentOrder.parameters.clientContacts && (
                                 <div className='admin-check-content-item'>
                                     <div className='admin-check-content-item__title'>Клиент</div>
-                                    <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
+                                    <div className='admin-check-content-item__text'>
+                                        {`${currentOrder.parameters.clientContacts.name}, тел. 
+                                        ${currentOrder.parameters.clientContacts.tel}`}
+                                    </div>
                                 </div>
                             )}
                             <div className='admin-check-content-item'>

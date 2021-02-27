@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 import { dealsActionTypes } from './actions';
-import { getDeal, getDeals, createDeal, waitForDealStatus, updateDealStatus } from './core/sagas';
+import { createDeal, waitForDealStatus, updateDealStatus } from './core/sagas';
 import { config, NODE, NODE_CONFIG } from '../../config';
 import { clientActions } from '../client/actions';
 import { dealModels } from './order';
@@ -23,56 +23,60 @@ export function* callNext({ deal }) {
 }
 
 function* createOrderDeal({ $payload: { parameters } }) {
-    const initiator = NODE_CONFIG.node.toUpperCase();
-    const deliverer = config.parties.DELIVERY.node.toUpperCase();
-    const transferBaker = config.parties.PIZZA2.node.toUpperCase();
+    const baker = NODE === 'PIZZA1' ? 'PIZZA2' : 'PIZZA1';
+
+    const initiatorNode = NODE_CONFIG.node.toUpperCase();
+    const delivererNode = config.parties.DELIVERY.node.toUpperCase();
+    const bakerNode = config.parties[baker].node.toUpperCase();
+
     const { InitialOrderDeal, TransferOrderDeal } = dealModels;
 
     const [initialOrderParameters, transferOrderParameters] =
         _.partition(parameters.orderData, ['baker', NODE]);
 
-    if (initialOrderParameters.length > 0) {
-        yield put(clientActions.setIsOrderCreated('inProcess'));
+    yield put(clientActions.setIsOrderCreated('inProcess'));
 
+    if (initialOrderParameters.length > 0) {
         const initialDealData = new InitialOrderDeal({
-            baker: initiator,
-            deliverer,
-            parameters: { ...parameters, orderData: initialOrderParameters },
+            baker: initiatorNode,
+            deliverer: delivererNode,
+            parameters: {
+                ...parameters,
+                addressFrom: NODE_CONFIG.address,
+                orderData: initialOrderParameters,
+            },
         });
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
-
-        yield put(clientActions.setIsOrderCreated('ready'));
-
         yield put(clientActions.setOrder({
             id: initialDeal.dealId,
-            status: 'created',
             data: initialOrderParameters,
             localDealId: initialDeal.localDealId,
         }));
     }
 
     if (transferOrderParameters.length > 0) {
-        yield put(clientActions.setIsOrderCreated('inProcess'));
-
         const transferDealData = new TransferOrderDeal({
-            initiator,
-            baker: transferBaker,
-            deliverer,
-            parameters: { ...parameters, orderData: transferOrderParameters },
+            initiator: initiatorNode,
+            baker: bakerNode,
+            deliverer: delivererNode,
+            parameters: {
+                ...parameters,
+                baker: config.parties[baker].name,
+                addressFrom: config.parties[baker].address,
+                orderData: transferOrderParameters,
+            },
         });
 
         const transferDeal = yield createDeal({ deal: transferDealData.toJSON() });
-
-        yield put(clientActions.setIsOrderCreated('ready'));
-
         yield put(clientActions.setOrder({
             id: transferDeal.dealId,
-            status: 'created',
             data: transferOrderParameters,
             localDealId: transferDeal.localDealId,
         }));
     }
+
+    yield put(clientActions.setIsOrderCreated('ready'));
 }
 
 
