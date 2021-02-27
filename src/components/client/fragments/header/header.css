@@ -36,6 +36,7 @@
 }
 
 .page-header__link {
+
     color: white !important;
 }
 
@@ -49,6 +50,7 @@
     display: flex;
     align-items: center;
 
+    margin-right: auto;
     padding: 5px 10px;
 
     transition: ease-in-out all 0.3s;

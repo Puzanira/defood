@@ -8,13 +8,17 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import { useAction } from '../../../../utils';
+import { clientActions } from '../../../../state/client/actions';
+
 
 import './header.css';
 
 
 export const Header = props => {
     const data = useSelector(state => state.client.order);
-    const { size, config } = props;
+    const address = useSelector(state => state.client.address);
+    const { size, config, zones } = props;
     const { title, background } = config;
 
     const styles = {
@@ -22,6 +26,17 @@ export const Header = props => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     };
+
+    const addOrder = useAction(
+        address => clientActions.updateAddress({ address }),
+        [],
+    );
+
+    const handlerChangeAddress = event => {
+      addOrder(event.target.value);
+    };
+
+    const zonesMap = Object.entries(zones).map(([key, value], index) => (<option key={index} value={key}>{value}</option>));
 
     return (
         <div className={size ? 'page-header page-header_small' : 'page-header'}>
@@ -46,6 +61,9 @@ export const Header = props => {
                             </Badge>
                         </IconButton>
                     </Link>
+                    <select className='header__zones' value={address} onChange={handlerChangeAddress}>
+                        { zonesMap }
+                    </select>
                 </Toolbar>
             </AppBar>
             <div className='page-header__placeholder' style={styles}>
