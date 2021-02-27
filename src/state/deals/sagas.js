@@ -32,6 +32,8 @@ function* createOrderDeal({ $payload: { parameters } }) {
         _.partition(parameters.orderData, ['baker', NODE]);
 
     if (initialOrderParameters.length > 0) {
+        yield put(clientActions.setIsOrderCreated('inProcess'));
+
         const initialDealData = new InitialOrderDeal({
             baker: initiator,
             deliverer,
@@ -51,6 +53,8 @@ function* createOrderDeal({ $payload: { parameters } }) {
     }
 
     if (transferOrderParameters.length > 0) {
+        yield put(clientActions.setIsOrderCreated('inProcess'));
+
         const transferDealData = new TransferOrderDeal({
             initiator,
             baker: transferBaker,

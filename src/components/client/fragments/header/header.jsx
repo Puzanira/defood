@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
+import DepartureBoardIcon from '@material-ui/icons/DepartureBoard';
 import InputBase from '@material-ui/core/InputBase';
 import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
@@ -54,6 +55,13 @@ export const Header = props => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
+                    <Link to='/check/'>
+                        <IconButton color='inherit' className='page-header__link'>
+                            <Badge color='secondary'>
+                                <DepartureBoardIcon />
+                            </Badge>
+                        </IconButton>
+                    </Link>
                     <Link to='/order/'>
                         <IconButton color='inherit' className='page-header__link'>
                             <Badge badgeContent={data.length} color='secondary'>
