@@ -5,7 +5,7 @@ import { ListItems } from '../../fragments/list-items';
 import { useSelector } from 'react-redux';
 import { getDeliveryTime, useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
-import { config } from '../../../../config';
+import { config, NODE } from '../../../../config';
 
 import './list-layout.css';
 
@@ -22,16 +22,16 @@ export const ListLayout = () => {
         getItems();
     }, []);
 
-    const currentPizza = window.location.pathname.replace('/pizza/', '');
+    const currentPizza = NODE;
     const isPizza = Object.keys(config.zone).indexOf(currentPizza);
     const time = getDeliveryTime(address, currentPizza);
 
-    const pizzaArray = Object.keys(config.zone).filter(item => item !== currentPizza).map(item => {
+    const pizzaArray = Object.keys(config.zone).filter(item => item !== currentPizza).map((item, index) => {
         const time = getDeliveryTime(address, item);
         return (
             <div className='list-item'>
                 <div className='list-title'>Меню дружественной {item} <span className='list-time'>{ time }</span></div>
-                <ListItems items={data.filter(obj => obj.baker === item)} />
+                <ListItems key={index} items={data.filter(obj => obj.baker === item)} />
             </div>
         );
     });

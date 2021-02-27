@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { lookupTableReducer } from '../utils';
 import { clientActions, clientActionTypes } from './actions';
-import { ADDRESS } from '../../config';
+import { NODE } from '../../config';
 
 
 const defaultState = {
@@ -15,7 +15,7 @@ const defaultState = {
     orders: {},
 
     isOrderCreated: 'disabled', // 'inProcess', 'ready'
-    address: ADDRESS,
+    address: NODE,
 };
 
 export const reducer = lookupTableReducer(defaultState, {

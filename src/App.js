@@ -30,8 +30,7 @@ export class App extends Component {
           route(RouterStore.delivery.index, <DeliveryListLayout />),
           route(RouterStore.delivery.order, <CheckDeliveryLayout />),
       ] : [
-          route(RouterStore.website.index, <PizzaListLayout />),
-          route(RouterStore.website.pizza, <ListLayout />),
+          route(RouterStore.website.index, <ListLayout />),
           route(RouterStore.website.check, <CheckLayout />),
           route(RouterStore.website.order, <OrderLayout />),
           route(RouterStore.admin.index, <ListAdminLayout />),

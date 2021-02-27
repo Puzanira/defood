@@ -62,7 +62,7 @@ function* fetchFormData({ $payload: { formData } }) {
         name: formData.name,
     };
 
-    const parameters = { orderData, total, addressTo: formData.address, clientContacts };
+    const parameters = { orderData, total, addressTo: address, clientContacts };
 
     yield put(adminActions.createOrder({ parameters }));
 }

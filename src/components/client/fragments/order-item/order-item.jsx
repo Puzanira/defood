@@ -27,7 +27,6 @@ export const OrderItem = props => {
                 </div>
             </div>
             <div className='order-item__right-bar'>
-                <div className='order-item__count'>x 1</div>
                 <div className='order-item__price'>{price} ₽</div>
                 { cancelButton }
             </div>
