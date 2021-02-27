@@ -64,7 +64,6 @@ export const OrderLayout = () => {
                 <div className='check-agreement'>
                     Заказ обрабатывается, пожалуйста, подождите!
                     <CircularProgress className='checkout-item_margin' />
-                    <div onClick={setIsOrderCreated} className='check-agreement__button check-agreement__button_agree checkout-item_margin'>Прекратить ожидание</div>
                 </div>
             )}
 
