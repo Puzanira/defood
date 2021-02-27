@@ -27,15 +27,14 @@ export const config = {
         },
     },
     zone: {
-        PIZZA1: 'Зона 1',
-        PIZZA2: 'Зона 2',
+        PIZZA1: 'Zone 1',
+        PIZZA2: 'Zone 2',
     },
     time: {
-        fast: '30 мин',
-        slow: '2 часа',
+        fast: '30 min',
+        slow: '2 hours',
     },
 };
 
 export const NODE = process.env.REACT_APP_NODE_TYPE || 'PIZZA1';
 export const NODE_CONFIG = config.parties[NODE];
-export const ADDRESS = config.zone[NODE];

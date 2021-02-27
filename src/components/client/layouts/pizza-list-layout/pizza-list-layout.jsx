@@ -16,6 +16,7 @@ export const PizzaListLayout = () => {
     const zones = Object.keys(config.zone).map((item, index) => {
         const time = getDeliveryTime(address, item);
 
+
         return (
             <Link key={index} to={RouterStore.website.pizza.replace(':slug', item)} className='pizza-item'>
                 <div className='pizza-item__placeholder'>
