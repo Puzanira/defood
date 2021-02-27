@@ -21,7 +21,7 @@ export const CheckLayout = () => {
 
     return (
         <Page header='small'>
-            {Object.keys(orders).length ? (
+            {orders && Object.keys(orders).length ? (
                 <>
                     {Object.keys(orders).map((item, index) => (
                         <ClientCheckItem itemData={orders[item]} key={index} />

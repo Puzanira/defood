@@ -37,24 +37,6 @@ export const ClientCheckItem = ({ itemData }) => {
         <div className='client-check-item'>
             <div className='check-title'>Заказ № {localDealId}</div>
             <div className='check-content'>
-                {/* <div className='check-content__left-side'>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Доставка по адресу</div>
-                        <div className='left-side__item-content'>{ address }</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Получатель</div>
-                        <div className='left-side__item-content'>{ info }</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Время оформления</div>
-                        <div className='left-side__item-content'>{ date }</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Оплата</div>
-                        <div className='left-side__item-content'>{ pay }</div>
-                    </div>
-                </div> */}
                 <CheckOrder order={data} />
             </div>
             {steps.indexOf[status] !== -1 && (
