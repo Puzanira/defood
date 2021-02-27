@@ -5,15 +5,28 @@ import { Page } from '../../fragments/page';
 import { Order } from '../../fragments/order';
 import { Form, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
 
 import './order-layout.css';
 
 
 export const OrderLayout = () => {
     const order = useSelector(state => state.client.order);
+    const isOrderCreated = useSelector(state => state.client.isOrderCreated);
 
     const fetchFormData = useAction(
         formData => clientActions.fetchFormData({ formData }),
+        [],
+    );
+
+    const emptyTresh = useAction(
+        () => clientActions.emptyTrash(),
+        [],
+    );
+
+    const setIsOrderCreated = useAction(
+        () => clientActions.setIsOrderCreated('disabled'),
         [],
     );
 
@@ -46,6 +59,23 @@ export const OrderLayout = () => {
                     </form>
                 )}
             />
+
+            {isOrderCreated === 'inProcess' && (
+                <div className='check-agreement'>
+                    Заказ обрабатывается, пожалуйста, подождите!
+                    <CircularProgress className='checkout-item_margin' />
+                    <div onClick={setIsOrderCreated} className='check-agreement__button check-agreement__button_agree checkout-item_margin'>Прекратить ожидание</div>
+                </div>
+            )}
+
+            {isOrderCreated === 'ready' && (
+                <div className='check-agreement'>
+                    <div>Ваш заказ готов!</div>
+                    <div>Отследить можете в <Link to='/check/'>меню с заказами</Link></div>
+
+                    <div onClick={emptyTresh} className='check-agreement__button check-agreement__button_agree checkout-item_margin'>Очистить корзину</div>
+                </div>
+            )}
         </Page>
     );
 };

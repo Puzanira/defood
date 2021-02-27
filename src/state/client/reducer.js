@@ -13,6 +13,8 @@ const defaultState = {
     formData: {},
     ticket: {},
     orders: {},
+
+    isOrderCreated: 'disabled', // 'inProcess', 'ready'
     address: ADDRESS,
 };
 
@@ -63,7 +65,7 @@ export const reducer = lookupTableReducer(defaultState, {
         ...state,
         orders: {
             ...state.orders,
-            order,
+            [order.id]: order,
         },
     }),
     [clientActionTypes.SET_ORDERS]: (state, orders) => ({
@@ -76,5 +78,25 @@ export const reducer = lookupTableReducer(defaultState, {
             ...state.orders,
             [orderId.status]: orderStatus,
         },
+    }),
+    [clientActionTypes.SET_NEW_STATUS]: (state, data) => {
+        const { id, status } = data;
+        const orders = { ...state.orders };
+
+        if (orders.hasOwnProperty(id))
+            orders[id].status = status;
+
+        return {
+            ...state,
+            orders,
+        };
+    },
+    [clientActionTypes.SET_IS_ORDER_CREATED]: (state, isOrderCreated) => ({
+        ...state,
+        isOrderCreated,
+    }),
+    [clientActionTypes.REMOVE_ORDER]: state => ({
+        ...state,
+        order: [],
     }),
 });

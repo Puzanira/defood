@@ -50,6 +50,28 @@ export function* waitForDealStatus({ dealId, status, delayTime = 30000, repeatCo
     throw new Error('Status has not changed');
 }
 
+export function* waitNewOrderStatus({ id, status, delayTime = 30000, repeatCount = 10 }) {
+    console.log(`wait ${status}`);
+
+    let responseDeal;
+
+    for (let i = 0; i < repeatCount; i++) {
+        try {
+            responseDeal = yield callNodeApi(dealsApi.getDeal, { id });
+            if (status !== responseDeal.status)
+                return responseDeal.status;
+
+            if (i < 4 && !status === responseDeal.status)
+                console.log('here');
+                yield delay(delayTime);
+        } catch (err) {
+            if (i < 4 && !status === responseDeal.status)
+                yield delay(delayTime);
+        }
+    }
+    throw new Error('Status has not changed');
+}
+
 export function* waitForSuccessQueueStatus({ queueId, delayTime = 30000, repeatCount = 10 }) {
     let response;
     for (let i = 0; i < repeatCount; i++) {

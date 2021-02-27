@@ -5,6 +5,8 @@ import { dealsActions } from '../deals/actions';
 import { callNext } from '../deals/sagas';
 import { getDeals, getDeal } from '../deals/core/sagas';
 import { getCurrentAction } from '../deals/helpers';
+import { yellow } from '@material-ui/core/colors';
+import { clientActions } from '../client/actions';
 
 
 function* setBusy(value) {
@@ -37,6 +39,7 @@ function* updateNextStatus() {
 }
 
 function* createOrder({ $payload: { parameters } }) {
+    yield put(clientActions.setIsOrderCreated('inProcess'));
     yield put(dealsActions.createOrderDeal({ parameters }));
 }
 

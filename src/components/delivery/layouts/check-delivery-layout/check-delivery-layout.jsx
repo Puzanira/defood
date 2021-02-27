@@ -31,7 +31,7 @@ export const CheckDeliveryLayout = () => {
     );
 
     useEffect(() => {
-            updateOrder();
+        updateOrder();
     }, []);
 
     return (
@@ -43,15 +43,15 @@ export const CheckDeliveryLayout = () => {
                     </div>
                     <div className='admin-check-content'>
                         <div className='admin-check-content__left-side'>
-                            {/* <div className='admin-check-content-item'>
+                            <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Адрес доставки</div>
                                 <div className='admin-check-content-item__text'>{currentOrder.parameters.addressTo}</div>
                             </div>
                             <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Клиент</div>
-                                <div className='admin-check-content-item__text'>{currentOrder.parameters.clientContacts}</div>
+                                <div className='admin-check-content-item__text'>{`${currentOrder.parameters.clientContacts.name}, тел. ${currentOrder.parameters.clientContacts.tel}`}</div>
                             </div>
-                            <div className='admin-check-content-item'>
+                            {/* <div className='admin-check-content-item'>
                                 <div className='admin-check-content-item__title'>Адрес отправителя</div>
                                 <div className='admin-check-content-item__text'>{currentOrder.parameters.addressFrom}</div>
                             </div> */}
