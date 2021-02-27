@@ -1,9 +1,8 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
-import { PizzaArray, UserData } from '../../store/client-mock-data';
 
+import { PizzaArray, UserData } from '../../store/client-mock-data';
 import { clientActions, clientActionTypes } from './actions';
 import { adminActions } from '../admin/actions';
-
 import { getDeals, getDeal, waitNewOrderStatus } from '../deals/core/sagas';
 import { config } from '../../config';
 
@@ -63,7 +62,12 @@ function* fetchFormData({ $payload: { formData } }) {
         name: formData.name,
     };
 
-    const parameters = { orderData, total, addressFrom: address, clientContacts };
+    const parameters = {
+        orderData,
+        total,
+        addressTo: config.zone[address],
+        clientContacts,
+    };
 
     yield put(adminActions.createOrder({ parameters }));
 }

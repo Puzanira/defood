@@ -35,16 +35,16 @@ function* createOrderDeal({ $payload: { parameters } }) {
         const initialDealData = new InitialOrderDeal({
             baker: initiator,
             deliverer,
-            parameters: { ...parameters, orderData: initialOrderParameters },
+            parameters: {
+                ...parameters,
+                addressFrom: NODE_CONFIG.address,
+                orderData: initialOrderParameters,
+            },
         });
 
         const initialDeal = yield createDeal({ deal: initialDealData.toJSON() });
-
-        yield put(clientActions.setIsOrderCreated('ready'));
-
         yield put(clientActions.setOrder({
             id: initialDeal.dealId,
-            status: 'created',
             data: initialOrderParameters,
             localDealId: initialDeal.localDealId,
         }));
@@ -55,13 +55,17 @@ function* createOrderDeal({ $payload: { parameters } }) {
             initiator,
             baker: transferBaker,
             deliverer,
-            parameters: { ...parameters, orderData: transferOrderParameters },
+            parameters: {
+                ...parameters,
+                baker: config.parties.PIZZA2.name,
+                addressFrom: config.parties.PIZZA2.address,
+                orderData: transferOrderParameters,
+            },
         });
 
         const transferDeal = yield createDeal({ deal: transferDealData.toJSON() });
         yield put(clientActions.setOrder({
             id: transferDeal.dealId,
-            status: 'created',
             data: transferOrderParameters,
             localDealId: transferDeal.localDealId,
         }));
