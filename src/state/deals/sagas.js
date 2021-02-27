@@ -23,7 +23,8 @@ export function* callNext({ deal }) {
 }
 
 function* createOrderDeal({ $payload: { parameters } }) {
-    const { baker } = parameters;
+    const baker = NODE === 'PIZZA1' ? 'PIZZA2' : 'PIZZA1';
+
     const initiatorNode = NODE_CONFIG.node.toUpperCase();
     const delivererNode = config.parties.DELIVERY.node.toUpperCase();
     const bakerNode = config.parties[baker].node.toUpperCase();
@@ -61,7 +62,8 @@ function* createOrderDeal({ $payload: { parameters } }) {
             deliverer: delivererNode,
             parameters: {
                 ...parameters,
-                addressFrom: config.parties.PIZZA2.address,
+                baker: config.parties[baker].name,
+                addressFrom: config.parties[baker].address,
                 orderData: transferOrderParameters,
             },
         });
