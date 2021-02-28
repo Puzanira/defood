@@ -1,0 +1,7 @@
+.deal-history__wrapper {
+    margin-top: 50px;
+
+    border-radius: 10px;
+
+    background-color: var(--color-gray-1) !important;
+}

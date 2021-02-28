@@ -1,4 +1,4 @@
-import { lookupTableReducer } from '../utils';
+import { lookupTableReducer } from '../../core/state/utils';
 import { adminActionTypes } from './actions';
 
 
@@ -6,7 +6,6 @@ const defaultState = {
     busy: false,
     orders: [],
     currentOrder: {},
-    currentAction: {},
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -25,9 +24,5 @@ export const reducer = lookupTableReducer(defaultState, {
     [adminActionTypes.SET_ORDER]: (state, order) => ({
         ...state,
         currentOrder: order,
-    }),
-    [adminActionTypes.SET_ORDER_ACTION]: (state, action) => ({
-        ...state,
-        currentAction: action,
     }),
 });

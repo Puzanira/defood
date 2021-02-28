@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import { state } from './state';
-import { createRootSaga } from './state/utils';
+import { createRootSaga } from './core/state/utils';
 
 
 const persistConfig = {
