@@ -58,6 +58,9 @@
     width: 340px;
 }
 
+.check_margin {
+    margin-top: 10px;
+}
 
 .checkout-item__card {
     display: flex;

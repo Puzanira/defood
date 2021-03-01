@@ -5,13 +5,20 @@ import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
 
 import { ClientCheckItem } from '../../fragments/client-check-item';
+import { CircularProgress } from '@material-ui/core';
 
 
 export const CheckLayout = () => {
     const orders = useSelector(state => state.client.orders);
+    const isOrderCreated = useSelector(state => state.client.isOrderCreated);
 
     const getItems = useAction(
         id => clientActions.getTicketData({ id }),
+        [],
+    );
+
+    const setIsOrderCreated = useAction(
+        () => clientActions.setIsOrderCreated('disabled'),
         [],
     );
 
@@ -21,6 +28,23 @@ export const CheckLayout = () => {
 
     return (
         <Page header='small'>
+            {isOrderCreated !== 'disabled' && (
+                <div className='check-agreement check-agreement_no-margin'>
+                    {isOrderCreated === 'inProcess' && (
+                        <>
+                            Заказ обрабатывается, пожалуйста, подождите!
+                            <CircularProgress className='checkout-item_margin' />
+                        </>
+                    )}
+                    {isOrderCreated === 'ready' && (
+                        <>
+                            <div>Ваш заказ готов!</div>
+                            <div onClick={setIsOrderCreated} className='check-agreement__button check-agreement__button_agree checkout-item_margin'>Закрыть уведомление</div>
+                        </>
+                    )}
+                </div>
+            )}
+
             {orders && Object.keys(orders).length ? (
                 <>
                     {Object.keys(orders).map((item, index) => (
@@ -29,7 +53,7 @@ export const CheckLayout = () => {
                 </>
             ) : (
                 <>
-                    <div>Текущих заказов не обнаружено</div>
+                    <div className='check_margin'>Текущих заказов не обнаружено</div>
                 </>
             )}
         </Page>
