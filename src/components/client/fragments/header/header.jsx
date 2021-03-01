@@ -47,7 +47,7 @@ export const Header = ({ size, config, zones }) => {
                             </Badge>
                         </IconButton>
                     </Link>
-                    <Link to='/order/'>
+                    <Link to='/orders/'>
                         <IconButton color='inherit' className='page-header__link'>
                             <Badge badgeContent={data.length} color='secondary'>
                                 <LocalMallIcon />

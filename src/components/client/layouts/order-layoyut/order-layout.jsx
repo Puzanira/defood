@@ -10,6 +10,17 @@ import { Order } from '../../fragments/order';
 import './order-layout.css';
 
 
+function isLatin(str) {
+    const regex = /^([A-Za-z\s]*)$/;
+    return regex.test(str);
+}
+
+const required = value => value ? undefined : 'Обязательное поле';
+const mustBeLatinSymbols = value => isLatin(value) ? undefined : 'Пишите имя латинскими буквами';
+const composeValidators = (...validators) => value =>
+    validators.reduce((error, validator) => error || validator(value), undefined);
+
+
 export const OrderLayout = () => {
     const history = useHistory();
 
@@ -30,11 +41,38 @@ export const OrderLayout = () => {
                         <div className='checkout__title'>Оформление заказа</div>
                         <div className='checkout-item'>
                             <div className='checkout-item__title'>Имя</div>
-                            <Field className='checkout-item__input' name='name' type='text' component='input' />
+                            <Field
+                                validate={composeValidators(required, mustBeLatinSymbols)}
+                                className='checkout-item__input'
+                                name='name'
+                                type='text'
+                                component='input'
+                            >
+                                {({ input, meta }) => (
+                                    <div>
+                                        <input className='checkout-item__input' {...input} />
+                                        {meta.error && meta.touched &&
+                                        <div className='checkout-item__input-error'>{meta.error}</div>}
+                                    </div>
+                                )}
+                            </Field>
                         </div>
                         <div className='checkout-item'>
                             <div className='checkout-item__title'>Номер телефон</div>
-                            <Field className='checkout-item__input' name='number' type='text' component='input' />
+                            <Field
+                                validate={required}
+                                name='number'
+                                type='text'
+                                component='input'
+                            >
+                                {({ input, meta }) => (
+                                    <div>
+                                        <input className='checkout-item__input' {...input} />
+                                        {meta.error && meta.touched &&
+                                            <div className='checkout-item__input-error'>{meta.error}</div>}
+                                    </div>
+                                )}
+                            </Field>
                         </div>
                         <div className='checkout-item'>
                             <div className='checkout-item__title'>Способ оплаты</div>

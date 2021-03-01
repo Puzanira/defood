@@ -49,7 +49,7 @@ export const clientActions = {
     setOrder: createAction(types.SET_ORDER),
     setOrders: createAction(types.SET_ORDERS),
     setOrderStatus: createAction(types.SET_ORDER_STATUS),
-    setOrderInProgress: createAction(types.SET_ORDER_PROGRESS),
+    setOrderInProgress: createAction(types.SET_ORDER_IN_PROGRESS),
     removeOrder: createAction(types.REMOVE_ORDER),
 
     emptyTrash: createAction(types.EMPTY_TRASH),

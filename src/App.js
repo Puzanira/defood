@@ -13,10 +13,8 @@ import { CheckLayout } from './components/client/layouts/check-layout';
 import { OrderLayout } from './components/client/layouts/order-layoyut';
 import { CheckAdminLayout } from './components/admin/layouts/check-admin-layout';
 import { ListLayout as ListAdminLayout } from './components/admin/layouts/list-layout';
-import { DeliveryListLayout } from './components/delivery/layouts/delivery-list-layout';
-import { CheckDeliveryLayout } from './components/delivery/layouts/check-delivery-layout';
 import { AddressLayout } from './components/client/layouts/address-layout';
-import { config, NODE } from './config';
+import { NODE } from './config';
 
 
 export class App extends Component {

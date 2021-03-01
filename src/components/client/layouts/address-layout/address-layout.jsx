@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 import { RouterStore } from '../../../../store/routes';
-import { useSelector } from 'react-redux';
 import { config, NODE_CONFIG } from '../../../../config';
 import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
+
 
 import './address-layout.css';
 
@@ -29,7 +30,10 @@ export const AddressLayout = () => {
         history.push(RouterStore.website.list);
     };
 
-    const zonesMap = Object.entries(config.zone).map(([key, value], index) => (<option key={index} value={key}>{value}</option>));
+    const zonesMap = useMemo(
+        () => Object.entries(config.zone).map(([key, value]) =>
+            <option key={key} value={key}>{value}</option>), [],
+        );
 
     return (
         <div className='address-page'>

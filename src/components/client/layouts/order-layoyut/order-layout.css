@@ -47,6 +47,11 @@
     background-color: var(--color-gray-1);
 }
 
+.checkout-item__input-error {
+    color: red;
+    font-size: 12px;
+}
+
 .checkout-item__input:focus {
     outline: none;
 }
