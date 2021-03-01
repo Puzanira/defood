@@ -21,7 +21,7 @@ function* getOrders() {
 }
 
 function* updateOrder({ $payload: { order } }) {
-    yield put(adminActions.setOrder(order));
+    yield put(adminActions.setOrder({ ...order }));
 }
 
 function* createOrder({ $payload: { parameters } }) {

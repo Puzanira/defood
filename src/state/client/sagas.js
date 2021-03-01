@@ -6,7 +6,7 @@ import { adminActions } from '../admin/actions';
 import { config } from '../../config';
 
 
-function* setOrderInProgress(value) {
+function* setOrderInProgress({ $payload: { value } }) {
     yield put(clientActions.setStatus({ orderInProgress: value }));
 }
 

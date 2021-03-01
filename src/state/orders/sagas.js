@@ -76,7 +76,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
         },
     };
 
-    yield put(clientActions.setOrderInProgress(true));
+    yield put(clientActions.setOrderInProgress({ value: true }));
 
     if (initialOrderParameters.length > 0 && transferOrderParameters.length > 0) {
         yield all([
@@ -88,7 +88,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
     else if (transferOrderParameters.length > 0)
         yield createTransferDeal(transferDealData);
 
-    yield put(clientActions.setOrderInProgress(false));
+    yield put(clientActions.setOrderInProgress({ value: false }));
 }
 
 
