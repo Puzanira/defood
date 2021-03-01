@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
+
 import { config } from './config';
 
 
@@ -27,16 +28,15 @@ export const useAction = (action, deps) => {
  * @param {object} value
  * @returns {boolean}
  */
-const isObject = value => (value ? value.constructor === Object : false);
+const isObject = value => value ? value.constructor === Object : false;
 
 const plainifyArray = (key, array) => {
-    const reducer = (obj, index) => (
+    const reducer = (obj, index) =>
         Object.entries(obj).reduce((acc, current) => {
             const [childKey, childValue] = current;
             const newKey = `${key}.${index}.${childKey}`;
             return { ...acc, [newKey]: childValue };
-        }, {})
-    );
+        }, {});
 
     return array.reduce((result, obj, index) => ({
         ...result,
@@ -84,9 +84,9 @@ const reverseplainifyInner = (keys, value) =>
     keys.reduce((acc, item, index) => {
         if (keys.length === 1)
             return _.merge(acc, { [item]: value });
-        if (index === 0 && index !== (keys.length - 1))
+        if (index === 0 && index !== keys.length - 1)
             return { ...acc, [item]: parseInt(keys[index + 1], 10) >= 0 ? [{}] : {} };
-        if (index === (keys.length - 1) && !(parseInt(keys[index - 1], 10) >= 0)) {
+        if (index === keys.length - 1 && !(parseInt(keys[index - 1], 10) >= 0)) {
             const temp = { [keys[index - 1]]: {} };
 
             temp[keys[index - 1]][item] = value;
