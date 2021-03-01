@@ -11,8 +11,10 @@ services:
       - 3001:3000
     environment:
       - "REACT_APP_NODE_TYPE=PIZZA1"
-      - "REACT_APP_CHANNEL=puzanova.ira2011@yandex.ru"
-      - "REACT_APP_AUTHORIZATION=Basic S2Vra2VyVXNlcjp6RGZqbTMz"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="
 
   depi2:
     container_name: depi2
@@ -23,8 +25,10 @@ services:
       - 3002:3000
     environment:
       - "REACT_APP_NODE_TYPE=PIZZA2"
-      - "REACT_APP_CHANNEL=puzanova.ira2011@yandex.ru"
-      - "REACT_APP_AUTHORIZATION=Basic S2Vra2VyVXNlcjp6RGZqbTMz"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="
 
   delivery:
     container_name: delivery
@@ -35,5 +39,7 @@ services:
       - 3003:3000
     environment:
       - "REACT_APP_NODE_TYPE=DELIVERY"
-      - "REACT_APP_CHANNEL=puzanova.ira2011@yandex.ru"
-      - "REACT_APP_AUTHORIZATION=Basic S2Vra2VyVXNlcjp6RGZqbTMz"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="
