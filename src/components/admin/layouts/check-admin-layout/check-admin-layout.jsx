@@ -92,7 +92,7 @@ export const CheckAdminLayout = () => {
                             id={id}
                             currentStatus={currentOrder.status}
                             transferParameters={transferParameters}
-                            actionCallback={onSuccessCallback}
+                            callback={onSuccessCallback}
                         />
                     )}
                 </div>

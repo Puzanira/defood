@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 
-import './DealManager.css';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
@@ -10,13 +9,14 @@ import { deals } from '../../constants';
 import { useAction } from '../../../../utils';
 import { dealsActions } from '../../state/actions';
 import { DealAction } from '../DealAction';
+import './DealManager.css';
 
 
 export const DealManager = ({
     id,
     currentStatus,
     transferParameters,
-    actionCallback,
+    callback,
 }) => {
     const {
         statusMap,
@@ -40,9 +40,9 @@ export const DealManager = ({
             currentStatus: status,
             nextStatus,
             actionType,
-            actionCallback,
+            callback,
         }),
-        [actionType, actionCallback, id, nextStatus, status],
+        [actionType, callback, id, nextStatus, status],
     );
 
     const statuses = useMemo(
@@ -54,14 +54,16 @@ export const DealManager = ({
     const stepper = statuses.map(status => (
         <Step key={status}>
             <StepLabel>{fullStatusMessageMap[status]}</StepLabel>
-            <StepContent>
-                <DealAction
-                    id={id}
-                    actionType={actionType}
-                    actionMessage={actionMessage}
-                    handleNextAction={handleNextAction}
-                />
-            </StepContent>
+            {status !== deals.platformEndStatus && (
+                <StepContent>
+                    <DealAction
+                        id={id}
+                        actionType={actionType}
+                        actionMessage={actionMessage}
+                        handleNextAction={handleNextAction}
+                    />
+                </StepContent>
+            )}
         </Step>
     ));
 

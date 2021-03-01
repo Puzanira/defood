@@ -17,6 +17,7 @@
 
 .deal-action__buttons {
     display: flex;
+    position: relative;
 }
 
 .deal-action__button {

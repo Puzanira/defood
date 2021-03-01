@@ -33,7 +33,7 @@ function* getTicketData({ $payload: { id } }) {
 }
 
 // API для отправки формы
-function* fetchFormData({ $payload: { formData } }) {
+function* fetchFormData({ $payload: { formData, history } }) {
     const order = yield select(
         ({ client }) => client.order,
     );
@@ -62,6 +62,10 @@ function* fetchFormData({ $payload: { formData } }) {
         addressTo: config.zone[address],
         clientContacts,
     };
+
+    // Очищаем форму и перенаправляем на другую страницу
+    yield put(clientActions.removeOrder());
+    history.push('/check/');
 
     yield put(adminActions.createOrder({ parameters }));
 }

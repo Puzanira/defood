@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { delay, call, put, takeEvery } from 'redux-saga/effects';
+import { delay, put, takeEvery } from 'redux-saga/effects';
 
 import { dealsApi, queueApi } from '../api';
 import { callNodeApi } from '../../api/apiCaller';
@@ -49,8 +49,8 @@ export function* waitForNewDealStatus({
             responseDeal = yield callNodeApi(dealsApi.getDeal, { id });
             if (currentStatus !== responseDeal.status) {
                 if (callback)
-                    callback(responseDeal.status);
-                return responseDeal.status;
+                    callback(new Deal(responseDeal));
+                return new Deal(responseDeal);
             }
 
             if (currentStatus === responseDeal.status)
@@ -102,7 +102,12 @@ export function* updateDealStatus({ id, nextStatus }) {
     return new Deal(newDeal);
 }
 
-
+/* 
+    All actions perform deals operations and should return an updated deal
+    after success operation. Callbacks, if specified, should work with 
+    updatedDeal
+    (new Deal(updatedDeal))
+*/
 const dealsActionMap = {
     wait: waitForNewDealStatus,
     update: updateDealStatus,
@@ -114,14 +119,14 @@ export function* callNextAction({
     currentStatus,
     nextStatus,
     actionType,
-     actionCallback,
+    callback,
 },
 }) {
     yield put(dealsActions.setPendingDeal(id));
     const action = dealsActionMap[actionType];
     const response = yield action({ id, currentStatus, nextStatus });
     yield put(dealsActions.removePendingDeal(id));
-    actionCallback(response);
+    callback(response);
 }
 
 export const sagas = [

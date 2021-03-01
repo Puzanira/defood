@@ -1,6 +1,7 @@
+import _ from 'lodash';
+
 import { lookupTableReducer } from '../../state/utils';
 import { dealsActionTypes } from './actions';
-import _ from 'lodash';
 
 
 const defaultState = {
