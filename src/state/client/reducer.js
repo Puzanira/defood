@@ -14,7 +14,7 @@ const defaultState = {
     orders: {},
 
     isOrderCreated: 'disabled', // 'inProcess', 'ready'
-    address: NODE,
+    address: null,
 };
 
 export const reducer = lookupTableReducer(defaultState, {

@@ -14,6 +14,7 @@ import { CheckAdminLayout } from './components/admin/layouts/check-admin-layout'
 import { ListLayout as ListAdminLayout } from './components/admin/layouts/list-layout';
 import { DeliveryListLayout } from './components/delivery/layouts/delivery-list-layout';
 import { CheckDeliveryLayout } from './components/delivery/layouts/check-delivery-layout';
+import { AddressLayout } from './components/client/layouts/address-layout';
 import { config, NODE } from './config';
 
 
@@ -28,7 +29,8 @@ export class App extends Component {
           route(RouterStore.delivery.index, <DeliveryListLayout />),
           route(RouterStore.delivery.order, <CheckDeliveryLayout />),
       ] : [
-          route(RouterStore.website.index, <ListLayout />),
+          route(RouterStore.website.list, <ListLayout />),
+          route(RouterStore.website.index, <AddressLayout />),
           route(RouterStore.website.check, <CheckLayout />),
           route(RouterStore.website.order, <OrderLayout />),
           route(RouterStore.admin.index, <ListAdminLayout />),
