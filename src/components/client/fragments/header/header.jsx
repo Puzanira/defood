@@ -9,15 +9,13 @@ import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
 import DepartureBoardIcon from '@material-ui/icons/DepartureBoard';
 import InputBase from '@material-ui/core/InputBase';
+
 import { NODE_CONFIG } from '../../../../config';
-
-
 import './header.css';
 
 
-export const Header = props => {
+export const Header = ({ size, config, zones }) => {
     const data = useSelector(state => state.client.order);
-    const { size, config, zones } = props;
     const { title, background } = config;
 
     const styles = {

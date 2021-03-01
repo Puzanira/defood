@@ -9,6 +9,8 @@ import {
     actionMessageMap as DeliveryActionMessageMap,
 } from '../deliveryPart/actionMap';
 import { InitialOrderDeal } from './model';
+import { getDeliveryOrderParameters } from '../deliveryPart/parameters';
+import { getInitialOrderParameters } from './parameters';
 
 
 const InitialOrder = {
@@ -18,12 +20,14 @@ const InitialOrder = {
             statusMessageMap: OrderStatusMessageMap,
             actionMap: BakerActionMap,
             actionMessageMap: BakerActionMessageMap,
+            getParameters: getInitialOrderParameters,
         },
         Deliverer: {
             statusMap: DeliveryStatusMap,
             statusMessageMap: DeliveryStatusMessageMap,
             actionMap: DeliveryActionMap,
             actionMessageMap: DeliveryActionMessageMap,
+            getParameters: getDeliveryOrderParameters,
         },
     },
 };

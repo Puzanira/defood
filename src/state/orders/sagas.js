@@ -57,6 +57,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
         deliverer: delivererNode,
         parameters: {
             ...parameters,
+            baker: config.parties[NODE].name,
             addressFrom: NODE_CONFIG.address,
             orderData: initialOrderParameters,
         },
@@ -68,13 +69,14 @@ function* createOrderDeal({ $payload: { parameters } }) {
         deliverer: delivererNode,
         parameters: {
             ...parameters,
+            initiator: config.parties[NODE].name,
             baker: config.parties[baker].name,
             addressFrom: config.parties[baker].address,
             orderData: transferOrderParameters,
         },
     };
 
-    yield put(clientActions.setIsOrderCreated('inProcess'));
+    yield put(clientActions.setOrderInProgress(true));
 
     if (initialOrderParameters.length > 0 && transferOrderParameters.length > 0) {
         yield all([
@@ -86,7 +88,7 @@ function* createOrderDeal({ $payload: { parameters } }) {
     else if (transferOrderParameters.length > 0)
         yield createTransferDeal(transferDealData);
 
-    yield put(clientActions.setIsOrderCreated('ready'));
+    yield put(clientActions.setOrderInProgress(false));
 }
 
 

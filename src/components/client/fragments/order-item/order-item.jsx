@@ -1,21 +1,19 @@
 import React from 'react';
 import CancelIcon from '@material-ui/icons/Cancel';
+
 import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
-
-import './order-item.css';
 import pizza from '../../../../assets/pics/pizza.jpeg';
+import './order-item.css';
 
 
-export const OrderItem = props => {
-    const { title, size, price } = props.item;
+export const OrderItem = ({ item, visible }) => {
+    const { title, size, price } = item;
 
     const removeOrderItem = useAction(
-        () => clientActions.deleteOrderItem({ item: props.item }),
-        [],
+        () => clientActions.deleteOrderItem({ item }),
+        [item],
     );
-
-    const cancelButton = props.visible ? <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} /> : null;
 
     return (
         <div className='order-item'>
@@ -28,7 +26,9 @@ export const OrderItem = props => {
             </div>
             <div className='order-item__right-bar'>
                 <div className='order-item__price'>{price} ₽</div>
-                { cancelButton }
+                {visible && (
+                    <CancelIcon className='order-item__toggle' data-title={title} onClick={removeOrderItem} />
+                )}
             </div>
         </div>
     );

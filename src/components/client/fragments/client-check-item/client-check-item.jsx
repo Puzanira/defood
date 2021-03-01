@@ -6,11 +6,11 @@ import { statusMap, statusMessageMap } from '../../../../state/orders/types/orde
 import './client-check-item.css';
 
 
-export const ClientCheckItem = ({ data, localDealId, id }) => (
+export const ClientCheckItem = ({ orderData, total, localDealId, id }) => (
     <div className='client-check-item'>
         <div className='check-title'>Заказ № {localDealId}</div>
         <div className='check-content'>
-            <CheckOrder order={data} />
+            <CheckOrder orderData={orderData} total={total} />
         </div>
         <DealHistory
             id={id}

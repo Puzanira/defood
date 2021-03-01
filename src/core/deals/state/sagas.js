@@ -102,6 +102,12 @@ export function* updateDealStatus({ id, nextStatus }) {
     return new Deal(newDeal);
 }
 
+/*
+    All actions perform deals operations and should return an updated deal
+    after success operation. Callbacks, if specified, should work with
+    updatedDeal
+    (new Deal(updatedDeal))
+*/
 const dealsActionMap = {
     wait: waitForNewDealStatus,
     update: updateDealStatus,

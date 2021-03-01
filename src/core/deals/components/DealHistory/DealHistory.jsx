@@ -27,7 +27,7 @@ export const DealHistory = ({ id, statusMap, statusMessageMap }) => {
             currentStatus: status,
             callback: setUpdatedDealStatus,
         }),
-        [id, status],
+        [id, setUpdatedDealStatus, status],
     );
 
     useEffect(() => {

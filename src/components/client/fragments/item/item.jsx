@@ -1,16 +1,17 @@
 import React from 'react';
+
 import { clientActions } from '../../../../state/client/actions';
 import { useAction } from '../../../../utils';
-
 import './item.css';
 
 
-export const Item = props => {
-    const { title, size, about, price, photo, baker } = props.data;
+export const Item = ({ data }) => {
+    const { title, size, about, price, photo, baker } = data;
     const item = { title, size, price, baker };
 
     const addOrder = useAction(
         () => clientActions.setOrderItem({ item }),
+        /* eslint react-hooks/exhaustive-deps: 0 */
         [],
     );
 

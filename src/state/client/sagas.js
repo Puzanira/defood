@@ -6,8 +6,8 @@ import { adminActions } from '../admin/actions';
 import { config } from '../../config';
 
 
-function* setBusy(value) {
-    yield put(clientActions.setStatus({ busy: value }));
+function* setOrderInProgress(value) {
+    yield put(clientActions.setStatus({ orderInProgress: value }));
 }
 
 function* setOrderItem({ $payload: { item } }) {
@@ -83,4 +83,5 @@ export const sagas = [
     takeLatest(clientActionTypes.GET_ITEMS, getItems),
     takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),
     takeLatest(clientActionTypes.EMPTY_TRASH, emptyTrash),
+    takeEvery(clientActionTypes.SET_ORDER_IN_PROGRESS, setOrderInProgress),
 ];

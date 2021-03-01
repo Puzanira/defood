@@ -12,8 +12,6 @@ export function getOrderTransitions(order) {
         _.find(order.parties, ['key', NODE_CONFIG.node.toUpperCase()]);
     const { type } = order.parameters;
 
-    console.log(order, order.parameters, type, orders, orders[type]);
-
-    // { statusMap, actionMap, statusMessageMap, actionMessageMap }
+    // { statusMap, actionMap, statusMessageMap, actionMessageMap, getParameters }
     return orders[type].transitions[currentRole];
 }
