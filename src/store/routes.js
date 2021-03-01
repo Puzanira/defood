@@ -4,6 +4,7 @@ export const RouterStore = {
         check: '/check/',
         order: '/orders/',
         pizza: '/pizza/:slug',
+        list: '/menu/',
     },
     admin: {
         index: '/admin/',
