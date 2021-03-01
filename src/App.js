@@ -7,18 +7,19 @@ import { Route, Switch } from 'react-router-dom';
 import { store } from './configureStore';
 import { RouterStore } from './store/routes';
 import { Pallete } from './pallete';
+import { AuthComponent } from './core/auth/components/auth-component';
 import { ListLayout } from './components/client/layouts/list-layout';
 import { CheckLayout } from './components/client/layouts/check-layout';
 import { OrderLayout } from './components/client/layouts/order-layoyut';
 import { CheckAdminLayout } from './components/admin/layouts/check-admin-layout';
 import { ListLayout as ListAdminLayout } from './components/admin/layouts/list-layout';
-import { config, NODE } from './config';
+import { NODE } from './config';
 
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.store = store;
+      this.store = store;
 
       const route = (path, layout, exact = true) => ({ path, layout, exact });
 
@@ -54,9 +55,11 @@ export class App extends Component {
         <Provider store={this.store}>
             <PersistGate loading={null} persistor={this.store.persistor}>
                 <ConnectedRouter history={this.store.history}>
-                    <Switch>
-                        { routes }
-                    </Switch>
+                    <AuthComponent>
+                        <Switch>
+                            { routes }
+                        </Switch>
+                    </AuthComponent>
                 </ConnectedRouter>
             </PersistGate>
         </Provider>
