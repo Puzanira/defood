@@ -38,6 +38,9 @@ export const AddressLayout = () => {
             </div>
             <div className='address-page__sidebar'>
                 <div className='address-page__left-bar'>
+                    <div className='address-page__pizza-title'>
+                        <div className='address-page__pizza-title-text'>{ NODE_CONFIG.name }</div>
+                    </div>
                     <div className='address-form'>
                         <div className='address-form__title'>Выберите ваш адрес доставки</div>
                         <div className='address-form__item'>
@@ -52,10 +55,6 @@ export const AddressLayout = () => {
                                     { zonesMap }
                                 </Select>
                             </FormControl>
-                        </div>
-                        <div className='address-form__item'>
-                            <div className='address-form__sub-title'>Ваш адрес</div>
-                            <input className='address-form__input' />
                         </div>
                         { address ? <div className='address-form__button' onClick={handlerSubmit}>Перейти к выбору</div> : null }
                     </div>

@@ -21,12 +21,21 @@
     font-size: 18px;
 }
 
+.address-page__pizza-title-text {
+    font-size: 32px;
+    font-family: 'Montserrat medium';
+}
+
 .address-page__sidebar {
     display: flex;
     justify-content: space-between;
+    height: calc(100vh - 60px);
 }
 
 .address-page__left-bar {
+    z-index: 1;
+    background-color: white;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,11 +48,15 @@
 
 .address-page__right-bar {
     width: 60%;
+    position: relative;
+    overflow: hidden;
 }
 
 .address-page__right-bar_video {
-    width: 100%;
-    height: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .address-form {
@@ -52,7 +65,7 @@
     align-items: flex-start;
     justify-content: center;
 
-    min-height: 600px;
+    min-height: 400px;
 }
 
 .address-form__title {
