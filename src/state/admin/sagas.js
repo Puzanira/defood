@@ -1,12 +1,8 @@
 import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { adminActions, adminActionTypes } from './actions';
-import { dealsActions } from '../deals/actions';
-import { callNext } from '../deals/sagas';
-import { getDeals, getDeal } from '../deals/core/sagas';
-import { getCurrentAction } from '../deals/helpers';
-import { yellow } from '@material-ui/core/colors';
-import { clientActions } from '../client/actions';
+import { ordersActions } from '../orders/actions';
+import { getDeals, getDeal } from '../../core/deals/state/sagas';
 
 
 function* setBusy(value) {
@@ -15,10 +11,7 @@ function* setBusy(value) {
 
 function* getOrder({ $payload: { id } }) {
     const order = yield getDeal({ dealId: id });
-    const nextAction = getCurrentAction(order);
-
     yield put(adminActions.setOrder({ ...order }));
-    yield put(adminActions.setOrderAction(nextAction));
 }
 
 function* getOrders() {
@@ -27,24 +20,17 @@ function* getOrders() {
         yield put(adminActions.setOrders(orders.data));
 }
 
-function* updateNextStatus() {
-    yield setBusy(true);
-    const currentOrder = yield select(
-        ({ admin }) => admin.currentOrder,
-    );
-    const [updatedOrder, nextAction] = yield callNext({ deal: currentOrder });
-    yield put(adminActions.setOrder(updatedOrder));
-    yield put(adminActions.setOrderAction(nextAction));
-    yield setBusy(false);
+function* updateOrder({ $payload: { order } }) {
+    yield put(adminActions.setOrder(order));
 }
 
 function* createOrder({ $payload: { parameters } }) {
-    yield put(dealsActions.createOrderDeal({ parameters }));
+    yield put(ordersActions.createOrderDeal({ parameters }));
 }
 
 export const sagas = [
     takeLatest(adminActionTypes.GET_ORDERS, getOrders),
     takeEvery(adminActionTypes.GET_ORDER, getOrder),
     takeEvery(adminActionTypes.CREATE_ORDER, createOrder),
-    takeEvery(adminActionTypes.UPDATE_NEXT_STATUS, updateNextStatus),
+    takeEvery(adminActionTypes.UPDATE_ORDER, updateOrder),
 ];

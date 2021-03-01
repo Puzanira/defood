@@ -1,14 +1,14 @@
-import { React, useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { CircularProgress } from '@material-ui/core';
 
 import { useAction } from '../../../../utils';
 import { adminActions } from '../../../../state/admin/actions';
 import { AdminPageFragment } from '../../../admin/fragments/admin-page';
-import { CheckActivityFragment } from '../../../admin/fragments/check-activity';
+import { DealManager } from '../../../../core/deals/components/DealManager';
 import '../../../admin/layouts/check-admin-layout/check-admin-layout.css';
 import { NODE_CONFIG } from '../../../../config';
+import { getOrderTransitions } from '../../../../state/orders/types/helpers';
 
 
 /**
@@ -16,22 +16,24 @@ import { NODE_CONFIG } from '../../../../config';
  */
 export const CheckDeliveryLayout = () => {
     const { id } = useParams();
-    const updateOrder = useAction(
+    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
+    const transferParameters = useMemo(
+        () => getOrderTransitions(currentOrder),
+        [currentOrder],
+    );
+
+    const getOrder = useAction(
         () => adminActions.getOrder({ id }),
         [id],
     );
 
-    const busy = useSelector(({ admin }) => admin.busy);
-    const currentOrder = useSelector(({ admin }) => admin.currentOrder);
-    const currentAction = useSelector(({ admin }) => admin.currentAction);
-
-    const updateStatus = useAction(
-        () => adminActions.updateNextStatus(),
+    const onSuccessCallback = useAction(
+        order => adminActions.updateOrder({ order }),
         [],
     );
 
     useEffect(() => {
-        updateOrder();
+        getOrder();
     }, []);
 
     return (
@@ -59,40 +61,14 @@ export const CheckDeliveryLayout = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='check-agreement'>
-                        {currentOrder.status && currentAction && currentAction.transferAction && currentOrder.status !== 'closed' ? (
-                            <>
-                                <div className='check-agreement__title'>Текущий статус: {currentOrder.status}</div>
-                                <div className='check-agreement__title'>{currentAction.textMessage}</div>
-                                {currentAction.transferAction === 'wait' && (
-                                    <CircularProgress />
-                                )}
-                                { currentAction.transferAction === 'update' && (
-                                    <div className='check-agreement__buttons'>
-                                        {busy ? (
-                                            <CircularProgress />
-                                        ) : (
-                                            <div
-                                                className='check-agreement__button check-agreement__button_agree'
-                                                onClick={updateStatus}
-                                            >
-                                                Ок
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                {currentOrder.status === 'Closed' ? (
-                                    <div className='check-agreement__title'>Текущий статус: Заказ закрыт</div>
-                                ) : (
-                                    <div className='check-agreement__title'>Текущий статус: Заказ создан, обрабатывается платформой</div>
-                                )}
-                            </>
-                        )}
-                    </div>
-                    <CheckActivityFragment history={currentOrder.history} />
+                    {transferParameters && (
+                        <DealManager
+                            id={id}
+                            currentStatus={currentOrder.status}
+                            transferParameters={transferParameters}
+                            actionCallback={onSuccessCallback}
+                        />
+                    )}
                 </div>
             )}
         </AdminPageFragment>

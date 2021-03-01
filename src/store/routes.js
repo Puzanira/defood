@@ -2,15 +2,15 @@ export const RouterStore = {
     website: {
         index: '/',
         check: '/check/',
-        order: '/order/',
+        order: '/orders/',
         pizza: '/pizza/:slug',
     },
     admin: {
         index: '/admin/',
-        order: '/admin/order/:id',
+        order: '/admin/orders/:id',
     },
     delivery: {
-        index: '/delivery/',
-        order: '/delivery/order/:id',
+        index: '/deliveryPart/',
+        order: '/deliveryPart/orders/:id',
     },
 };

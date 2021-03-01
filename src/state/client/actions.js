@@ -1,4 +1,4 @@
-import { prefixTypes, createAction } from '../utils';
+import { prefixTypes, createAction } from '../../core/state/utils';
 
 
 const types = prefixTypes('client', {
@@ -14,8 +14,6 @@ const types = prefixTypes('client', {
     FETCH_FORM_DATA: 'FETCH_FORM_DATA',
     SET_ITEMS: 'SET_ITEMS',
     GET_ITEMS: 'GET_ITEMS',
-    GET_WAITING_STATUS: 'GET_WAITING_STATUS',
-    SET_WAITING_STATUS: 'SET_WAITING_STATUS',
     SET_TICKET_DATA: 'SET_TICKET_DATA',
     GET_TICKET_DATA: 'GET_TICKET_DATA',
     SET_ADDRESS: 'SET_ADDRESS',
@@ -24,9 +22,6 @@ const types = prefixTypes('client', {
     SET_ORDER: 'SET_ORDER',
     SET_ORDERS: 'SET_ORDERS',
     SET_ORDER_STATUS: 'SET_ORDER_STATUS',
-
-    WAIT_STATUS: 'WAIT_STATUS',
-    SET_NEW_STATUS: 'SET_NEW_STATUS',
 
     SET_IS_ORDER_CREATED: 'SET_IS_ORDER_CREATED',
     REMOVE_ORDER: 'REMOVE_ORDER',

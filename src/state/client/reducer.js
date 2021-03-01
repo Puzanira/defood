@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { lookupTableReducer } from '../utils';
+import { lookupTableReducer } from '../../core/state/utils';
 import { clientActions, clientActionTypes } from './actions';
 import { NODE } from '../../config';
 
@@ -9,7 +9,6 @@ const defaultState = {
     busy: false,
     order: [],
     items: [],
-    waiting: 0,
     formData: {},
     ticket: {},
     orders: {},
@@ -48,10 +47,6 @@ export const reducer = lookupTableReducer(defaultState, {
         ...state,
         formData,
     }),
-    [clientActionTypes.SET_WAITING_STATUS]: (state, value) => ({
-        ...state,
-        waiting: value,
-    }),
     [clientActionTypes.SET_TICKET_DATA]: (state, data) => ({
         ...state,
         ticket: data,
@@ -79,18 +74,6 @@ export const reducer = lookupTableReducer(defaultState, {
             [orderId.status]: orderStatus,
         },
     }),
-    [clientActionTypes.SET_NEW_STATUS]: (state, data) => {
-        const { id, status } = data;
-        const orders = { ...state.orders };
-
-        if (orders.hasOwnProperty(id))
-            orders[id].status = status;
-
-        return {
-            ...state,
-            orders,
-        };
-    },
     [clientActionTypes.SET_IS_ORDER_CREATED]: (state, isOrderCreated) => ({
         ...state,
         isOrderCreated,

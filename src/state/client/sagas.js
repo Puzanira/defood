@@ -3,7 +3,6 @@ import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import { PizzaArray, UserData } from '../../store/client-mock-data';
 import { clientActions, clientActionTypes } from './actions';
 import { adminActions } from '../admin/actions';
-import { getDeals, getDeal, waitNewOrderStatus } from '../deals/core/sagas';
 import { config } from '../../config';
 
 
@@ -17,11 +16,6 @@ function* setOrderItem({ $payload: { item } }) {
 
 function* setAddress({ $payload: { address } }) {
     yield put(clientActions.setAddress(address));
-}
-
-// API для отслеживание статуса
-function* getWaitingStatus() {
-    yield put(clientActions.setWaitingStatus(0));
 }
 
 // API для получение списка пицц
@@ -76,11 +70,6 @@ function* fetchFormData({ $payload: { formData, history } }) {
     yield put(adminActions.createOrder({ parameters }));
 }
 
-function* waitStatus({ $payload: { id, status } }) {
-    const newStatus = yield waitNewOrderStatus({ id, status });
-    yield put(clientActions.setNewStatus({ id, status: newStatus }));
-}
-
 function* emptyTrash() {
     yield put(clientActions.setIsOrderCreated('disabled'));
     yield put(clientActions.removeOrder());
@@ -92,8 +81,6 @@ export const sagas = [
     takeLatest(clientActionTypes.FETCH_FORM_DATA, fetchFormData),
     takeLatest(clientActionTypes.UPDATE_ADDRESS, setAddress),
     takeLatest(clientActionTypes.GET_ITEMS, getItems),
-    takeLatest(clientActionTypes.GET_WAITING_STATUS, getWaitingStatus),
     takeLatest(clientActionTypes.GET_TICKET_DATA, getTicketData),
-    takeEvery(clientActionTypes.WAIT_STATUS, waitStatus),
     takeLatest(clientActionTypes.EMPTY_TRASH, emptyTrash),
 ];

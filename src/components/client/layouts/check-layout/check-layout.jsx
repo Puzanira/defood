@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Page } from '../../fragments/page';
 import { useAction } from '../../../../utils';
@@ -47,8 +47,13 @@ export const CheckLayout = () => {
 
             {orders && Object.keys(orders).length ? (
                 <>
-                    {Object.keys(orders).map((item, index) => (
-                        <ClientCheckItem itemData={orders[item]} key={index} />
+                    {Object.values(orders).map(item => (
+                        <ClientCheckItem
+                            id={item.id}
+                            data={item.data}
+                            localDealId={item.localDealId}
+                            key={item.localDealId}
+                        />
                     ))}
                 </>
             ) : (
