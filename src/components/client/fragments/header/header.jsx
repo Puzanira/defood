@@ -9,17 +9,15 @@ import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
 import DepartureBoardIcon from '@material-ui/icons/DepartureBoard';
 import InputBase from '@material-ui/core/InputBase';
+
 import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
-
-
 import './header.css';
 
 
-export const Header = props => {
+export const Header = ({ size, config, zones }) => {
     const data = useSelector(state => state.client.order);
     const address = useSelector(state => state.client.address);
-    const { size, config, zones } = props;
     const { title, background } = config;
 
     const styles = {
@@ -36,8 +34,6 @@ export const Header = props => {
     const handlerChangeAddress = event => {
       addOrder(event.target.value);
     };
-
-    const zonesMap = Object.entries(zones).map(([key, value], index) => (<option key={index} value={key}>{value}</option>));
 
     return (
         <div className={size ? 'page-header page-header_small' : 'page-header'}>
@@ -70,7 +66,8 @@ export const Header = props => {
                         </IconButton>
                     </Link>
                     <select className='header__zones' value={address} onChange={handlerChangeAddress}>
-                        { zonesMap }
+                        {zones && Object.entries(zones).map(([key, value]) =>
+                            <option key={key} value={key}>{value}</option>)}
                     </select>
                 </Toolbar>
             </AppBar>

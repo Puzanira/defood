@@ -10,11 +10,8 @@ import { NODE_CONFIG } from '../../../../config';
 import './list-layout.css';
 
 
-/**
- * List layout
- */
 export const ListLayout = () => {
-    const data = useSelector(state => state.admin.orders);
+    const orders = useSelector(state => state.admin.orders);
 
     const getOrders = useAction(
         () => adminActions.getOrders(),
@@ -23,6 +20,7 @@ export const ListLayout = () => {
 
     useEffect(() => {
         getOrders();
+        /* eslint react-hooks/exhaustive-deps: 0 */
     }, []);
 
     return (
@@ -31,7 +29,7 @@ export const ListLayout = () => {
                 Реестр заказов
             </div>
             <SearchInputFragment />
-            {data.map((item, index) => (
+            {orders && orders.map((item, index) => (
                 <ListPartFragment data={item} pageType='admin' key={index} />
             ))}
         </AdminPageFragment>

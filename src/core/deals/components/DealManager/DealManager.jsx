@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
@@ -25,8 +24,12 @@ export const DealManager = ({
         actionMessageMap,
     } = transferParameters;
 
-    const fullStatusMessageMap = { ...statusMessageMap, ...deals.platformStatusMessages };
-    const fullStatusMap = { ...statusMap, [deals.platformEndStatus]: null };
+    const [fullStatusMessageMap, fullStatusMap] = useMemo(
+        () => [
+                { ...statusMessageMap, ...deals.platformStatusMessages },
+                { ...statusMap, [deals.platformEndStatus]: null },
+            ], [statusMap, statusMessageMap],
+        );
 
     const status = currentStatus || deals.platformStartStatus;
     const nextStatus = statusMap[status] || deals.platformEndStatus;

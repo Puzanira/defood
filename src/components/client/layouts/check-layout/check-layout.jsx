@@ -1,64 +1,49 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
+
 import { Page } from '../../fragments/page';
 import { useAction } from '../../../../utils';
 import { clientActions } from '../../../../state/client/actions';
-
 import { ClientCheckItem } from '../../fragments/client-check-item';
-import { CircularProgress } from '@material-ui/core';
 
 
 export const CheckLayout = () => {
     const orders = useSelector(state => state.client.orders);
-    const isOrderCreated = useSelector(state => state.client.isOrderCreated);
+    const orderInProgress = useSelector(state => state.client.orderInProgress);
 
     const getItems = useAction(
         id => clientActions.getTicketData({ id }),
         [],
     );
 
-    const setIsOrderCreated = useAction(
-        () => clientActions.setIsOrderCreated('disabled'),
-        [],
-    );
-
     useEffect(() => {
         getItems(0);
+        /* eslint react-hooks/exhaustive-deps: 0 */
     }, []);
 
     return (
         <Page header='small'>
-            {isOrderCreated !== 'disabled' && (
-                <div className='check-agreement check-agreement_no-margin'>
-                    {isOrderCreated === 'inProcess' && (
-                        <>
-                            Заказ обрабатывается, пожалуйста, подождите!
-                            <CircularProgress className='checkout-item_margin' />
-                        </>
-                    )}
-                    {isOrderCreated === 'ready' && (
-                        <>
-                            <div>Ваш заказ готов!</div>
-                            <div onClick={setIsOrderCreated} className='check-agreement__button check-agreement__button_agree checkout-item_margin'>Закрыть уведомление</div>
-                        </>
-                    )}
-                </div>
+            {!orders || !Object.keys(orders).length && (
+                <div className='check_margin'>Текущих заказов не обнаружено</div>
             )}
-
-            {orders && Object.keys(orders).length ? (
+            {orders && orderInProgress && (
                 <>
-                    {Object.values(orders).map(item => (
+                    Заказ обрабатывается, пожалуйста, подождите!
+                    <CircularProgress className='checkout-item_margin' />
+                </>
+            )}
+            {orders && !orderInProgress && (
+                <>
+                    {Object.values(orders).map(({ id, localDealId, data }) => (
                         <ClientCheckItem
-                            id={item.id}
-                            data={item.data}
-                            localDealId={item.localDealId}
-                            key={item.localDealId}
+                            id={id}
+                            total={data.total}
+                            orderData={data.orderData}
+                            localDealId={localDealId}
+                            key={localDealId}
                         />
                     ))}
-                </>
-            ) : (
-                <>
-                    <div className='check_margin'>Текущих заказов не обнаружено</div>
                 </>
             )}
         </Page>

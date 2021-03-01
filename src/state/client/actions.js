@@ -22,8 +22,7 @@ const types = prefixTypes('client', {
     SET_ORDER: 'SET_ORDER',
     SET_ORDERS: 'SET_ORDERS',
     SET_ORDER_STATUS: 'SET_ORDER_STATUS',
-
-    SET_IS_ORDER_CREATED: 'SET_IS_ORDER_CREATED',
+    SET_ORDER_IN_PROGRESS: 'SET_ORDER_PROGRESS',
     REMOVE_ORDER: 'REMOVE_ORDER',
 
     EMPTY_TRASH: 'EMPTY_TRASH',
@@ -42,8 +41,6 @@ export const clientActions = {
     fetchFormData: createAction(types.FETCH_FORM_DATA),
     setItems: createAction(types.SET_ITEMS),
     getItems: createAction(types.GET_ITEMS),
-    getWaitingStatus: createAction(types.GET_WAITING_STATUS),
-    setWaitingStatus: createAction(types.SET_WAITING_STATUS),
     setTicketData: createAction(types.SET_TICKET_DATA),
     getTicketData: createAction(types.GET_TICKET_DATA),
     setAddress: createAction(types.SET_ADDRESS),
@@ -52,11 +49,7 @@ export const clientActions = {
     setOrder: createAction(types.SET_ORDER),
     setOrders: createAction(types.SET_ORDERS),
     setOrderStatus: createAction(types.SET_ORDER_STATUS),
-
-    waitStatus: createAction(types.WAIT_STATUS),
-    setNewStatus: createAction(types.SET_NEW_STATUS),
-
-    setIsOrderCreated: createAction(types.SET_IS_ORDER_CREATED),
+    setOrderInProgress: createAction(types.SET_ORDER_PROGRESS),
     removeOrder: createAction(types.REMOVE_ORDER),
 
     emptyTrash: createAction(types.EMPTY_TRASH),

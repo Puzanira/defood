@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { RouterStore } from '../../../../store/routes';
-import { config } from '../../../../config';
 
+import { RouterStore } from '../../../../store/routes';
 import './list-part.css';
 
 /**

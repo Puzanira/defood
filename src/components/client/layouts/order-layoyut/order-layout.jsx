@@ -1,12 +1,12 @@
 import React from 'react';
-import { useAction } from '../../../../utils';
-import { clientActions } from '../../../../state/client/actions';
-import { Page } from '../../fragments/page';
-import { Order } from '../../fragments/order';
 import { Form, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { useAction } from '../../../../utils';
+import { clientActions } from '../../../../state/client/actions';
+import { Page } from '../../fragments/page';
+import { Order } from '../../fragments/order';
 import './order-layout.css';
 
 
@@ -14,11 +14,10 @@ export const OrderLayout = () => {
     const history = useHistory();
 
     const order = useSelector(state => state.client.order);
-    const isOrderCreated = useSelector(state => state.client.isOrderCreated);
 
     const fetchFormData = useAction(
         formData => clientActions.fetchFormData({ formData, history }),
-        [],
+        [history],
     );
 
     return (
