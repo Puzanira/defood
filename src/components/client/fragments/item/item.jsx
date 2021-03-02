@@ -4,9 +4,12 @@ import { clientActions } from '../../../../state/client/actions';
 import { useAction } from '../../../../utils';
 import './item.css';
 
+import { PizzaStore } from '../../../../store/pizza';
+
 
 export const Item = ({ data }) => {
-    const { title, size, about, price, photo, baker } = data;
+    // const { title, size, about, price, photo, baker } = data;
+    const { title, size, about, price, baker } = data;
     const item = { title, size, price, baker };
 
     const addOrder = useAction(
@@ -30,7 +33,7 @@ export const Item = ({ data }) => {
                 </div>
             </div>
             <div className='item__img-wrap'>
-                <img alt='pizza' className='item__img' src={photo} />
+                <img alt='pizza' className='item__img' src={PizzaStore[title]} />
             </div>
         </div>
     );

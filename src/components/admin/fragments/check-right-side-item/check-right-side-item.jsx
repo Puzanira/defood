@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './check-right-side-item.css';
-import pizza from '../../../../assets/pics/pizza.jpeg';
+import { PizzaStore } from '../../../../store/pizza';
 
 /**
  * List-part fragment
@@ -9,7 +9,7 @@ import pizza from '../../../../assets/pics/pizza.jpeg';
  */
 export const CheckRightSideItemFragment = ({ data }) => {
     const dataComp = {
-        photo: pizza,
+        photo: PizzaStore[data.title],
         title: `Пицца "${data.title}"`,
         weight: `${data.size} см`,
         count: 'х1',
