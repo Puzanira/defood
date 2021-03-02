@@ -10,14 +10,18 @@ function* setBusy(value) {
 }
 
 function* getOrder({ $payload: { id } }) {
+    yield setBusy(true);
     const order = yield getDeal({ dealId: id });
     yield put(adminActions.setOrder({ ...order }));
+    yield setBusy(false);
 }
 
 function* getOrders() {
+    yield setBusy(true);
     const orders = yield getDeals();
     if (orders && orders.data)
         yield put(adminActions.setOrders(orders.data));
+    yield setBusy(false);
 }
 
 function* updateOrder({ $payload: { order } }) {

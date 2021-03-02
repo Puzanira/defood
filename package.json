@@ -29,6 +29,7 @@
   },
   "scripts": {
     "lint": "eslint src/",
+    "lint:fix": "eslint --fix src/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
