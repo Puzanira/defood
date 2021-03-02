@@ -25,29 +25,28 @@ export const CheckLayout = () => {
 
     return (
         <Page header='small'>
-            {orderInProgress ? (
+            {orderInProgress && (
                 <div className='check-layout__card'>
                     <div className='check-layout__card_title'>Заказ обрабатывается, пожалуйста, подождите!</div>
                     <CircularProgress className='checkout-item_margin' />
                 </div>
-            ) : (
+            )}
+
+            {orders && Object.keys(orders).length ? (
                 <>
-                    {orders && Object.keys(orders).length ? (
-                        <>
-                            {Object.values(orders).map(({ id, localDealId, data }) => (
-                                <ClientCheckItem
-                                    id={id}
-                                    total={data.total}
-                                    orderData={data.orderData}
-                                    localDealId={localDealId}
-                                    key={localDealId}
-                                />
-                            ))}
-                        </>
-                    ) : (
-                        <div className='check_margin'>Текущих заказов не обнаружено</div>
-                    )}
+                    {Object.values(orders).map(({ id, localDealId, data }) => (
+                        <ClientCheckItem
+                            id={id}
+                            total={data.total}
+                            orderData={data.orderData}
+                            localDealId={localDealId}
+                            key={localDealId}
+                            isClose={false}
+                        />
+                    ))}
                 </>
+            ) : (
+                <div className='check_margin'>Текущих заказов не обнаружено</div>
             )}
         </Page>
     );
