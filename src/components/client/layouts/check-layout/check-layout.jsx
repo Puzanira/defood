@@ -32,10 +32,7 @@ export const CheckLayout = () => {
                 </div>
             ) : (
                 <>
-                    {orders && !Object.keys(orders).length && (
-                        <div className='check_margin'>Текущих заказов не обнаружено</div>
-                    )}
-                    {orders && Object.keys(orders).length && (
+                    {orders && Object.keys(orders).length ? (
                         <>
                             {Object.values(orders).map(({ id, localDealId, data }) => (
                                 <ClientCheckItem
@@ -47,6 +44,8 @@ export const CheckLayout = () => {
                                 />
                             ))}
                         </>
+                    ) : (
+                        <div className='check_margin'>Текущих заказов не обнаружено</div>
                     )}
                 </>
             )}

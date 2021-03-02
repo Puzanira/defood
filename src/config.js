@@ -23,7 +23,7 @@ export const config = {
         },
         DELIVERY: {
             node: 'qrm3',
-            ordersPath: '/deliveryPart/',
+            ordersPath: '/admin/',
             indexTitle: 'DePi Delivery',
             style: 'header_delivery',
         },
