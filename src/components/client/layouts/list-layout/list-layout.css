@@ -1,6 +1,24 @@
 .list-title {
+    display: flex;
+    align-items: center;
+
     margin-bottom: 10px;
     padding-bottom: 10px;
 
     font-size: 36px;
+}
+
+.list-time {
+    padding: 5px 10px;
+    margin: 0 10px;
+
+    font-size: 18px;
+
+    border-radius: 10px;
+
+    background-color: #CDCDCD;
+}
+
+.list-item {
+    margin-bottom: 30px;
 }

@@ -15,7 +15,7 @@ export const SearchInputFragment = () => {
         searchFiltersTexts: searchFilters,
         isOpenFilters: false,
         filtersState: Object.keys(searchFilters).reduce((acc, elem) => {
-            acc[elem] = 0;
+            acc[elem] = searchFilters[elem][0];
             return acc;
         }, {}),
 
@@ -55,10 +55,11 @@ export const SearchInputFragment = () => {
     } = state;
 
     const changeFiltersHandler = () => {
+        console.log(filtersState);
         if (isOpenFilters) {
             changeField('isOpenFilters', false);
             Object.keys(filtersState).forEach(elem => {
-                changeFilterField(elem, 0);
+                changeFilterField(elem, searchFilters[elem][0]);
             });
         } else
             changeField('isOpenFilters', true);
@@ -83,6 +84,7 @@ export const SearchInputFragment = () => {
                     {Object.keys(searchFiltersTexts).map((item, index) => (
                         <SearchFilterListFragment
                             data={searchFiltersTexts[item]}
+                            item={item}
                             changeFilterField={changeFilterField}
                             key={index}
                         />

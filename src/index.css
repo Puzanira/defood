@@ -20,6 +20,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--color-background);
+}
+
+h1 {
+  margin-left: 0.67em;
+  margin-right: 0.67em;
 }
 
 code {
@@ -32,12 +39,22 @@ code {
   opacity: 0.6;
 }
 
+.header_depi1 {
+  background-color: #d6a3d3;
+}
+
+.header_depi2 {
+  background-color: #82a5d6;
+}
+
+.header_delivery {
+  background-color: #a7d86e; /* #99da4d */
+}
+
 :root {
   --color-gray: #cdcdcd;
-  --color-gray-1: #f3f3f3;
   --color-gray-2: #c4c4c4;
   --color-gray-3: #858585;
-  --color-black: #333333;
   --color-black-light: #444444;
   --color-white: #ffffff;
 }

@@ -1,0 +1,39 @@
+
+.deal-action {
+    margin-top: 40px;
+    background-color: rgba(100, 135, 216, 0.2);
+    padding: 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat Medium';
+}
+
+.deal-action__title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.deal-action__buttons {
+    display: flex;
+    position: relative;
+}
+
+.deal-action__button {
+    position: relative;
+}
+
+
+.deal-action__button-progress {
+    color: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+.button {
+    background: black;
+}

@@ -1,15 +1,21 @@
 import _ from 'lodash';
 
-import { lookupTableReducer } from '../utils';
-import { clientActions, clientActionTypes } from './actions';
+import { lookupTableReducer } from '../../core/state/utils';
+import { clientActionTypes } from './actions';
+import { NODE } from '../../config';
 
 
 const defaultState = {
     busy: false,
+    orderInProgress: false,
+
     order: [],
     items: [],
-    waiting: 0,
     formData: {},
+    ticket: {},
+    orders: {},
+
+    address: NODE,
 };
 
 export const reducer = lookupTableReducer(defaultState, {
@@ -31,7 +37,6 @@ export const reducer = lookupTableReducer(defaultState, {
     [clientActionTypes.SET_ITEMS]: (state, items) => ({
        ...state,
        items: [
-           ...state.items,
            ...items,
        ],
     }),
@@ -43,8 +48,35 @@ export const reducer = lookupTableReducer(defaultState, {
         ...state,
         formData,
     }),
-    [clientActionTypes.SET_WAITING_STATUS]: (state, value) => ({
+    [clientActionTypes.SET_TICKET_DATA]: (state, data) => ({
         ...state,
-        waiting: value,
+        ticket: data,
+    }),
+    [clientActionTypes.SET_ADDRESS]: (state, data) => ({
+        ...state,
+        address: data,
+    }),
+
+    [clientActionTypes.SET_ORDER]: (state, order) => ({
+        ...state,
+        orders: {
+            ...state.orders,
+            [order.id]: order,
+        },
+    }),
+    [clientActionTypes.SET_ORDERS]: (state, orders) => ({
+        ...state,
+        orders,
+    }),
+    [clientActionTypes.SET_ORDER_STATUS]: (state, orderId, orderStatus) => ({
+        state,
+        orders: {
+            ...state.orders,
+            [orderId.status]: orderStatus,
+        },
+    }),
+    [clientActionTypes.REMOVE_ORDER]: state => ({
+        ...state,
+        order: [],
     }),
 });

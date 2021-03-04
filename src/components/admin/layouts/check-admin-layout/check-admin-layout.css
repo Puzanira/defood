@@ -2,6 +2,13 @@
     margin-bottom: 40px;
 }
 
+.admin-check-layout__progress {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .admin-check-layout-title_margin-top {
     margin-top: 60px
 }
@@ -101,6 +108,10 @@
     flex-direction: column;
     align-items: center;
     font-family: 'Montserrat Medium';
+}
+
+.check-agreement_no-margin {
+    margin-top: 0;
 }
 
 .check-agreement__title {

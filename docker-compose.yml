@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  depi1:
+    container_name: depi1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3000
+    environment:
+      - "REACT_APP_NODE_TYPE=PIZZA1"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="
+
+  depi2:
+    container_name: depi2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3002:3000
+    environment:
+      - "REACT_APP_NODE_TYPE=PIZZA2"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="
+
+  delivery:
+    container_name: delivery
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3003:3000
+    environment:
+      - "REACT_APP_NODE_TYPE=DELIVERY"
+      - "REACT_APP_CHANNEL="
+      - "REACT_APP_AUTHORIZATION="
+      - "REACT_APP_LOGIN="
+      - "REACT_APP_PASSWORD="

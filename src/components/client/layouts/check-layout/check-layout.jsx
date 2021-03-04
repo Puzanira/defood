@@ -1,52 +1,53 @@
-import React, { Component } from 'react';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Order } from '../../fragments/order';
+import { Button, CircularProgress } from '@material-ui/core';
+
 import { Page } from '../../fragments/page';
-
-
+import { useAction } from '../../../../utils';
+import { clientActions } from '../../../../state/client/actions';
+import { ClientCheckItem } from '../../fragments/client-check-item';
 import './check-layout.css';
 
 
 export const CheckLayout = () => {
-    const steps = ['Оформлен', 'Изготавливается', 'Готов', 'В пути', 'Доставлен'];
-    const data = useSelector(state => state.client.waiting);
+    const orders = useSelector(state => state.client.orders);
+    const orderInProgress = useSelector(state => state.client.orderInProgress);
 
-    const stepper = steps.map(item => (
-        <Step key={item}>
-            <StepLabel>{item}</StepLabel>
-        </Step>
-        ));
+    const getItems = useAction(
+        id => clientActions.getTicketData({ id }),
+        [],
+    );
+
+    useEffect(() => {
+        getItems(0);
+        /* eslint react-hooks/exhaustive-deps: 0 */
+    }, []);
 
     return (
         <Page header='small'>
-            <div className='check-title'>Заказ № 111</div>
-            <div className='check-content'>
-                <div className='check-content__left-side'>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Доставка по адресу</div>
-                        <div className='left-side__item-content'>Москва, ул. Юных Ленинцев 12/17 к1</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Получатель</div>
-                        <div className='left-side__item-content'>Ольга, +7 916 720 64 95</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Время оформления</div>
-                        <div className='left-side__item-content'>2 февраля 2021 17:00</div>
-                    </div>
-                    <div className='left-side__item'>
-                        <div className='left-side__item-title'>Оплата</div>
-                        <div className='left-side__item-content'>Онлайн на сайте</div>
-                    </div>
+            {orderInProgress && (
+                <div className='check-layout__card'>
+                    <div className='check-layout__card_title'>Заказ обрабатывается, пожалуйста, подождите!</div>
+                    <CircularProgress className='checkout-item_margin' />
                 </div>
-                <Order />
-            </div>
-            <Stepper className='check-controls' activeStep={data}>
-                { stepper }
-            </Stepper>
+            )}
+
+            {orders && Object.keys(orders).length ? (
+                <>
+                    {Object.values(orders).map(({ id, localDealId, data }) => (
+                        <ClientCheckItem
+                            id={id}
+                            total={data.total}
+                            orderData={data.orderData}
+                            localDealId={localDealId}
+                            key={localDealId}
+                            isClose={false}
+                        />
+                    ))}
+                </>
+            ) : (
+                <div className='check_margin'>Текущих заказов не обнаружено</div>
+            )}
         </Page>
     );
 };

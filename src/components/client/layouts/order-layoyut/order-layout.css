@@ -32,6 +32,10 @@
     margin: 10px 0;
 }
 
+.checkout-item_margin {
+    margin-top: 10px;
+}
+
 .checkout-item__input {
     width: 200px;
 
@@ -41,6 +45,11 @@
     border-radius: 10px;
 
     background-color: var(--color-gray-1);
+}
+
+.checkout-item__input-error {
+    color: red;
+    font-size: 12px;
 }
 
 .checkout-item__input:focus {
@@ -54,6 +63,9 @@
     width: 340px;
 }
 
+.check_margin {
+    margin-top: 10px;
+}
 
 .checkout-item__card {
     display: flex;
@@ -91,9 +103,16 @@
     border: 0;
     border-radius: 10px;
 
+    cursor: pointer;
+
     background-color: var(--color-black);
 }
 
 .checkout__submit:focus {
     outline: none;
+}
+
+.checkout__submit:disabled {
+    cursor: initial;
+    background-color: var(--color-gray);
 }

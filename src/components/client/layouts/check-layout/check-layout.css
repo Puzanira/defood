@@ -1,54 +1,15 @@
-.check-title {
-    margin-bottom: 20px;
-
-    font-family: 'Montserrat Medium';
-    font-size: 36px;
-}
-
-.check-content {
-    display: flex;
-    align-items: flex-start;
-}
-
-.check-content__left-side {
-    display: flex;
-    flex-direction: column;
-
-    min-width: 400px;
-}
-
-.left-side__item {
-    display: flex;
-    flex-direction: column;
-
-    margin: 10px 0;
-}
-
-.left-side__item-title {
-    margin-bottom: 5px;
-
-    font-family: 'Montserrat Medium';
-    font-size: 18px;
-}
-
-
-.left-side__item-content {
-    color: var(--color-black);
-    font-size: 15px;
-}
-
-.check-content__right-side {
-    width: 100%;
-}
-
-.check-content__wrap {
-    min-height: 250px;
-}
-
-.check-controls {
-    margin-top: 50px;
-
+.check-layout__card {
+    margin-top: 40px;
+    background-color: rgba(100, 135, 216, 0.2);
+    padding: 25px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat Medium';
+}
 
-    background-color: var(--color-gray-1) !important;
+.check-layout__card_title {
+    font-size: 18px;
+    margin-bottom: 5px;
 }

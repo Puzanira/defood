@@ -7,13 +7,22 @@ import IconButton from '@material-ui/core/IconButton';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
+import DepartureBoardIcon from '@material-ui/icons/DepartureBoard';
 import InputBase from '@material-ui/core/InputBase';
 
+import { NODE_CONFIG } from '../../../../config';
 import './header.css';
 
 
-export const Header = ({ size }) => {
+export const Header = ({ size, config, zones }) => {
     const data = useSelector(state => state.client.order);
+    const { title, background } = config;
+
+    const styles = {
+        background: `linear-gradient(0deg, #000000 0%, rgba(128, 128, 128, 0) 100%), url('${background}')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+    };
 
     return (
         <div className={size ? 'page-header page-header_small' : 'page-header'}>
@@ -31,7 +40,14 @@ export const Header = ({ size }) => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Link to='/order/'>
+                    <Link to='/check/'>
+                        <IconButton color='inherit' className='page-header__link'>
+                            <Badge color='secondary'>
+                                <DepartureBoardIcon />
+                            </Badge>
+                        </IconButton>
+                    </Link>
+                    <Link to='/orders/'>
                         <IconButton color='inherit' className='page-header__link'>
                             <Badge badgeContent={data.length} color='secondary'>
                                 <LocalMallIcon />
@@ -40,8 +56,8 @@ export const Header = ({ size }) => {
                     </Link>
                 </Toolbar>
             </AppBar>
-            <div className='page-header__placeholder'>
-                <Link to='/' className='page-header__title'>Decentralized Pizza</Link>
+            <div className='page-header__placeholder' style={styles}>
+                <Link to='/' className='page-header__title'>{ NODE_CONFIG.name }</Link>
             </div>
             <div className='page-sub-header' />
         </div>

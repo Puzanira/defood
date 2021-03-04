@@ -50,7 +50,7 @@ module.exports = {
             ignoreTemplateLiterals: true,
         }],
         'linebreak-style': 'off',
-
+        'no-use-before-define': 'off',
         'no-plusplus': 'off',
         'no-debugger': 'warn',
 
@@ -58,6 +58,11 @@ module.exports = {
         'no-unused-vars': 'off',
 
         'no-continue': 'off',
+        'no-prototype-builtins': 'off',
+        'array-callback-return': 'off',
+        'no-return-assign': 'off',
+        'consistent-return': 'off',
+
         'no-empty': ['error', {
             allowEmptyCatch: true,
         }],
