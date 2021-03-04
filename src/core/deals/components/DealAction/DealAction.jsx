@@ -30,6 +30,8 @@ export const DealAction = ({
         [],
     );
 
+    console.log(pendingDeals);
+
     return (
         <div className='deal-action'>
             <div className='deal-action__title'>{actionMessage}</div>

@@ -56,8 +56,7 @@ export const DealManager = ({
             if (id && actionType === 'wait' && !_.includes(pendingDeals, id))
                 handleNextAction(id);
         },
-        /* eslint react-hooks/exhaustive-deps: 0 */
-        [],
+        [pendingDeals, id, actionType, handleNextAction],
     );
 
     const statuses = useMemo(

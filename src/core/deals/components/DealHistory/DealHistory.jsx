@@ -9,7 +9,12 @@ import { dealsActions } from '../../state/actions';
 
 
 export const DealHistory = ({ id, statusMap, statusMessageMap }) => {
-    const statuses = useMemo(() => Object.keys(statusMap), [statusMap]);
+    const fullStatusMessageMap = { ...statusMessageMap, ...deals.platformStatusMessages };
+    const statuses = useMemo(
+        () => [...Object.keys(statusMap), deals.platformEndStatus],
+        [statusMap],
+    );
+
     const [status, setStatus] = useState(deals.platformStartStatus);
 
     const activeStatus = statuses.indexOf(status);
@@ -39,7 +44,7 @@ export const DealHistory = ({ id, statusMap, statusMessageMap }) => {
         <Stepper className='check-controls' activeStep={activeStatus}>
             {statuses && statuses.map(status => (
                 <Step key={status}>
-                    <StepLabel>{statusMessageMap[status]}</StepLabel>
+                    <StepLabel>{fullStatusMessageMap[status]}</StepLabel>
                 </Step>
             ))}
         </Stepper>
