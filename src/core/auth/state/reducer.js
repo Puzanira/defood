@@ -7,11 +7,8 @@ const defaultState = {
 };
 
 export const reducer = lookupTableReducer(defaultState, {
-    [authActionTypes.SET_STATUS]: (state, status) => {
-        console.log(state, status);
-        return {
-            ...state,
-            ...status,
-        };
-    },
+    [authActionTypes.SET_STATUS]: (state, status) => ({
+        ...state,
+        ...status,
+    }),
 });

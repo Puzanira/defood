@@ -92,7 +92,7 @@ export function* waitForSuccessQueueStatus({
     throw new StatusNotChangedError(id);
 }
 
-export function* updateDealStatus({ id, nextStatus }) {
+export function* updateDealStatus({ $payload: { id, nextStatus } }) {
     const queueId = yield callNodeApi(dealsApi.changeStatus, {
         id, status: nextStatus,
     });
@@ -124,9 +124,13 @@ export function* callNextAction({
 }) {
     yield put(dealsActions.setPendingDeal(id));
     const action = dealsActionMap[actionType];
-    const response = yield action({ id, currentStatus, nextStatus });
+    try {
+        const response = yield action({ $payload: { id, currentStatus, nextStatus } });
+        callback(response);
+    } catch (e) {
+        console.log(e);
+    }
     yield put(dealsActions.removePendingDeal(id));
-    callback(response);
 }
 
 export const sagas = [

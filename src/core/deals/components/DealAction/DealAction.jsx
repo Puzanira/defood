@@ -34,7 +34,7 @@ export const DealAction = ({
                         color='primary'
                         className='deal-action__button'
                         disabled={loading}
-                        onClick={handleNextAction}
+                        onClick={() => handleNextAction(id)}
                     >
                         Ок
                     </Button>
