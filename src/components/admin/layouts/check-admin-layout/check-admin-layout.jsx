@@ -36,7 +36,7 @@ export const CheckAdminLayout = () => {
     );
 
     const onSuccessCallback = order => {
-        if (order.localDealId === id)
+        if (order.localDealId.toString() === id)
             updateOrder(order);
     };
 
