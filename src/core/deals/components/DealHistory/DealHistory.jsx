@@ -27,24 +27,24 @@ export const DealHistory = ({ id, statusMap, statusMessageMap }) => {
     );
 
     const waitStatus = useAction(
-        () => {
-            try {
+        () =>
                 dealsActions.waitForNewDealStatus({
                     id,
                     currentStatus: status,
                     callback: setUpdatedDealStatus,
                     repeatCount: 50,
-                });
-            } catch (e) {
-                console.log(e);
-            }
-        },
+                }),
         [id, setUpdatedDealStatus, status],
     );
 
     useEffect(() => {
-        if (status !== deals.platformEndStatus)
-            waitStatus();
+        if (status !== deals.platformEndStatus) {
+            try {
+                waitStatus();
+            } catch (e) {
+                console.log(e);
+            }
+        }
     }, [id, status, waitStatus]);
 
     return (

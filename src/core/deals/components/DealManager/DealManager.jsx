@@ -40,14 +40,14 @@ export const DealManager = ({
     const actionMessage = actionMessageMap[status] || null;
 
     const handleNextAction = useAction(
-        id => dealsActions.callNextAction({
+        () => dealsActions.callNextAction({
             id,
             currentStatus: status,
             nextStatus,
             actionType,
             callback,
         }),
-        [actionType, callback, nextStatus, status],
+        [actionType, callback, id, nextStatus, status],
     );
 
     const removeDeal = useAction(
@@ -66,9 +66,9 @@ export const DealManager = ({
     useEffect(
         () => {
             if (id && actionType === 'wait' && !pendingDeals[id])
-                handleNextAction(id);
+                handleNextAction();
         },
-        [pendingDeals, id, actionType, handleNextAction],
+        [pendingDeals, actionType, handleNextAction, id],
     );
 
     const statuses = useMemo(

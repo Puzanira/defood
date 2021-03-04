@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { CircularProgress } from '@material-ui/core';
@@ -30,10 +30,15 @@ export const CheckAdminLayout = () => {
         [id],
     );
 
-    const onSuccessCallback = useAction(
+    const updateOrder = useAction(
         order => adminActions.updateOrder({ order }),
         [],
     );
+
+    const onSuccessCallback = order => {
+        if (order.localDealId === id)
+            updateOrder(order);
+    };
 
     useEffect(() => {
         getOrder();

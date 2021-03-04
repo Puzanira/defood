@@ -71,7 +71,7 @@ function* fetchFormData({ $payload: { formData, history } }) {
 }
 
 function* emptyTrash() {
-    yield put(clientActions.setIsOrderCreated('disabled'));
+    yield put(clientActions.setOrderInProgress(false));
     yield put(clientActions.removeOrder());
 }
 
