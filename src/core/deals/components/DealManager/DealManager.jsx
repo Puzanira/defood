@@ -47,7 +47,7 @@ export const DealManager = ({
             actionType,
             callback,
         }),
-        [actionType, callback, id, nextStatus, status],
+        [actionType, callback, nextStatus, status],
     );
 
     const pendingDeals = useSelector(({ deals }) => deals.pendingDeals);
