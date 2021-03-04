@@ -18,7 +18,8 @@ export const DealAction = ({
             const isLoading = _.includes(pendingDeals, id);
             setLoading(isLoading);
         },
-        [id, pendingDeals],
+        /* eslint react-hooks/exhaustive-deps: 0 */
+        [],
     );
 
     return (
