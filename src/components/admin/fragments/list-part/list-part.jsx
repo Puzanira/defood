@@ -12,7 +12,7 @@ export const ListPartFragment = ({ data, pageType }) => {
     const history = useHistory();
 
     const labelColor = {
-        $Initiated: 'list-part-left__label_green',
+        NEW: 'list-part-left__label_green',
         payment: 'list-part-left__label_dark-green',
         baking: 'list-part-left__label_orange',
         baked: 'list-part-left__label_dark-orange',
