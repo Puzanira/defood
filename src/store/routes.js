@@ -11,7 +11,7 @@ export const RouterStore = {
         order: '/admin/orders/:id',
     },
     delivery: {
-        index: '/deliveryPart/',
-        order: '/deliveryPart/orders/:id',
+        index: '/',
+        order: '/orders/:id',
     },
 };
