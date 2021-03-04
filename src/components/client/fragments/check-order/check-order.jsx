@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { OrderItem } from '../order-item';
-
 import '../order';
 
 

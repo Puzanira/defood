@@ -2,9 +2,8 @@ import React from 'react';
 
 import { clientActions } from '../../../../state/client/actions';
 import { useAction } from '../../../../utils';
-import './item.css';
-
 import { PizzaStore } from '../../../../store/pizza';
+import './item.css';
 
 
 export const Item = ({ data }) => {
