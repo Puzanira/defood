@@ -7,11 +7,11 @@ export const BakerActionMap = {
 };
 
 export const BakerActionMessageMap = {
-    payment: 'Подтвердите начало готовки заказа',
+    payment: 'Подтвердите поступление платежа',
     baking: 'Подтвердите готовность заказа',
     baked: 'Ожидаем передачу заказа в доставку',
     delivering: 'Ожидаем доставку заказа',
-    delivered: 'Подтвердите закрытие заказа',
+    delivered: 'Ожидаем закрытие заказа',
 };
 
 
