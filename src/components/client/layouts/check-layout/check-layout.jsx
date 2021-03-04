@@ -47,7 +47,7 @@ export const CheckLayout = () => {
                 </>
             )}
 
-            {!orderInProgress && !orders && !Object.keys(orders).length && (
+            {!orderInProgress && (!orders || orders && !Object.keys(orders).length) && (
                 <div className='check_margin'>Текущих заказов не обнаружено</div>
             )}
         </Page>
