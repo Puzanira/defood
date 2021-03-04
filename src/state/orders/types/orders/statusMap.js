@@ -9,7 +9,7 @@ export const statusMap = {
 
 export const statusMessageMap = {
     NEW: 'Создан',
-    payment: 'Подтверждение платежа',
+    payment: 'Платеж',
     baking: 'Готовится',
     baked: 'Готов',
     delivering: 'Доставляется',

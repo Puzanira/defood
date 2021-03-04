@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { RouterStore } from '../../../../store/routes';
+import { statusMessageMap } from '../../../../state/orders/types/orders/statusMap';
+import { deals } from '../../../../core/deals/constants';
 import './list-part.css';
 
 /**
@@ -30,6 +32,11 @@ export const ListPartFragment = ({ data, pageType }) => {
         history.push(`${RouterStore[pageType].order.replace(':id', data.localDealId)}`);
     };
 
+    const fullStatusMessageMap = {
+        ...statusMessageMap,
+        ...deals.platformStatusMessages,
+    };
+
     return (
         <div className={`list-part ${transferredColor[data.label]}`} onClick={() => routToOrderHandler()}>
             <div className='list-part-left'>
@@ -37,7 +44,7 @@ export const ListPartFragment = ({ data, pageType }) => {
                     Заказ № {data.localDealId}
                 </div>
                 <div className={`list-part-left__label ${labelColor[data.status]}`}>
-                    {data.status}
+                    {fullStatusMessageMap[data.status]}
                 </div>
             </div>
             {/* <div className='list-part-middle'> */}
