@@ -5,19 +5,19 @@ import { dealsActionTypes } from './actions';
 
 
 const defaultState = {
-    pendingDeals: [],
+    pendingDeals: {},
 };
 
 export const reducer = lookupTableReducer(defaultState, {
-    [dealsActionTypes.SET_PENDING_DEAL]: (state, id) => ({
+    [dealsActionTypes.SET_PENDING_DEAL]: (state, deal) => ({
         ...state,
-        pendingDeals: [
+        pendingDeals: {
             ...state.pendingDeals,
-            id,
-        ],
+            [deal.id]: deal.status,
+        },
     }),
     [dealsActionTypes.REMOVE_PENDING_DEAL]: (state, id) => ({
         ...state,
-        pendingDeals: _.without(state.pendingDeals, id),
+        pendingDeals: _.omit(state.pendingDeals, id),
     }),
 });

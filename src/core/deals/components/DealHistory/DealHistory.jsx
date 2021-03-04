@@ -27,11 +27,18 @@ export const DealHistory = ({ id, statusMap, statusMessageMap }) => {
     );
 
     const waitStatus = useAction(
-        () => dealsActions.waitForNewDealStatus({
-            id,
-            currentStatus: status,
-            callback: setUpdatedDealStatus,
-        }),
+        () => {
+            try {
+                dealsActions.waitForNewDealStatus({
+                    id,
+                    currentStatus: status,
+                    callback: setUpdatedDealStatus,
+                    repeatCount: 50,
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        },
         [id, setUpdatedDealStatus, status],
     );
 

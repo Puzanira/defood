@@ -15,19 +15,10 @@ export const DealAction = ({
     const [loading, setLoading] = useState(false);
     useEffect(
         () => {
-            const isLoading = _.includes(pendingDeals, id);
+            const isLoading = !!pendingDeals[id];
             setLoading(isLoading);
         },
         [id, pendingDeals],
-    );
-
-    useEffect(
-        () => {
-            const isLoading = _.includes(pendingDeals, id);
-            setLoading(isLoading);
-        },
-        /* eslint react-hooks/exhaustive-deps: 0 */
-        [],
     );
 
     console.log(pendingDeals);

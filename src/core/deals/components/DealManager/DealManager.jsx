@@ -50,10 +50,22 @@ export const DealManager = ({
         [actionType, callback, nextStatus, status],
     );
 
+    const removeDeal = useAction(
+        () => dealsActions.removePendingDealId({ id }),
+        [id],
+    );
+
     const pendingDeals = useSelector(({ deals }) => deals.pendingDeals);
     useEffect(
         () => {
-            if (id && actionType === 'wait' && !_.includes(pendingDeals, id))
+            if (pendingDeals && pendingDeals[id] && pendingDeals[id] !== currentStatus)
+                removeDeal();
+        }, [currentStatus, id, pendingDeals, removeDeal],
+    );
+
+    useEffect(
+        () => {
+            if (id && actionType === 'wait' && !pendingDeals[id])
                 handleNextAction(id);
         },
         [pendingDeals, id, actionType, handleNextAction],

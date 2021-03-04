@@ -122,7 +122,7 @@ export function* callNextAction({
     callback,
 },
 }) {
-    yield put(dealsActions.setPendingDeal(id));
+    yield put(dealsActions.setPendingDeal({ id, status: currentStatus }));
     const action = dealsActionMap[actionType];
     try {
         const response = yield action({ $payload: { id, currentStatus, nextStatus } });
@@ -133,7 +133,12 @@ export function* callNextAction({
     yield put(dealsActions.removePendingDeal(id));
 }
 
+function* removePendingDealId({ $payload: { id } }) {
+    yield put(dealsActions.removePendingDeal(id));
+}
+
 export const sagas = [
+    takeEvery(dealsActionTypes.REMOVE_PENDING_DEAL_ID, removePendingDealId),
     takeEvery(dealsActionTypes.CALL_NEXT_ACTION, callNextAction),
     takeEvery(dealsActionTypes.WAIT_FOR_NEW_DEAL_STATUS, waitForNewDealStatus),
 ];
