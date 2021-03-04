@@ -57,7 +57,7 @@ export const DealManager = ({
                 handleNextAction(id);
         },
         /* eslint react-hooks/exhaustive-deps: 0 */
-        [id],
+        [],
     );
 
     const statuses = useMemo(
