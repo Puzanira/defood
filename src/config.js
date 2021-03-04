@@ -8,7 +8,7 @@ export const config = {
         PIZZA1: {
             name: 'Pizza DoDoDo',
             node: 'qrm1',
-            address: 'Pizza 1 address',
+            address: 'Moscow, Manezhnaya 45',
             ordersPath: '/admin/',
             indexTitle: 'Pizza DoDoDo Admin',
             style: 'header_depi1',
@@ -16,7 +16,7 @@ export const config = {
         PIZZA2: {
             name: 'Pizza Donimo',
             node: 'qrm2',
-            address: 'Pizza 2 address',
+            address: 'Moscow, Leninsky prosp, 32',
             ordersPath: '/admin/',
             indexTitle: 'Pizza Domino Admin',
             style: 'header_depi2',
