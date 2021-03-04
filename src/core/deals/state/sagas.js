@@ -28,7 +28,7 @@ export function* createDeal({ deal }) {
         dealsApi.createDeal, { deal },
     );
     yield waitForSuccessQueueStatus({ id: queueId });
-    const updatedDeal = yield updateDealStatus({ id: localDealId, nextStatus: 'payment' });
+    const updatedDeal = yield updateDealStatus({ $payload: { id: localDealId, nextStatus: 'payment' } });
 
     return updatedDeal;
 }
