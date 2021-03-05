@@ -37,6 +37,7 @@ export const DealManager = ({
     const nextStatus = statusMap[status] || deals.platformEndStatus;
 
     const actionType = actionMap[status] || null;
+    console.log(id, actionType);
     const actionMessage = actionMessageMap[status] || null;
 
     const handleNextAction = useAction(
@@ -65,8 +66,10 @@ export const DealManager = ({
 
     useEffect(
         () => {
-            if (id && actionType === 'wait' && !pendingDeals[id])
+            if (id && actionType === 'wait' && !pendingDeals[id]) {
+                console.log('Setting to wait ', id, actionType, pendingDeals);
                 handleNextAction();
+            }
         },
         [pendingDeals, actionType, handleNextAction, id],
     );

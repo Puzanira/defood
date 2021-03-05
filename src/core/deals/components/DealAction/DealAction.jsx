@@ -24,6 +24,9 @@ export const DealAction = ({
     return (
         <div className='deal-action'>
             <div className='deal-action__title'>{actionMessage}</div>
+            {!actionType && (
+                <span>Заказ обрабатывается платформой</span>
+            )}
             {actionType === 'wait' && (
                 <CircularProgress />
             )}

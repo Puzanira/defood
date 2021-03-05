@@ -22,7 +22,7 @@ export const CheckAdminLayout = () => {
     const currentOrder = useSelector(({ admin }) => admin.currentOrder);
     const transferParameters = useMemo(
         () => getOrderTransitions(currentOrder),
-        [currentOrder],
+        [currentOrder, id],
     );
 
     const getOrder = useAction(
@@ -53,7 +53,11 @@ export const CheckAdminLayout = () => {
                         <CircularProgress />
                     </div>
                 )}
-                {!busy && currentOrder && currentOrder.parameters && transferParameters && (
+                {!busy && currentOrder &&
+                    currentOrder.localDealId &&
+                    id === currentOrder.localDealId.toString() &&
+                    currentOrder.parameters &&
+                    transferParameters && (
                     <div>
                         <AdminOrderParameters
                             id={id}
@@ -66,6 +70,7 @@ export const CheckAdminLayout = () => {
                             currentStatus={currentOrder.status}
                             transferParameters={transferParameters}
                             callback={onSuccessCallback}
+                            busy={busy}
                         />
                     </div>
                 )}
