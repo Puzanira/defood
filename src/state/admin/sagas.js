@@ -25,7 +25,11 @@ function* getOrders() {
 }
 
 function* updateOrder({ $payload: { order } }) {
-    yield put(adminActions.setOrder({ ...order }));
+    const currentOrder = yield select(
+        ({ admin }) => admin.currentOrder,
+    );
+    if (currentOrder.localDealId.toString() === order.localDealId.toString())
+        yield put(adminActions.setOrder({ ...order }));
 }
 
 function* createOrder({ $payload: { parameters } }) {

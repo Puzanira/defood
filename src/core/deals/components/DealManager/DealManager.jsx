@@ -4,7 +4,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import StepContent from '@material-ui/core/StepContent';
 import { useSelector } from 'react-redux';
-import _ from 'lodash';
 
 import { deals } from '../../constants';
 import { useAction } from '../../../../utils';
@@ -37,7 +36,6 @@ export const DealManager = ({
     const nextStatus = statusMap[status] || deals.platformEndStatus;
 
     const actionType = actionMap[status] || null;
-    console.log(id, actionType);
     const actionMessage = actionMessageMap[status] || null;
 
     const handleNextAction = useAction(
@@ -51,25 +49,11 @@ export const DealManager = ({
         [actionType, callback, id, nextStatus, status],
     );
 
-    const removeDeal = useAction(
-        () => dealsActions.removePendingDealId({ id }),
-        [id],
-    );
-
     const pendingDeals = useSelector(({ deals }) => deals.pendingDeals);
     useEffect(
         () => {
-            if (pendingDeals && pendingDeals[id] && pendingDeals[id] !== currentStatus)
-                removeDeal();
-        }, [currentStatus, id, pendingDeals, removeDeal],
-    );
-
-    useEffect(
-        () => {
-            if (id && actionType === 'wait' && !pendingDeals[id]) {
-                console.log('Setting to wait ', id, actionType, pendingDeals);
+            if (id && actionType === 'wait' && !pendingDeals[id])
                 handleNextAction();
-            }
         },
         [pendingDeals, actionType, handleNextAction, id],
     );
@@ -80,21 +64,24 @@ export const DealManager = ({
     );
     const activeStep = statuses.indexOf(currentStatus);
 
-    const stepper = statuses.map(status => (
-        <Step key={status}>
-            <StepLabel>{fullStatusMessageMap[status]}</StepLabel>
-            {status !== deals.platformEndStatus && (
-                <StepContent>
-                    <DealAction
-                        id={id}
-                        actionType={actionType}
-                        actionMessage={actionMessage}
-                        handleNextAction={handleNextAction}
-                    />
-                </StepContent>
-            )}
-        </Step>
-    ));
+    const stepper = useMemo(
+        () => statuses.map(status => (
+            <Step key={status}>
+                <StepLabel>{fullStatusMessageMap[status]}</StepLabel>
+                {status !== deals.platformEndStatus && (
+                    <StepContent>
+                        <DealAction
+                            id={id}
+                            actionType={actionType}
+                            actionMessage={actionMessage}
+                            handleNextAction={handleNextAction}
+                        />
+                    </StepContent>
+                )}
+            </Step>
+        )),
+    [actionMessage, actionType, fullStatusMessageMap, handleNextAction, id, statuses],
+    );
 
     return (
         <Stepper

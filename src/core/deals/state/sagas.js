@@ -1,26 +1,108 @@
-import _ from 'lodash';
-import { delay, put, takeEvery } from 'redux-saga/effects';
+import fp from 'lodash/fp';
+import { delay, put, takeEvery, all } from 'redux-saga/effects';
 
 import { dealsApi, queueApi } from '../api';
 import { callNodeApi } from '../../api/apiCaller';
 import { dealsActions, dealsActionTypes } from './actions';
 import { Deal } from './models';
 import { defaultDelay, defaultRepeat, queue } from '../constants';
-import { QueueOperationError, StatusNotChangedError } from './errors';
+import {
+    QueueOperationError,
+    QueueOperationNotFoundError,
+    StatusNotChangedError,
+    ConnectionRefusedError,
+} from './errors';
 
 
 export function* getDeal({ dealId }) {
-    const deal = yield callNodeApi(
-        dealsApi.getDeal, { id: dealId },
-    );
+    const deal = yield callNodeApi(dealsApi.getDeal, { id: dealId });
     return new Deal(deal);
 }
 
 export function* getDeals() {
-    const deals = yield callNodeApi(
-        dealsApi.getDeals,
+    return yield callNodeApi(dealsApi.getDeals);
+}
+
+function* removeOperation(id) {
+    yield callNodeApi(queueApi.remove, { id });
+}
+
+function* removeOperations({ operations }) {
+    yield all(fp.map(removeOperation, operations));
+}
+
+function* waitForOperation(id) {
+    yield waitForSuccessQueueStatus({ id });
+}
+
+function* waitForAllOperations({ operations }) {
+    yield all(fp.map(waitForOperation, operations));
+}
+
+function* processDealIncompleteQueue({ id }) {
+    const { data } = yield callNodeApi(
+        queueApi.getIncomplete, { dealId: id },
     );
-    return deals;
+
+    const operations = fp.pipe(
+        fp.groupBy('status'),
+        fp.toPairs,
+        fp.map(([key, operations]) => [
+            key, fp.map(item => item.queueId)(operations),
+        ]),
+        fp.fromPairs,
+    )(data);
+
+    if (operations.Error && operations.Error.length > 0) {
+        if (operations.InQueue)
+            yield removeOperations({ operations: operations.InQueue });
+        yield removeOperations({ operations: operations.Error });
+    } else {
+        if (operations.InQueue)
+            yield waitForAllOperations({ operations: operations.InQueue });
+        if (operations.InProgress)
+            yield waitForAllOperations({ operations: operations.InProgress });
+    }
+}
+
+function* isSuccessQueueStatus({ id }) {
+    const response = yield callNodeApi(queueApi.getQueueStatus, { id });
+    if (response.status === queue.successQueueStatus)
+        return true;
+
+    // Platform errors come with 200 status
+    if (response.status === queue.errorQueueStatus) {
+        if (response.error === queue.errorMessages.connectionRefusedError)
+            throw new ConnectionRefusedError(id);
+
+        throw new QueueOperationError(id);
+    }
+    return false;
+}
+
+export function* waitForSuccessQueueStatus({
+   id,
+   delayTime = defaultDelay,
+   repeatCount = defaultRepeat,
+}) {
+    for (let i = 0; i < repeatCount; i++) {
+        try {
+            const isSuccess = yield isSuccessQueueStatus({ id });
+            if (isSuccess)
+                return;
+            yield delay(delayTime);
+        } catch (err) {
+            if (err.error === queue.errorMessages.itemNotFoundError)
+                throw new QueueOperationNotFoundError(id);
+
+            if (err instanceof QueueOperationError)
+                throw err;
+
+            if (err instanceof ConnectionRefusedError)
+                yield delay(delayTime);
+        }
+    }
+    throw new StatusNotChangedError(id);
 }
 
 export function* createDeal({ deal }) {
@@ -28,86 +110,49 @@ export function* createDeal({ deal }) {
         dealsApi.createDeal, { deal },
     );
     yield waitForSuccessQueueStatus({ id: queueId });
-    const updatedDeal = yield updateDealStatus({ $payload: { id: localDealId, nextStatus: 'payment' } });
-
-    return updatedDeal;
+    yield updateDealStatus({ $payload: { id: localDealId, currentStatus: 'NEW', nextStatus: 'payment' } });
+    return yield getDeal({ dealId: localDealId });
 }
 
 export function* waitForNewDealStatus({
  $payload: {
-      id,
-      currentStatus,
-      callback,
-      delayTime = defaultDelay,
-      repeatCount = defaultRepeat,
+    id,
+    currentStatus,
+    delayTime = defaultDelay,
+    repeatCount = defaultRepeat,
+    callback,
 },
 }) {
-    let responseDeal;
-
     for (let i = 0; i < repeatCount; i++) {
         try {
-            responseDeal = yield callNodeApi(dealsApi.getDeal, { id });
+            const responseDeal = yield getDeal({ dealId: id });
             if (currentStatus !== responseDeal.status) {
                 if (callback)
-                    callback(new Deal(responseDeal));
-                return new Deal(responseDeal);
+                    callback(responseDeal);
+                return responseDeal;
             }
 
             if (currentStatus === responseDeal.status)
                 yield delay(delayTime);
         } catch (err) {
-            if (currentStatus === responseDeal.status)
-                yield delay(delayTime);
+            yield delay(delayTime);
         }
     }
     throw new StatusNotChangedError(id);
 }
 
-export function* waitForSuccessQueueStatus({
-       id,
-       delayTime = defaultDelay,
-       repeatCount = defaultRepeat,
-}) {
-    let response;
-    for (let i = 0; i < repeatCount; i++) {
-        try {
-            response = yield callNodeApi(queueApi.getQueueStatus, { id });
-            if (response.status === queue.successQueueStatus)
-                return;
-
-            if (_.includes(queue.progressQueueStatuses, response.status))
-                yield delay(delayTime);
-
-            if (response.status === queue.errorQueueStatus &&
-                response.error !== 'Connection refused')
-                throw new QueueOperationError(id);
-        } catch (err) {
-            if (response.status === queue.errorQueueStatus)
-                throw err;
-
-            if (_.includes(queue.progressQueueStatuses, response.status))
-                yield delay(delayTime);
-        }
+export function* updateDealStatus({ $payload: { id, currentStatus, nextStatus } }) {
+    yield processDealIncompleteQueue({ id });
+    const deal = yield getDeal({ dealId: id });
+    if (deal.status === currentStatus) {
+        const queueId = yield callNodeApi(dealsApi.changeStatus, {
+            id, status: nextStatus,
+        });
+        yield waitForSuccessQueueStatus({ id: queueId });
     }
-    throw new StatusNotChangedError(id);
+    return yield getDeal({ dealId: id });
 }
 
-export function* updateDealStatus({ $payload: { id, nextStatus } }) {
-    const queueId = yield callNodeApi(dealsApi.changeStatus, {
-        id, status: nextStatus,
-    });
-    yield waitForSuccessQueueStatus({ id: queueId });
-
-    const newDeal = yield callNodeApi(dealsApi.getDeal, { id });
-    return new Deal(newDeal);
-}
-
-/*
-    All actions perform deals operations and should return an updated deal
-    after success operation. Callbacks, if specified, should work with
-    updatedDeal
-    (new Deal(updatedDeal))
-*/
 const dealsActionMap = {
     wait: waitForNewDealStatus,
     update: updateDealStatus,
@@ -123,13 +168,23 @@ export function* callNextAction({
 },
 }) {
     yield put(dealsActions.setPendingDeal({ id, status: currentStatus }));
-    const action = dealsActionMap[actionType];
+
     try {
-        const response = yield action({ $payload: { id, currentStatus, nextStatus } });
-        callback(response);
-    } catch (e) {
-        console.log(e);
+        const action = dealsActionMap[actionType];
+        const updatedDeal = yield action({ $payload: { id, currentStatus, nextStatus } });
+        callback(updatedDeal);
+    } catch (err) {
+        if (err instanceof StatusNotChangedError)
+            console.log(err.message);
+
+        if (err instanceof QueueOperationNotFoundError ||
+            err instanceof QueueOperationError) {
+            yield processDealIncompleteQueue({ id });
+            const deal = yield getDeal({ dealId: id });
+            callback(deal);
+        }
     }
+
     yield put(dealsActions.removePendingDeal(id));
 }
 

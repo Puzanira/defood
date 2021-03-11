@@ -30,15 +30,10 @@ export const CheckAdminLayout = () => {
         [id],
     );
 
-    const updateOrder = useAction(
+    const updateCurrentOrder = useAction(
         order => adminActions.updateOrder({ order }),
         [],
     );
-
-    const onSuccessCallback = order => {
-        if (order.localDealId.toString() === id)
-            updateOrder(order);
-    };
 
     useEffect(() => {
         getOrder();
@@ -69,7 +64,7 @@ export const CheckAdminLayout = () => {
                             id={id}
                             currentStatus={currentOrder.status}
                             transferParameters={transferParameters}
-                            callback={onSuccessCallback}
+                            callback={updateCurrentOrder}
                             busy={busy}
                         />
                     </div>

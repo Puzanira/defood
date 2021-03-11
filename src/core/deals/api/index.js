@@ -1,5 +1,5 @@
 import {
-    get, post, withUrl,
+    get, post, withUrl, remove,
 } from '../../api/request';
 
 
@@ -112,6 +112,17 @@ export const queueApi = {
         }
      */
     getQueueStatus: get(
+        ({ id }) => queuePart({
+            path: id,
+        }),
+    ),
+    getIncomplete: get(
+        ({ dealId }) => queuePart({
+            path: 'incomplete',
+            query: { dealId },
+        }),
+    ),
+    remove: remove(
         ({ id }) => queuePart({
             path: id,
         }),

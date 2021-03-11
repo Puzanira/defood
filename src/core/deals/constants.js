@@ -12,6 +12,10 @@ export const queue = {
     ],
     successQueueStatus: 'Success',
     errorQueueStatus: 'Error',
+    errorMessages: {
+        connectionRefusedError: 'Connection refused',
+        itemNotFoundError: 'Item not found',
+    },
 };
 
 export const deals = {
